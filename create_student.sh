@@ -1,5 +1,5 @@
 #!/bin/bash
-#create student user
+/home/antoine/Operating_system/#create student user
 
 echo -e "\nAdd new student user"
 
@@ -19,13 +19,11 @@ fi
 
 sudo groupadd $group
 
-sudo useradd $username  --groups student,$group
-sudo usermod -d /home/$username/Operating_system/Projet/toolbox/student/ $username
+sudo useradd $username --groups student,$group
+sudo usermod -d /home/antoine/Operating_system/Projet/toolbox/student/ $username
+sudo chmod 755 /home/antoine/Operating_system/Projet/toolbox/student/ $username
 
 echo -e "\nSet password for this student"
 sudo passwd $username
 
 echo -e "\nUser created $username"
-
-
-
