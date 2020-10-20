@@ -35,3 +35,50 @@ for ((i = 1 ; i <= $x ; i++)); do
                 echo -n "$mo," >> semester_sheet.txt
         fi
 done
+
+
+echo -e "\nEnter Coef of Module Unit"
+echo -n "COEF:" >> semester_sheet.txt
+
+for ((i = 1 ; i <= $x ; i++)); do
+        if [[ $x -eq i ]]
+        then
+                echo -e "\nCoef of $i module is:"
+                read coef
+                echo -n "$coef;" >> semester_sheet.txt
+        else
+                echo -e "\nCoef of $i module is :"
+                read coef
+                echo -n "$coef," >> semester_sheet.txt
+        fi
+done
+
+
+echo -e "\nName of Teacher"
+read teach
+echo -n "TEACH:$teach;" >> semester_sheet.txt
+
+
+echo -e "\nEmail of Teacher"
+read email
+echo -n "EMAIL$email;" >> semester_sheet.txt
+
+for ((i = 1 ; i <= $x ; i++)); do
+read -p "Do you want add TP for the $x you have add ?" -n 1 -r
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+        if [[ $x -eq i ]]
+        then
+                echo -n "Y;" >> semester_sheet.txt
+        else
+                echo -n "Y," >> semester_sheet.txt
+        fi
+else
+        if [[ $x -eq i ]]
+        then
+                echo -n "N;" >> semester_sheet.txt
+        else
+                echo -n "N," >> semester_sheet.txt
+        fi
+fi
+done
