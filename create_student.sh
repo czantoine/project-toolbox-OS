@@ -1,5 +1,5 @@
 #!/bin/bash
-/home/antoine/Operating_system/#create student user
+#create student user
 
 echo -e "\nAdd new student user"
 
