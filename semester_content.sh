@@ -5,11 +5,11 @@
 echo -e "\nEnter Education Unit"
 read ue
 echo -n "UE:$ue;" >> semester_sheet.txt
-
+mkdir -m 700 $ue
 
 echo -e "\nEnter Coefficiant of this Education Unit"
 read coefue
-echo -n "COEFUE:$coefue;" >> semester_sheet.txt
+echo -n "COEFUE:$coefue ;" >> semester_sheet.txt
 
 
 echo -e "\nHow many modules do you want to add?"
@@ -28,11 +28,17 @@ for ((i = 1 ; i <= $x ; i++)); do
         then
                 echo -e "\nEnter Module name"
                 read  mo
-                echo -n "$mo;" >> semester_sheet.txt
+                cd $ue
+                mkdir $mo
+                cd - -> /dev/null
+                echo -n "$mo ;" >> semester_sheet.txt
         else
                 echo -e "\nEnter Module name"
                 read  mo
-                echo -n "$mo," >> semester_sheet.txt
+                cd $ue
+                mkdir $mo
+                cd - -> /dev/null
+                echo -n "$mo ," >> semester_sheet.txt
         fi
 done
 
@@ -45,40 +51,44 @@ for ((i = 1 ; i <= $x ; i++)); do
         then
                 echo -e "\nCoef of $i module is:"
                 read coef
-                echo -n "$coef;" >> semester_sheet.txt
+                echo -n "$coef ;" >> semester_sheet.txt
         else
                 echo -e "\nCoef of $i module is :"
                 read coef
-                echo -n "$coef," >> semester_sheet.txt
+                echo -n "$coef ," >> semester_sheet.txt
         fi
 done
 
 
 echo -e "\nName of Teacher"
 read teach
-echo -n "TEACH:$teach;" >> semester_sheet.txt
+echo -n "TEACH:$teach ;" >> semester_sheet.txt
 
 
 echo -e "\nEmail of Teacher"
 read email
-echo -n "EMAIL$email;" >> semester_sheet.txt
+echo -n "EMAIL$email ;" >> semester_sheet.txt
+read -p "Do you want add TP for the $x you have add ?" -n 1 -r
+cmpt=$(grep -o -P '(?<=MO:).*(?=;COEF)' semester_sheet.txt | wc -w)
+printword=$(grep -o -P '(?<=MO:).*(?=;COEF)' semester_sheet.txt)
+#echo $x | cut -d',' -f2
+
 
 for ((i = 1 ; i <= $x ; i++)); do
-read -p "Do you want add TP for the $x you have add ?" -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
         if [[ $x -eq i ]]
         then
-                echo -n "Y;" >> semester_sheet.txt
+                echo -n "Y ;" >> semester_sheet.txt
         else
-                echo -n "Y," >> semester_sheet.txt
+                echo -n "Y ," >> semester_sheet.txt
         fi
 else
         if [[ $x -eq i ]]
         then
-                echo -n "N;" >> semester_sheet.txt
+                echo -n "N ;" >> semester_sheet.txt
         else
-                echo -n "N," >> semester_sheet.txt
+                echo -n "N ," >> semester_sheet.txt
         fi
 fi
 done
