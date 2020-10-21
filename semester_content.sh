@@ -17,7 +17,7 @@ read x
 
 if [[ $x == 0 ]]
 then
-        echo "Error"
+        echo -e "Error"
         exit 1
 fi
 
@@ -28,17 +28,17 @@ for ((i = 1 ; i <= $x ; i++)); do
         then
                 echo -e "\nEnter Module name"
                 read  mo
-		cd $ue
-		mkdir $mo
-		cd - > /dev/null
+        cd $ue
+        mkdir $mo
+        cd - > /dev/null
                 echo -n "$mo ;" >> semester_sheet.txt
         else
                 echo -e "\nEnter Module name"
                 read  mo
-		cd $ue
+        cd $ue
                 mkdir $mo
                 cd - > /dev/null
-                echo -n "$mo ," >> semester_sheet.txt
+                echo -n "$mo " >> semester_sheet.txt
         fi
 done
 
@@ -80,6 +80,7 @@ done
 
 for ((i = 0 ; i < $x ; i++)); do
 read -p "Do you want add TP for the $[i+1] you have add ? TAP Y or N" -n 1 -r
+echo -e "\n"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
         if [[ $x -eq i ]]
