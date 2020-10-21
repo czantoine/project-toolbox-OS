@@ -17,7 +17,7 @@ read x
 
 if [[ $x == 0 ]]
 then
-        echo -e "Error"
+        echo -e "Error\n"
         exit 1
 fi
 
@@ -67,10 +67,10 @@ echo -n "TEACH:$teach ;" >> semester_sheet.txt
 
 echo -e "\nEmail of Teacher"
 read email
-echo -n "EMAIL$email ;" >> semester_sheet.txt
+echo -n "EMAIL:$email ;" >> semester_sheet.txt
 
-#cmpt=$(grep -o -P '(?<=MO:).*(?=;COEF)' semester_sheet.txt | wc -w)
-list=$(grep -o -P '(?<=MO:).*(?=;COEF)' semester_sheet.txt)
+#cmpt=$(grep -o -P '(?<=MO:).*(?=;COEF:)' semester_sheet.txt | wc -w)
+list=$(grep -o -P '(?<=MO:).*(?=;COEF:)' semester_sheet.txt)
 
 V=($list)
 
@@ -78,25 +78,62 @@ for i in "${!V[@]}"; do
     printf 'V[%s] = %s\n' "$i" "${V[i]}"
 done
 
+echo -n "TP:" >> semester_sheet.txt
+
 for ((i = 0 ; i < $x ; i++)); do
-read -p "Do you want add TP for the $[i+1] you have add ? TAP Y or N" -n 1 -r
+read -p "Do you want add TP for the ${V[i]} ? TAP Y or N : " -n 1 -r
 echo -e "\n"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-        if [[ $x -eq i ]]
+        if [[ $x -eq $[$i+1] ]]
         then
         mkdir $ue/${V[i]}/TP
                 echo -n "Y ;" >> semester_sheet.txt
         else
         mkdir $ue/${V[i]}/TP
-                echo -n "Y ," >> semester_sheet.txt
+                echo -n "Y " >> semester_sheet.txt
         fi
 else
-        if [[ $x -eq i ]]
+        if [[ $x -eq $[$i+1] ]]
         then
                 echo -n "N ;" >> semester_sheet.txt
         else
-                echo -n "N ," >> semester_sheet.txt
+                echo -n "N " >> semester_sheet.txt
         fi
 fi
 done
+
+
+echo -n "ETP:;" >> semester_sheet.txt
+
+
+echo -n "COEFTP:" >> semester_sheet.txt
+cmptyn=$(grep -o -P '(?<=TP:).*(?=;ETP:)' semester_sheet.txt | wc -w)
+listyn=$(grep -o -P '(?<=TP:).*(?=;ETP:)' semester_sheet.txt)
+
+K=($listyn)
+
+for i in "${!K[@]}"; do
+    printf 'K[%s] = %s\n' "$i" "${K[i]}"
+done
+
+for ((i = 0 ; i < $cmptyn ; i++)); do
+
+if [[ "${K[i]}" = "Y" ]]
+then
+    if [[ $cmptyn -eq $[$i+1] ]]
+    then
+        echo -e "\nEnter coef of ${V[i]}"
+        read coeftp
+        echo -n "$coef ;" >> semester_sheet.txt
+    else
+        echo -e "\nEnter coef of ${V[i]}"
+                read coeftp
+                echo -n "$coef " >> semester_sheet.txt
+    fi
+else
+    echo "X" >> semester_sheet.txt
+fi
+done
+
+echo -n "TD:" >> semester_sheet.txt
