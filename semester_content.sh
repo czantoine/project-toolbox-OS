@@ -28,16 +28,16 @@ for ((i = 1 ; i <= $x ; i++)); do
         then
                 echo -e "\nEnter Module name"
                 read  mo
-                cd $ue
-                mkdir $mo
-                cd - -> /dev/null
+		cd $ue
+		mkdir $mo
+		cd - > /dev/null
                 echo -n "$mo ;" >> semester_sheet.txt
         else
                 echo -e "\nEnter Module name"
                 read  mo
-                cd $ue
+		cd $ue
                 mkdir $mo
-                cd - -> /dev/null
+                cd - > /dev/null
                 echo -n "$mo ," >> semester_sheet.txt
         fi
 done
@@ -68,19 +68,26 @@ echo -n "TEACH:$teach ;" >> semester_sheet.txt
 echo -e "\nEmail of Teacher"
 read email
 echo -n "EMAIL$email ;" >> semester_sheet.txt
-read -p "Do you want add TP for the $x you have add ?" -n 1 -r
-cmpt=$(grep -o -P '(?<=MO:).*(?=;COEF)' semester_sheet.txt | wc -w)
-printword=$(grep -o -P '(?<=MO:).*(?=;COEF)' semester_sheet.txt)
-#echo $x | cut -d',' -f2
 
+#cmpt=$(grep -o -P '(?<=MO:).*(?=;COEF)' semester_sheet.txt | wc -w)
+list=$(grep -o -P '(?<=MO:).*(?=;COEF)' semester_sheet.txt)
 
-for ((i = 1 ; i <= $x ; i++)); do
+V=($list)
+
+for i in "${!V[@]}"; do
+    printf 'V[%s] = %s\n' "$i" "${V[i]}"
+done
+
+for ((i = 0 ; i < $x ; i++)); do
+read -p "Do you want add TP for the $[i+1] you have add ? TAP Y or N" -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
         if [[ $x -eq i ]]
         then
+        mkdir $ue/${V[i]}/TP
                 echo -n "Y ;" >> semester_sheet.txt
         else
+        mkdir $ue/${V[i]}/TP
                 echo -n "Y ," >> semester_sheet.txt
         fi
 else
