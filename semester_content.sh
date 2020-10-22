@@ -93,7 +93,7 @@ list=$(grep -o -P '(?<=MO:).*(?=;COEF:)' semester_sheet.txt)
 V=($list)
 
 for i in "${!V[@]}"; do
-    printf 'V[%s] = %s\n' "$i" "${V[i]}"
+    printf 'V[%s] = %s\n' "$i" "${V[i]}" > /dev/null
 done
 
 echo -n "TP:" >> semester_sheet.txt
@@ -132,7 +132,7 @@ listyn=$(grep -o -P '(?<=TP:).*(?=;ETP:)' semester_sheet.txt)
 K=($listyn)
 
 for i in "${!K[@]}"; do
-    printf 'K[%s] = %s\n' "$i" "${K[i]}"
+    printf 'K[%s] = %s\n' "$i" "${K[i]}" > /dev/null
 done
 
 for ((i = 0 ; i < $cmptyn ; i++)); do
@@ -164,7 +164,7 @@ done
 VTD=($list)
 
 for i in "${!VTD[@]}"; do
-    printf 'VTD[%s] = %s\n' "$i" "${VTD[i]}"
+    printf 'VTD[%s] = %s\n' "$i" "${VTD[i]}" > /dev/null
 done
 
 echo -n "TD:" >> semester_sheet.txt
@@ -203,7 +203,7 @@ listyntd=$(grep -o -P '(?<=TD:).*(?=;ETD:)' semester_sheet.txt)
 Ktd=($listyntd)
 
 for i in "${!Ktd[@]}"; do
-    printf 'Ktd[%s] = %s\n' "$i" "${Ktd[i]}"
+    printf 'Ktd[%s] = %s\n' "$i" "${Ktd[i]}" > /dev/null
 done
 
 for ((i = 0 ; i < $cmptyntd ; i++)); do
@@ -234,7 +234,7 @@ done
 VCM=($list)
 
 for i in "${!VCM[@]}"; do
-    printf 'VCM[%s] = %s\n' "$i" "${VCM[i]}"
+    printf 'VCM[%s] = %s\n' "$i" "${VCM[i]}" > /dev/null
 done
 
 echo -n "CM:" >> semester_sheet.txt
@@ -273,7 +273,7 @@ listyncm=$(grep -o -P '(?<=CM:).*(?=;ECM:)' semester_sheet.txt)
 Kcm=($listyncm)
 
 for i in "${!Kcm[@]}"; do
-    printf 'Kcm[%s] = %s\n' "$i" "${Kcm[i]}"
+    printf 'Kcm[%s] = %s\n' "$i" "${Kcm[i]}" > /dev/null
 done
 
 for ((i = 0 ; i < $cmptyncm ; i++)); do
@@ -302,7 +302,7 @@ done
 VDE=($list)
 
 for i in "${!VDE[@]}"; do
-    printf 'VDE[%s] = %s\n' "$i" "${VDE[i]}"
+    printf 'VDE[%s] = %s\n' "$i" "${VDE[i]}" > /dev/null
 done
 
 echo -n "DE:" >> semester_sheet.txt
@@ -341,7 +341,7 @@ listyncm=$(grep -o -P '(?<=DE:).*(?=;EDE:)' semester_sheet.txt)
 Kde=($listynDE)
 
 for i in "${!Kde[@]}"; do
-    printf 'Kde[%s] = %s\n' "$i" "${Kde[i]}"
+    printf 'Kde[%s] = %s\n' "$i" "${Kde[i]}" > /dev/null
 done
 
 for ((i = 0 ; i < $cmptynde ; i++)); do
@@ -371,7 +371,7 @@ done
 VCE=($list)
 
 for i in "${!VCE[@]}"; do
-    printf 'VCE[%s] = %s\n' "$i" "${VCE[i]}"
+    printf 'VCE[%s] = %s\n' "$i" "${VCE[i]}" > /dev/null
 done
 
 echo -n "CE:" >> semester_sheet.txt
@@ -410,7 +410,7 @@ listyncm=$(grep -o -P '(?<=CE:).*(?=;ECE:)' semester_sheet.txt)
 Kce=($listynCE)
 
 for i in "${!Kce[@]}"; do
-    printf 'Kce[%s] = %s\n' "$i" "${Kce[i]}"
+    printf 'Kce[%s] = %s\n' "$i" "${Kce[i]}" > /dev/null
 done
 
 for ((i = 0 ; i < $cmptynce ; i++)); do
@@ -431,3 +431,4 @@ else
         echo -n "X " >> semester_sheet.txt
 fi
 done
+
