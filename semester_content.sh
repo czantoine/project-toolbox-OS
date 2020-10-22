@@ -338,7 +338,7 @@ echo -n "COEFDE:" >> semester_sheet.txt
 cmptynde=$(grep -o -P '(?<=DE:).*(?=;EDE:)' semester_sheet.txt | wc -w)
 listynde=$(grep -o -P '(?<=DE:).*(?=;EDE:)' semester_sheet.txt)
 
-Kde=($listynDE)
+Kde=($listynde)
 
 for i in "${!Kde[@]}"; do
     printf 'Kde[%s] = %s\n' "$i" "${Kde[i]}" > /dev/null
@@ -407,7 +407,7 @@ echo -n "COEFCE:" >> semester_sheet.txt
 cmptynce=$(grep -o -P '(?<=CE:).*(?=;ECE:)' semester_sheet.txt | wc -w)
 listynce=$(grep -o -P '(?<=CE:).*(?=;ECE:)' semester_sheet.txt)
 
-Kce=($listynCE)
+Kce=($listynce)
 
 for i in "${!Kce[@]}"; do
     printf 'Kce[%s] = %s\n' "$i" "${Kce[i]}" > /dev/null
@@ -421,7 +421,7 @@ then
         then
                 echo -e "\nEnter coef of ${V[i]}"
                 read coefce
-                echo -n "$coefce ;" >> semester_sheet.txt
+                echo "$coefce ;" >> semester_sheet.txt
         else
                 echo -e "\nEnter coef of ${V[i]}"
                 read coefce
