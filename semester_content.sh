@@ -90,7 +90,7 @@ echo -n "EMAIL:$email ;" >> semester_sheet.txt
 #cmpt=$(grep -o -P '(?<=MO:).*(?=;COEF:)' semester_sheet.txt | wc -w)
 
 fline=$(grep -o -P '(?<=UE:'$UE').*(?=COEF)' semester_sheet.txt)
-list=$(echo $fline | grep -o -P '(?<=MO:).*(?=;COEF:)')
+list=$(echo $fline | sed 's/.*MO://; s/;COEF.*//')
 
 V=($list)
 
@@ -129,8 +129,8 @@ echo -n "ETP:;" >> semester_sheet.txt
 
 echo -n "COEFTP:" >> semester_sheet.txt
 flinetp=$(grep -o -P '(?<=UE:'$UE').*(?=COEFTP)' semester_sheet.txt)
-cmptyn=$(echo "$flinetp" | grep -o -P '(?<=TP:).*(?=;ETP:)' | wc -w)
-listyn=$(echo "$flinetp" | grep -o -P '(?<=TP:).*(?=;ETP:)')
+listyn=$(echo $flinetp | sed 's/.*;TP://; s/;ETP:.*//')
+cmptyn=$(echo $listyn | wc -w)
 
 K=($listyn)
 
@@ -464,4 +464,3 @@ else
         fi
 fi
 done
-
