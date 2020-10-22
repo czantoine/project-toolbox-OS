@@ -150,7 +150,12 @@ then
                 echo -n "$coeftp " >> semester_sheet.txt
 	fi
 else
-	echo -n "X " >> semester_sheet.txt
+	if [[ $cmptyn -eq $[$i+1] ]]
+	then
+		echo -n "X ;" >> semester_sheet.txt
+	else
+		echo -n "X " >> semester_sheet.txt
+	fi
 fi
 done
 
@@ -221,7 +226,12 @@ then
                 echo -n "$coeftd " >> semester_sheet.txt
         fi
 else
-        echo -n "X " >> semester_sheet.txt
+        if [[ $cmptyn -eq $[$i+1] ]]
+        then
+                echo -n "X ;" >> semester_sheet.txt
+        else
+                echo -n "X " >> semester_sheet.txt
+        fi
 fi
 done
 
@@ -291,7 +301,12 @@ then
                 echo -n "$coefcm " >> semester_sheet.txt
         fi
 else
-        echo -n "X " >> semester_sheet.txt
+	if [[ $cmptyn -eq $[$i+1] ]]
+        then
+       	        echo -n "X ;" >> semester_sheet.txt
+ 	else
+                echo -n "X " >> semester_sheet.txt
+        fi
 fi
 done
 
@@ -359,7 +374,12 @@ then
                 echo -n "$coefde " >> semester_sheet.txt
         fi
 else
-        echo -n "X " >> semester_sheet.txt
+	if [[ $cmptyn -eq $[$i+1] ]]
+        then
+                echo -n "X ;" >> semester_sheet.txt
+        else
+                echo -n "X " >> semester_sheet.txt
+        fi
 fi
 done
 
@@ -367,6 +387,7 @@ done
 #########################
 ########## CE ###########
 #########################
+
 
 VCE=($list)
 
@@ -421,13 +442,18 @@ then
         then
                 echo -e "\nEnter coef of ${V[i]}"
                 read coefce
-                echo "$coefce ;" >> semester_sheet.txt
+                echo "$coefce ;FINISH" >> semester_sheet.txt
         else
                 echo -e "\nEnter coef of ${V[i]}"
                 read coefce
                 echo -n "$coefce " >> semester_sheet.txt
         fi
 else
-        echo -n "X " >> semester_sheet.txt
+        if [[ $cmptyn -eq $[$i+1] ]]
+        then
+                echo -n "X ;FINISH" >> semester_sheet.txt
+        else
+                echo -n "X " >> semester_sheet.txt
+        fi
 fi
 done
