@@ -27,14 +27,14 @@ for ((i = 1 ; i <= $x ; i++)); do
         if [[ $x -eq i ]]
         then
                 echo -e "\nEnter Module name"
-                read  mo
+                read mo
 		cd $ue
 		mkdir $mo
 		cd - > /dev/null
                 echo -n "$mo ;" >> semester_sheet.txt
         else
                 echo -e "\nEnter Module name"
-                read  mo
+                read mo
 		cd $ue
                 mkdir $mo
                 cd - > /dev/null
@@ -89,8 +89,8 @@ echo -n "EMAIL:$email ;" >> semester_sheet.txt
 
 #cmpt=$(grep -o -P '(?<=MO:).*(?=;COEF:)' semester_sheet.txt | wc -w)
 
-fline=$(grep -o -P '(?<=UE:'$UE').*(?=FINISH)' semester_sheet.txt)
-list=$( echo "$fline" | grep -o -P '(?<=MO:).*(?=;COEF:)')
+fline=$(grep -o -P '(?<=UE:'$UE').*(?=COEF)' semester_sheet.txt)
+list=$(echo $fline | grep -o -P '(?<=MO:).*(?=;COEF:)')
 
 V=($list)
 
@@ -128,8 +128,9 @@ echo -n "ETP:;" >> semester_sheet.txt
 
 
 echo -n "COEFTP:" >> semester_sheet.txt
-cmptyn=$(echo "$fline" | grep -o -P '(?<=TP:).*(?=;ETP:)' | wc -w)
-listyn=$(echo "$fline" | grep -o -P '(?<=TP:).*(?=;ETP:)')
+flinetp=$(grep -o -P '(?<=UE:'$UE').*(?=COEFTP)' semester_sheet.txt)
+cmptyn=$(echo "$flinetp" | grep -o -P '(?<=TP:).*(?=;ETP:)' | wc -w)
+listyn=$(echo "$flinetp" | grep -o -P '(?<=TP:).*(?=;ETP:)')
 
 K=($listyn)
 
@@ -143,11 +144,11 @@ if [[ "${K[i]}" = "Y" ]]
 then
 	if [[ $cmptyn -eq $[$i+1] ]]
 	then
-		echo -e "\nEnter coef of ${V[i]}"
+		echo -e "\nEnter coef of ${K[i]}"
 		read coeftp
 		echo -n "$coeftp ;" >> semester_sheet.txt
 	else
-		echo -e "\nEnter coef of ${V[i]}"
+		echo -e "\nEnter coef of ${K[i]}"
                 read coeftp
                 echo -n "$coeftp " >> semester_sheet.txt
 	fi
@@ -177,7 +178,7 @@ done
 echo -n "TD:" >> semester_sheet.txt
 
 for ((i = 0 ; i < $x ; i++)); do
-read -p "Do you want add TP for the ${VTD[i]} ? TAP Y or N : " -n 1 -r
+read -p "Do you want add TD for the ${VTD[i]} ? TAP Y or N : " -n 1 -r
 echo -e "\n"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
@@ -204,8 +205,9 @@ echo -n "ETD:;" >> semester_sheet.txt
 
 
 echo -n "COEFTD:" >> semester_sheet.txt
-cmptyntd=$(echo "$fline" | grep -o -P '(?<=TD:).*(?=;ETD:)' | wc -w)
-listyntd=$(echo "$fline" | grep -o -P '(?<=TD:).*(?=;ETD:)')
+flinetd=$(grep -o -P '(?<=UE:'$UE').*(?=COEFTD)' semester_sheet.txt)
+cmptyntd=$(echo "$flinetd" | grep -o -P '(?<=TD:).*(?=;ETD:)' | wc -w)
+listyntd=$(echo "$flinetd" | grep -o -P '(?<=TD:).*(?=;ETD:)')
 
 Ktd=($listyntd)
 
@@ -219,11 +221,11 @@ if [[ "${Ktd[i]}" = "Y" ]]
 then
         if [[ $cmptyntd -eq $[$i+1] ]]
         then
-                echo -e "\nEnter coef of ${V[i]}"
+                echo -e "\nEnter coef of ${Ktd[i]}"
                 read coeftd
                 echo -n "$coeftd ;" >> semester_sheet.txt
         else
-                echo -e "\nEnter coef of ${V[i]}"
+                echo -e "\nEnter coef of ${Ktd[i]}"
                 read coeftd
                 echo -n "$coeftd " >> semester_sheet.txt
         fi
@@ -279,8 +281,9 @@ echo -n "ECM:;" >> semester_sheet.txt
 
 
 echo -n "COEFCM:" >> semester_sheet.txt
-cmptyncm=$(echo "$fline" | grep -o -P '(?<=CM:).*(?=;ECM:)' | wc -w)
-listyncm=$(echo "$fline" | grep -o -P '(?<=CM:).*(?=;ECM:)')
+flinecm=$(grep -o -P '(?<=UE:'$UE').*(?=COEFCM)' semester_sheet.txt)
+cmptyncm=$(echo "$flinecm" | grep -o -P '(?<=CM:).*(?=;ECM:)' | wc -w)
+listyncm=$(echo "$flinecm" | grep -o -P '(?<=CM:).*(?=;ECM:)')
 
 Kcm=($listyncm)
 
@@ -294,11 +297,11 @@ if [[ "${Kcm[i]}" = "Y" ]]
 then
         if [[ $cmptyncm -eq $[$i+1] ]]
         then
-                echo -e "\nEnter coef of ${V[i]}"
+                echo -e "\nEnter coef of ${Kcm[i]}"
                 read coefcm
                 echo -n "$coefcm ;" >> semester_sheet.txt
         else
-                echo -e "\nEnter coef of ${V[i]}"
+                echo -e "\nEnter coef of ${Kcm[i]}"
                 read coefcm
                 echo -n "$coefcm " >> semester_sheet.txt
         fi
@@ -352,8 +355,9 @@ echo -n "EDE:;" >> semester_sheet.txt
 
 
 echo -n "COEFDE:" >> semester_sheet.txt
-cmptynde=$(echo "$fline" | grep -o -P '(?<=DE:).*(?=;EDE:)' | wc -w)
-listynde=$(echo "$fline" | grep -o -P '(?<=DE:).*(?=;EDE:)')
+flinede=$(grep -o -P '(?<=UE:'$UE').*(?=COEFDE)' semester_sheet.txt)
+cmptynde=$(echo "$flinede" | grep -o -P '(?<=DE:).*(?=;EDE:)' | wc -w)
+listynde=$(echo "$flinede" | grep -o -P '(?<=DE:).*(?=;EDE:)')
 
 Kde=($listynde)
 
@@ -367,11 +371,11 @@ if [[ "${Kde[i]}" = "Y" ]]
 then
         if [[ $cmptynde -eq $[$i+1] ]]
         then
-                echo -e "\nEnter coef of ${V[i]}"
+                echo -e "\nEnter coef of ${Kde[i]}"
                 read coefde
                 echo -n "$coefde ;" >> semester_sheet.txt
         else
-                echo -e "\nEnter coef of ${V[i]}"
+                echo -e "\nEnter coef of ${Kde[i]}"
                 read coefde
                 echo -n "$coefde " >> semester_sheet.txt
         fi
@@ -427,8 +431,9 @@ echo -n "ECE:;" >> semester_sheet.txt
 
 
 echo -n "COEFCE:" >> semester_sheet.txt
-cmptynce=$(echo "$fline" | grep -o -P '(?<=TP:).*(?=;ECE:)' | wc -w)
-listynce=$(echo "$fline" | grep -o -P '(?<=CE:).*(?=;ECE:)')
+flinece=$(grep -o -P '(?<=UE:'$UE').*(?=COEFCE)' semester_sheet.txt)
+cmptynce=$(echo "$flinece" | grep -o -P '(?<=TP:).*(?=;ECE:)' | wc -w)
+listynce=$(echo "$flinece" | grep -o -P '(?<=CE:).*(?=;ECE:)')
 
 Kce=($listynce)
 
@@ -442,11 +447,11 @@ if [[ "${Kce[i]}" = "Y" ]]
 then
         if [[ $cmptynce -eq $[$i+1] ]]
         then
-                echo -e "\nEnter coef of ${V[i]}"
+                echo -e "\nEnter coef of ${Kce[i]}"
                 read coefce
                 echo "$coefce ;FINISH" >> semester_sheet.txt
         else
-                echo -e "\nEnter coef of ${V[i]}"
+                echo -e "\nEnter coef of ${Kce[i]}"
                 read coefce
                 echo -n "$coefce " >> semester_sheet.txt
         fi
