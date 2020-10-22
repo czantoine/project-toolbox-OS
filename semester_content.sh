@@ -42,6 +42,10 @@ for ((i = 1 ; i <= $x ; i++)); do
         fi
 done
 
+#########################
+##### Coef Module U #####
+#########################
+
 
 echo -e "\nEnter Coef of Module Unit"
 echo -n "COEF:" >> semester_sheet.txt
@@ -60,14 +64,28 @@ for ((i = 1 ; i <= $x ; i++)); do
 done
 
 
+#########################
+##### Name  Teacher #####
+#########################
+
+
 echo -e "\nName of Teacher"
 read teach
 echo -n "TEACH:$teach ;" >> semester_sheet.txt
+
+#########################
+##### Email Teacher #####
+#########################
 
 
 echo -e "\nEmail of Teacher"
 read email
 echo -n "EMAIL:$email ;" >> semester_sheet.txt
+
+
+#########################
+########## TP ###########
+#########################
 
 #cmpt=$(grep -o -P '(?<=MO:).*(?=;COEF:)' semester_sheet.txt | wc -w)
 list=$(grep -o -P '(?<=MO:).*(?=;COEF:)' semester_sheet.txt)
@@ -132,9 +150,16 @@ then
                 echo -n "$coeftp " >> semester_sheet.txt
 	fi
 else
-	echo -n "X" >> semester_sheet.txt
+	echo -n "X " >> semester_sheet.txt
 fi
 done
+
+
+#########################
+########## TD ###########
+#########################
+
+
 
 VTD=($list)
 
@@ -177,8 +202,8 @@ listyntd=$(grep -o -P '(?<=TD:).*(?=;ETD:)' semester_sheet.txt)
 
 Ktd=($listyntd)
 
-for i in "${!K[@]}"; do
-    printf 'K[%s] = %s\n' "$i" "${K[i]}"
+for i in "${!Ktd[@]}"; do
+    printf 'Ktd[%s] = %s\n' "$i" "${Ktd[i]}"
 done
 
 for ((i = 0 ; i < $cmptyntd ; i++)); do
@@ -196,6 +221,76 @@ then
                 echo -n "$coeftd " >> semester_sheet.txt
         fi
 else
-        echo -n "X" >> semester_sheet.txt
+        echo -n "X " >> semester_sheet.txt
+fi
+done
+
+
+#########################
+########## CM ###########
+#########################
+
+
+VCM=($list)
+
+for i in "${!VCM[@]}"; do
+    printf 'VCM[%s] = %s\n' "$i" "${VCM[i]}"
+done
+
+echo -n "CM:" >> semester_sheet.txt
+
+for ((i = 0 ; i < $x ; i++)); do
+read -p "Do you want add CM for the ${VCM[i]} ? TAP Y or N : " -n 1 -r
+echo -e "\n"
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+        if [[ $x -eq $[$i+1] ]]
+        then
+                mkdir $ue/${VCM[i]}/CM
+                echo -n "Y ;" >> semester_sheet.txt
+        else
+                mkdir $ue/${VCM[i]}/CM
+                echo -n "Y " >> semester_sheet.txt
+        fi
+else
+        if [[ $x -eq $[$i+1] ]]
+        then
+                echo -n "N ;" >> semester_sheet.txt
+        else
+                echo -n "N " >> semester_sheet.txt
+        fi
+fi
+done
+
+
+echo -n "ECM:;" >> semester_sheet.txt
+
+
+echo -n "COEFCM:" >> semester_sheet.txt
+cmptyncm=$(grep -o -P '(?<=CM:).*(?=;ECM:)' semester_sheet.txt | wc -w)
+listyncm=$(grep -o -P '(?<=CM:).*(?=;ECM:)' semester_sheet.txt)
+
+Kcm=($listyncm)
+
+for i in "${!Kcm[@]}"; do
+    printf 'Kcm[%s] = %s\n' "$i" "${Kcm[i]}"
+done
+
+for ((i = 0 ; i < $cmptyncm ; i++)); do
+
+if [[ "${Kcm[i]}" = "Y" ]]
+then
+        if [[ $cmptyncm -eq $[$i+1] ]]
+        then
+                echo -e "\nEnter coef of ${V[i]}"
+                read coefcm
+                echo -n "$coefcm ;" >> semester_sheet.txt
+        else
+                echo -e "\nEnter coef of ${V[i]}"
+                read coefcm
+                echo -n "$coefcm " >> semester_sheet.txt
+        fi
+else
+        echo -n "X " >> semester_sheet.txt
 fi
 done
