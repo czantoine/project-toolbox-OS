@@ -294,3 +294,140 @@ else
         echo -n "X " >> semester_sheet.txt
 fi
 done
+
+#########################
+########## DE ###########
+#########################
+
+VDE=($list)
+
+for i in "${!VDE[@]}"; do
+    printf 'VDE[%s] = %s\n' "$i" "${VDE[i]}"
+done
+
+echo -n "DE:" >> semester_sheet.txt
+
+for ((i = 0 ; i < $x ; i++)); do
+read -p "Do you want add DE for the ${VDE[i]} ? TAP Y or N : " -n 1 -r
+echo -e "\n"
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+        if [[ $x -eq $[$i+1] ]]
+        then
+                mkdir $ue/${VDE[i]}/DE
+                echo -n "Y ;" >> semester_sheet.txt
+        else
+                mkdir $ue/${VDE[i]}/DE
+                echo -n "Y " >> semester_sheet.txt
+        fi
+else
+        if [[ $x -eq $[$i+1] ]]
+        then
+                echo -n "N ;" >> semester_sheet.txt
+        else
+                echo -n "N " >> semester_sheet.txt
+        fi
+fi
+done
+
+
+echo -n "EDE:;" >> semester_sheet.txt
+
+
+echo -n "COEFDE:" >> semester_sheet.txt
+cmptyncm=$(grep -o -P '(?<=DE:).*(?=;EDE:)' semester_sheet.txt | wc -w)
+listyncm=$(grep -o -P '(?<=DE:).*(?=;EDE:)' semester_sheet.txt)
+
+Kde=($listynDE)
+
+for i in "${!Kde[@]}"; do
+    printf 'Kde[%s] = %s\n' "$i" "${Kde[i]}"
+done
+
+for ((i = 0 ; i < $cmptynde ; i++)); do
+
+if [[ "${Kde[i]}" = "Y" ]]
+then
+        if [[ $cmptynde -eq $[$i+1] ]]
+        then
+                echo -e "\nEnter coef of ${V[i]}"
+                read coefde
+                echo -n "$coefde ;" >> semester_sheet.txt
+        else
+                echo -e "\nEnter coef of ${V[i]}"
+                read coefde
+                echo -n "$coefde " >> semester_sheet.txt
+        fi
+else
+        echo -n "X " >> semester_sheet.txt
+fi
+done
+
+
+#########################
+########## CE ###########
+#########################
+
+VCE=($list)
+
+for i in "${!VCE[@]}"; do
+    printf 'VCE[%s] = %s\n' "$i" "${VCE[i]}"
+done
+
+echo -n "CE:" >> semester_sheet.txt
+
+for ((i = 0 ; i < $x ; i++)); do
+read -p "Do you want add CE for the ${VCE[i]} ? TAP Y or N : " -n 1 -r
+echo -e "\n"
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+        if [[ $x -eq $[$i+1] ]]
+        then
+                mkdir $ue/${VCE[i]}/CE
+                echo -n "Y ;" >> semester_sheet.txt
+        else
+                mkdir $ue/${VCE[i]}/CE
+                echo -n "Y " >> semester_sheet.txt
+        fi
+else
+        if [[ $x -eq $[$i+1] ]]
+        then
+                echo -n "N ;" >> semester_sheet.txt
+        else
+                echo -n "N " >> semester_sheet.txt
+        fi
+fi
+done
+
+
+echo -n "ECE:;" >> semester_sheet.txt
+
+
+echo -n "COEFCE:" >> semester_sheet.txt
+cmptyncm=$(grep -o -P '(?<=CE:).*(?=;ECE:)' semester_sheet.txt | wc -w)
+listyncm=$(grep -o -P '(?<=CE:).*(?=;ECE:)' semester_sheet.txt)
+
+Kce=($listynCE)
+
+for i in "${!Kce[@]}"; do
+    printf 'Kce[%s] = %s\n' "$i" "${Kce[i]}"
+done
+
+for ((i = 0 ; i < $cmptynce ; i++)); do
+
+if [[ "${Kce[i]}" = "Y" ]]
+then
+        if [[ $cmptynce -eq $[$i+1] ]]
+        then
+                echo -e "\nEnter coef of ${V[i]}"
+                read coefce
+                echo -n "$coefce ;" >> semester_sheet.txt
+        else
+                echo -e "\nEnter coef of ${V[i]}"
+                read coefce
+                echo -n "$coefce " >> semester_sheet.txt
+        fi
+else
+        echo -n "X " >> semester_sheet.txt
+fi
+done
