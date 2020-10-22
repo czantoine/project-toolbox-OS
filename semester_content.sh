@@ -170,7 +170,7 @@ done
 echo -n "TD:" >> semester_sheet.txt
 
 for ((i = 0 ; i < $x ; i++)); do
-read -p "Do you want add TP for the ${VTP[i]} ? TAP Y or N : " -n 1 -r
+read -p "Do you want add TP for the ${VTD[i]} ? TAP Y or N : " -n 1 -r
 echo -e "\n"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
@@ -335,8 +335,8 @@ echo -n "EDE:;" >> semester_sheet.txt
 
 
 echo -n "COEFDE:" >> semester_sheet.txt
-cmptyncm=$(grep -o -P '(?<=DE:).*(?=;EDE:)' semester_sheet.txt | wc -w)
-listyncm=$(grep -o -P '(?<=DE:).*(?=;EDE:)' semester_sheet.txt)
+cmptynde=$(grep -o -P '(?<=DE:).*(?=;EDE:)' semester_sheet.txt | wc -w)
+listynde=$(grep -o -P '(?<=DE:).*(?=;EDE:)' semester_sheet.txt)
 
 Kde=($listynDE)
 
@@ -404,8 +404,8 @@ echo -n "ECE:;" >> semester_sheet.txt
 
 
 echo -n "COEFCE:" >> semester_sheet.txt
-cmptyncm=$(grep -o -P '(?<=CE:).*(?=;ECE:)' semester_sheet.txt | wc -w)
-listyncm=$(grep -o -P '(?<=CE:).*(?=;ECE:)' semester_sheet.txt)
+cmptynce=$(grep -o -P '(?<=CE:).*(?=;ECE:)' semester_sheet.txt | wc -w)
+listynce=$(grep -o -P '(?<=CE:).*(?=;ECE:)' semester_sheet.txt)
 
 Kce=($listynCE)
 
@@ -431,4 +431,3 @@ else
         echo -n "X " >> semester_sheet.txt
 fi
 done
-
