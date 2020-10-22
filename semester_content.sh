@@ -88,7 +88,9 @@ echo -n "EMAIL:$email ;" >> semester_sheet.txt
 #########################
 
 #cmpt=$(grep -o -P '(?<=MO:).*(?=;COEF:)' semester_sheet.txt | wc -w)
-list=$(grep -o -P '(?<=MO:).*(?=;COEF:)' semester_sheet.txt)
+
+fline=$(grep -o -P '(?<=UE:'$UE').*(?=FINISH)' semester_sheet.txt)
+list=$( echo "$fline" | grep -o -P '(?<=MO:).*(?=;COEF:)')
 
 V=($list)
 
@@ -126,8 +128,8 @@ echo -n "ETP:;" >> semester_sheet.txt
 
 
 echo -n "COEFTP:" >> semester_sheet.txt
-cmptyn=$(grep -o -P '(?<=TP:).*(?=;ETP:)' semester_sheet.txt | wc -w)
-listyn=$(grep -o -P '(?<=TP:).*(?=;ETP:)' semester_sheet.txt)
+cmptyn=$(echo "$fline" | grep -o -P '(?<=TP:).*(?=;ETP:)' | wc -w)
+listyn=$(echo "$fline" | grep -o -P '(?<=TP:).*(?=;ETP:)')
 
 K=($listyn)
 
@@ -202,8 +204,8 @@ echo -n "ETD:;" >> semester_sheet.txt
 
 
 echo -n "COEFTD:" >> semester_sheet.txt
-cmptyntd=$(grep -o -P '(?<=TD:).*(?=;ETD:)' semester_sheet.txt | wc -w)
-listyntd=$(grep -o -P '(?<=TD:).*(?=;ETD:)' semester_sheet.txt)
+cmptyntd=$(echo "$fline" | grep -o -P '(?<=TD:).*(?=;ETD:)' | wc -w)
+listyntd=$(echo "$fline" | grep -o -P '(?<=TD:).*(?=;ETD:)')
 
 Ktd=($listyntd)
 
@@ -277,8 +279,8 @@ echo -n "ECM:;" >> semester_sheet.txt
 
 
 echo -n "COEFCM:" >> semester_sheet.txt
-cmptyncm=$(grep -o -P '(?<=CM:).*(?=;ECM:)' semester_sheet.txt | wc -w)
-listyncm=$(grep -o -P '(?<=CM:).*(?=;ECM:)' semester_sheet.txt)
+cmptyncm=$(echo "$fline" | grep -o -P '(?<=CM:).*(?=;ECM:)' | wc -w)
+listyncm=$(echo "$fline" | grep -o -P '(?<=CM:).*(?=;ECM:)')
 
 Kcm=($listyncm)
 
@@ -350,8 +352,8 @@ echo -n "EDE:;" >> semester_sheet.txt
 
 
 echo -n "COEFDE:" >> semester_sheet.txt
-cmptynde=$(grep -o -P '(?<=DE:).*(?=;EDE:)' semester_sheet.txt | wc -w)
-listynde=$(grep -o -P '(?<=DE:).*(?=;EDE:)' semester_sheet.txt)
+cmptynde=$(echo "$fline" | grep -o -P '(?<=DE:).*(?=;EDE:)' | wc -w)
+listynde=$(echo "$fline" | grep -o -P '(?<=DE:).*(?=;EDE:)')
 
 Kde=($listynde)
 
@@ -425,8 +427,8 @@ echo -n "ECE:;" >> semester_sheet.txt
 
 
 echo -n "COEFCE:" >> semester_sheet.txt
-cmptynce=$(grep -o -P '(?<=CE:).*(?=;ECE:)' semester_sheet.txt | wc -w)
-listynce=$(grep -o -P '(?<=CE:).*(?=;ECE:)' semester_sheet.txt)
+cmptynce=$(echo "$fline" | grep -o -P '(?<=TP:).*(?=;ECE:)' | wc -w)
+listynce=$(echo "$fline" | grep -o -P '(?<=CE:).*(?=;ECE:)')
 
 Kce=($listynce)
 
@@ -457,3 +459,4 @@ else
         fi
 fi
 done
+
