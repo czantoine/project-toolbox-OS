@@ -168,7 +168,6 @@ done
 #########################
 
 
-
 VTD=($list)
 
 for i in "${!VTD[@]}"; do
@@ -206,8 +205,9 @@ echo -n "ETD:;" >> semester_sheet.txt
 
 echo -n "COEFTD:" >> semester_sheet.txt
 flinetd=$(grep -o -P '(?<=UE:'$UE').*(?=COEFTD)' semester_sheet.txt)
-cmptyntd=$(echo "$flinetd" | grep -o -P '(?<=TD:).*(?=;ETD:)' | wc -w)
-listyntd=$(echo "$flinetd" | grep -o -P '(?<=TD:).*(?=;ETD:)')
+listyntd=$(echo $flinetd | sed 's/.*;TD://; s/;ETD:.*//')
+cmptyntd=$(echo $listyntd | wc -w)
+
 
 Ktd=($listyntd)
 
@@ -282,8 +282,8 @@ echo -n "ECM:;" >> semester_sheet.txt
 
 echo -n "COEFCM:" >> semester_sheet.txt
 flinecm=$(grep -o -P '(?<=UE:'$UE').*(?=COEFCM)' semester_sheet.txt)
-cmptyncm=$(echo "$flinecm" | grep -o -P '(?<=CM:).*(?=;ECM:)' | wc -w)
-listyncm=$(echo "$flinecm" | grep -o -P '(?<=CM:).*(?=;ECM:)')
+listyncm=$(echo $flinecm | sed 's/.*;CM://; s/;ECM:.*//')
+cmptyncm=$(echo $listyncm | wc -w)
 
 Kcm=($listyncm)
 
@@ -356,8 +356,9 @@ echo -n "EDE:;" >> semester_sheet.txt
 
 echo -n "COEFDE:" >> semester_sheet.txt
 flinede=$(grep -o -P '(?<=UE:'$UE').*(?=COEFDE)' semester_sheet.txt)
-cmptynde=$(echo "$flinede" | grep -o -P '(?<=DE:).*(?=;EDE:)' | wc -w)
-listynde=$(echo "$flinede" | grep -o -P '(?<=DE:).*(?=;EDE:)')
+listynde=$(echo $flinede | sed 's/.*;DE://; s/;EDE:.*//')
+cmptynde=$(echo $listynde | wc -w)
+
 
 Kde=($listynde)
 
@@ -432,8 +433,8 @@ echo -n "ECE:;" >> semester_sheet.txt
 
 echo -n "COEFCE:" >> semester_sheet.txt
 flinece=$(grep -o -P '(?<=UE:'$UE').*(?=COEFCE)' semester_sheet.txt)
-cmptynce=$(echo "$flinece" | grep -o -P '(?<=TP:).*(?=;ECE:)' | wc -w)
-listynce=$(echo "$flinece" | grep -o -P '(?<=CE:).*(?=;ECE:)')
+listynce=$(echo $flinece | sed 's/.*;CE://; s/;ECE:.*//')
+cmptynce=$(echo $listynce | wc -w)
 
 Kce=($listynce)
 
@@ -464,3 +465,4 @@ else
         fi
 fi
 done
+
