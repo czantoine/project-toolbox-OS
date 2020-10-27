@@ -13,7 +13,7 @@ mkdir S$sn/$ue
 
 echo -e "\nEnter Coefficiant of this Education Unit"
 read coefue
-echo -n "COEFUE:$coefue ;" >> semester_sheet.txt
+echo -n "COEFUE:$coefue;" >> semester_sheet.txt
 
 
 echo -e "\nHow many modules do you want to add?"
@@ -134,7 +134,7 @@ echo -n "ETP:;" >> semester_sheet.txt
 echo -n "COEFTP:" >> semester_sheet.txt
 flinetp=$(grep -o -P '(?<=UE:'$UE').*(?=COEFTP)' semester_sheet.txt)
 listyn=$(echo $fline | sed 's/.*;TP://; s/;ETP:.*//')
-cmptyn=$(echo $listyn | wc -w)
+cmptyntp=$(echo $listyn | wc -w)
 
 K=($listyn)
 
@@ -142,17 +142,17 @@ for i in "${!K[@]}"; do
     printf 'K[%s] = %s\n' "$i" "${K[i]}" > /dev/null
 done
 
-for ((i = 0 ; i < $cmptyn ; i++)); do
+for ((i = 0 ; i < $cmptyntp ; i++)); do
 
 if [[ "${K[i]}" = "Y" ]]
 then
-	if [[ $cmptyn -eq $[$i+1] ]]
+	if [[ $cmptyntp -eq $[$i+1] ]]
 	then
-		echo -e "\nEnter coef of ${K[i]}"
+		echo -e "\nEnter coef :"
 		read coeftp
 		echo -n "$coeftp ;" >> semester_sheet.txt
 	else
-		echo -e "\nEnter coef of ${K[i]}"
+		echo -e "\nEnter coef :"
                 read coeftp
                 echo -n "$coeftp " >> semester_sheet.txt
 	fi
@@ -225,11 +225,11 @@ if [[ "${Ktd[i]}" = "Y" ]]
 then
         if [[ $cmptyntd -eq $[$i+1] ]]
         then
-                echo -e "\nEnter coef of ${Ktd[i]}"
+                echo -e "\nEnter coef :"
                 read coeftd
-                echo -n "$coeftd ;" >> semester_sheet.txt
+                echo -n "$coeftd;" >> semester_sheet.txt
         else
-                echo -e "\nEnter coef of ${Ktd[i]}"
+                echo -e "\nEnter coef :"
                 read coeftd
                 echo -n "$coeftd " >> semester_sheet.txt
         fi
@@ -301,11 +301,11 @@ if [[ "${Kcm[i]}" = "Y" ]]
 then
         if [[ $cmptyncm -eq $[$i+1] ]]
         then
-                echo -e "\nEnter coef of ${Kcm[i]}"
+                echo -e "\nEnter coef :"
                 read coefcm
                 echo -n "$coefcm ;" >> semester_sheet.txt
         else
-                echo -e "\nEnter coef of ${Kcm[i]}"
+                echo -e "\nEnter coef :"
                 read coefcm
                 echo -n "$coefcm " >> semester_sheet.txt
         fi
@@ -376,11 +376,11 @@ if [[ "${Kde[i]}" = "Y" ]]
 then
         if [[ $cmptynde -eq $[$i+1] ]]
         then
-                echo -e "\nEnter coef of ${Kde[i]}"
+                echo -e "\nEnter coef :"
                 read coefde
                 echo -n "$coefde ;" >> semester_sheet.txt
         else
-                echo -e "\nEnter coef of ${Kde[i]}"
+                echo -e "\nEnter coef :"
                 read coefde
                 echo -n "$coefde " >> semester_sheet.txt
         fi
@@ -452,11 +452,11 @@ if [[ "${Kce[i]}" = "Y" ]]
 then
         if [[ $cmptynce -eq $[$i+1] ]]
         then
-                echo -e "\nEnter coef of ${Kce[i]}"
+                echo -e "\nEnter coef :"
                 read coefce
                 echo "$coefce ;FINISH" >> semester_sheet.txt
         else
-                echo -e "\nEnter coef of ${Kce[i]}"
+                echo -e "\nEnter coef :"
                 read coefce
                 echo -n "$coefce " >> semester_sheet.txt
         fi
