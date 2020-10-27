@@ -20,9 +20,9 @@ if [[ $adel = add ]] || [[ $adel = ADD ]]
 then
     	echo -e "\nWhat do you want to add ?"
     	echo "Enter your choice"
-   		echo "1. UE"
-  	 	echo "2. MO"
-		echo "3. TD"
+   	echo "1. UE"
+   	echo "2. MO"
+	echo "3. TD"
     	echo "Exit"
     	read rep
     	if [[ $rep -eq 1 ]]
@@ -33,14 +33,16 @@ then
     	elif [[ $rep -eq 2 ]]
     	then
         	echo -e "\nWhich UE do you want to add a Module ?"
-		fword=$(grep -Eo '^[^ ]+' semester_sheet.txt)
-		echo -e "\nThis is what you have :\n$fword"
+		first_word=$(grep -Eo '^[^ ]+' semester_sheet.txt)
+		echo -e "\nThis is what you have :\n$first_word"
 		echo -e "\nwhich one do you want to add ? "
 		read add
-		line_number=$(grep -n '$add' semester_sheet.txt | sed 's/^\([0-9]\+\):.*$/\1/')
-		echo "\nWhich name of module you want add ?"
+		line_number=$(grep -n ''$add'' semester_sheet.txt | sed 's/^\([0-9]\+\):.*$/\1/')
+		echo -e "\nWhich name of module you want add ?"
 		read name
-		aa=$(sed -E "${line_number}s/(.{4})/&${name}/" semester_sheet.txt)
+		pos_number=$(grep -aob ' ;COEF:' semester_sheet.txt | awk 'NR==1') #NR avec variable & trouver la position sur la ligne
+		test=$(echo "$pos_number" | sed  's/: ;COEF.*//')
+		aa=$(sed -E "${line_number}s/(.{$test})/&${name}/" semester_sheet.txt)
 		cat /dev/null > semester_sheet.txt
 		echo "$aa" >> semester_sheet.txt
     	else
