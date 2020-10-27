@@ -18,26 +18,37 @@ read adel
 
 if [[ $adel = add ]] || [[ $adel = ADD ]]
 then
-    echo -e "\nWhat do you want to add ?"
-    echo "Enter your choice"
-    echo "1. UE"
-    echo "2. MO"
-    echo "Exit"
-    read rep
-    if [[ $rep -eq 1 ]]
-    then
-    	echo "Rien"
-        #echo -e "\n" >> semester_content.sh
-        #bash semester_content.sh
-    elif [[ $rep -eq 2 ]]
-    then
-        #echo -e "Which UE do you want to add a Module ?"
-	echo "rien"
+    	echo -e "\nWhat do you want to add ?"
+    	echo "Enter your choice"
+   		echo "1. UE"
+  	 	echo "2. MO"
+		echo "3. TD"
+    	echo "Exit"
+    	read rep
+    	if [[ $rep -eq 1 ]]
+    	then
+    		echo "Rien"
+        	echo -e "\n" >> semester_content.sh
+        	bash semester_content.sh
+    	elif [[ $rep -eq 2 ]]
+    	then
+        	echo -e "\nWhich UE do you want to add a Module ?"
+		fword=$(grep -Eo '^[^ ]+' semester_sheet.txt)
+		echo -e "\nThis is what you have :\n$fword"
+		echo -e "\nwhich one do you want to add ? "
+		read add
+		line_number=$(grep -n '$add' semester_sheet.txt | sed 's/^\([0-9]\+\):.*$/\1/')
+		echo "\nWhich name of module you want add ?"
+		read name
+		aa=$(sed -E "${line_number}s/(.{4})/&${name}/" semester_sheet.txt)
+		cat /dev/null > semester_sheet.txt
+		echo "$aa" >> semester_sheet.txt
+    	else
+		echo "Program Shutdown"
+        	ext=1
+   	 fi
 
-    else
-	echo "Program Shutdown"
-        ext=1
-    fi
+
 
 elif [[ $adel = delete ]] || [[ $adel = DELETE ]]
 then
@@ -68,7 +79,7 @@ then
 	    #Suppression UE
 	    echo "Suppression UE"
 	elif [[ $repue -eq 2 ]]
-	then 
+	then
 	    #Suppression COEF UE
 	    echo "Suppression  coef UE"
 	else
