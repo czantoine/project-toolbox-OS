@@ -157,7 +157,7 @@ then
                 echo -n "$coeftp " >> semester_sheet.txt
 	fi
 else
-	if [[ $cmptyn -eq $[$i+1] ]]
+	if [[ $cmptyntp -eq $[$i+1] ]]
 	then
 		echo -n "X ;" >> semester_sheet.txt
 	else
