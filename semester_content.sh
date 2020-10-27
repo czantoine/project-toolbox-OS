@@ -2,10 +2,14 @@
 
 #ask information for the semester
 
+echo -e "\nEnter semester number"
+read sn
+mkdir -m 700 S$sn
+
 echo -e "\nEnter Education Unit"
 read ue
 echo -n "UE:$ue;" >> semester_sheet.txt
-mkdir -m 700 $ue
+mkdir S$sn/$ue
 
 echo -e "\nEnter Coefficiant of this Education Unit"
 read coefue
@@ -28,15 +32,15 @@ for ((i = 1 ; i <= $x ; i++)); do
         then
                 echo -e "\nEnter Module name"
                 read mo
-		cd $ue
-		mkdir $mo
+		cd S$sn
+		mkdir $ue/$mo
 		cd - > /dev/null
                 echo -n "$mo ;" >> semester_sheet.txt
         else
                 echo -e "\nEnter Module name"
                 read mo
-		cd $ue
-                mkdir $mo
+		cd S$sn
+                mkdir $ue/$mo
                 cd - > /dev/null
                 echo -n "$mo " >> semester_sheet.txt
         fi
@@ -107,10 +111,10 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
         if [[ $x -eq $[$i+1] ]]
         then
-		mkdir $ue/${V[i]}/TP
+		mkdir S$sn/$ue/${V[i]}/TP
                 echo -n "Y ;" >> semester_sheet.txt
         else
-		mkdir $ue/${V[i]}/TP
+		mkdir S$sn/$ue/${V[i]}/TP
                 echo -n "Y " >> semester_sheet.txt
         fi
 else
@@ -129,7 +133,7 @@ echo -n "ETP:;" >> semester_sheet.txt
 
 echo -n "COEFTP:" >> semester_sheet.txt
 flinetp=$(grep -o -P '(?<=UE:'$UE').*(?=COEFTP)' semester_sheet.txt)
-listyn=$(echo $flinetp | sed 's/.*;TP://; s/;ETP:.*//')
+listyn=$(echo $fline | sed 's/.*;TP://; s/;ETP:.*//')
 cmptyn=$(echo $listyn | wc -w)
 
 K=($listyn)
@@ -183,10 +187,10 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
         if [[ $x -eq $[$i+1] ]]
         then
-                mkdir $ue/${VTD[i]}/TD
+                mkdir S$sn/$ue/${VTD[i]}/TD
                 echo -n "Y ;" >> semester_sheet.txt
         else
-                mkdir $ue/${VTD[i]}/TD
+                mkdir S$sn/$ue/${VTD[i]}/TD
                 echo -n "Y " >> semester_sheet.txt
         fi
 else
@@ -260,10 +264,10 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
         if [[ $x -eq $[$i+1] ]]
         then
-                mkdir $ue/${VCM[i]}/CM
+                mkdir S$sn/$ue/${VCM[i]}/CM
                 echo -n "Y ;" >> semester_sheet.txt
         else
-                mkdir $ue/${VCM[i]}/CM
+                mkdir S$sn/$ue/${VCM[i]}/CM
                 echo -n "Y " >> semester_sheet.txt
         fi
 else
@@ -334,10 +338,10 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
         if [[ $x -eq $[$i+1] ]]
         then
-                mkdir $ue/${VDE[i]}/DE
+                mkdir S$sn/$ue/${VDE[i]}/DE
                 echo -n "Y ;" >> semester_sheet.txt
         else
-                mkdir $ue/${VDE[i]}/DE
+                mkdir S$sn/$ue/${VDE[i]}/DE
                 echo -n "Y " >> semester_sheet.txt
         fi
 else
@@ -411,10 +415,10 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
         if [[ $x -eq $[$i+1] ]]
         then
-                mkdir $ue/${VCE[i]}/CE
+                mkdir S$sn/$ue/${VCE[i]}/CE
                 echo -n "Y ;" >> semester_sheet.txt
         else
-                mkdir $ue/${VCE[i]}/CE
+                mkdir S$sn/$ue/${VCE[i]}/CE
                 echo -n "Y " >> semester_sheet.txt
         fi
 else
@@ -465,4 +469,3 @@ else
         fi
 fi
 done
-
