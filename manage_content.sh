@@ -23,6 +23,7 @@ then
    	echo "1. UE"
    	echo "2. MO"
 	echo "3. TD"
+	echo "4. TP"
     	echo "Exit"
     	read rep
     	if [[ $rep -eq 1 ]]
