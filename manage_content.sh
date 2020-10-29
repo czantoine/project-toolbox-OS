@@ -54,35 +54,37 @@ then
 		cat /dev/null > semester_sheet.txt
                 echo "$co" >> semester_sheet.txt
 
-		read -p "Do you want add TP for the ${V[i]} ? TAP Y or N : " -n 1 -r
-		echo -e "\n"
 		pos_number_tp=$( cat semester_sheet.txt | sed -n "${line_number}p" | grep -aob ' ;ETP:')
                 pos_letter_tp=$(echo "$pos_number_tp" | sed  's/: ;ETP.*//')
-		if [[ $REPLY =~ ^[Yy]$ ]]
+		echo "Do you want add TP ? TAP Y or N"
+		read rep
+		if [[ $rep =~ ^[Yy]$ ]]
 		then
-			etp=$(sed -E "${line_number}s/(.{$pos_letter_tp})/& 'Y'/" semester_sheet.txt)
+			Yes=Y
+			etp=$(sed -E "${line_number}s/(.{$pos_letter_tp})/& ${Yes}/" semester_sheet.txt)
 			cat /dev/null > semester_sheet.txt
 	                echo "$etp" >> semester_sheet.txt
 
 			echo -e "\nEnter coef  : "
-			read coef
-			pos_number_coefetp=$( cat semester_sheet.txt | sed -n "${line_number}p" | grep -aob ' ;CM:')
-	                pos_letter_coeftp=$(echo "$pos_number_coeftp" | sed  's/: ;CM.*//')
-			coeftp=$(sed -E "${line_number}s/(.{$pos_letter_coeftp})/& ${coef}/" semester_sheet.txt)
-                        cat /dev/null > semester_sheet.txt
-                        echo "$coeftp" >> semester_sheet.txt
+			read rep_coef
+			pos_number_coefetp=$( cat semester_sheet.txt | sed -n "${line_number}p" | grep -aob ' ;TD:')
+			pos_letter_coef_tp=$(echo "$pos_number_coefetp" | sed  's/: ;TD.*//')
+			coef_tp=$(sed -E "${line_number}s/(.{$pos_letter_coef_tp})/& ${rep_coef}/" semester_sheet.txt)
+			cat /dev/null > semester_sheet.txt
+			echo "$coef_tp" >> semester_sheet.txt
 
 		else
-			etp=$(sed -E "${line_number}s/(.{$pos_letter_tp})/& 'N'/" semester_sheet.txt)
+			No=N
+                        etp=$(sed -E "${line_number}s/(.{$pos_letter_tp})/& ${No}/" semester_sheet.txt)
                         cat /dev/null > semester_sheet.txt
                         echo "$etp" >> semester_sheet.txt
 
-			pos_number_coefetp=$( cat semester_sheet.txt | sed -n "${line_number}p" | grep -aob ' ;CM:')
-                        pos_letter_coeftp=$(echo "$pos_number_coeftp" | sed  's/: ;CM.*//')
-                        coeftp=$(sed -E "${line_number}s/(.{$pos_letter_coeftp})/& 'X'/" semester_sheet.txt)
+			rep_coef=N
+                        pos_number_coefetp=$( cat semester_sheet.txt | sed -n "${line_number}p" | grep -aob ' ;TD:')
+                        pos_letter_coef_tp=$(echo "$pos_number_coefetp" | sed  's/: ;TD.*//')
+                        coef_tp=$(sed -E "${line_number}s/(.{$pos_letter_coef_tp})/& ${rep_coef}/" semester_sheet.txt)
                         cat /dev/null > semester_sheet.txt
-                        echo "$coeftp" >> semester_sheet.txt
-
+                        echo "$coef_tp" >> semester_sheet.txt
 		fi
 
     	else
