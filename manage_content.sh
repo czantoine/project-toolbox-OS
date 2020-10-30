@@ -20,13 +20,13 @@ if [[ $adel = add ]] || [[ $adel = ADD ]]
 then
     	echo -e "\nWhat do you want to add ?"
     	echo "Enter your choice"
-   	echo "1. UE"
-   	echo "2. MO"
-	echo "3. TD"
-	echo "4. TP"
-	echo "5. CM"
-	echo "6. DE"
-	echo "7. CE"
+   		echo "1. UE"
+   		echo "2. MO"
+		echo "3. TD"
+		echo "4. TP"
+		echo "5. CM"
+		echo "6. DE"
+		echo "7. CE"
     	echo "Exit"
     	read rep
     	if [[ $rep -eq 1 ]]
@@ -59,7 +59,7 @@ then
                 echo "$co" >> semester_sheet.txt
 
 		pos_number_tp=$( cat semester_sheet.txt | sed -n "${line_number}p" | grep -aob ' ;ETP:')
-                pos_letter_tp=$(echo "$pos_number_tp" | sed  's/: ;ETP.*//')
+        pos_letter_tp=$(echo "$pos_number_tp" | sed  's/: ;ETP.*//')
 		echo "Do you want add TP ? TAP Y or N"
 		read rep
 		if [[ $rep =~ ^[Yy]$ ]]
@@ -67,7 +67,7 @@ then
 			Yes=Y
 			etp=$(sed -E "${line_number}s/(.{$pos_letter_tp})/& ${Yes}/" semester_sheet.txt)
 			cat /dev/null > semester_sheet.txt
-	                echo "$etp" >> semester_sheet.txt
+	        echo "$etp" >> semester_sheet.txt
 
 			echo -e "\nEnter coef  : "
 			read rep_coef
@@ -89,6 +89,139 @@ then
                         coef_tp=$(sed -E "${line_number}s/(.{$pos_letter_coef_tp})/& ${rep_coef}/" semester_sheet.txt)
                         cat /dev/null > semester_sheet.txt
                         echo "$coef_tp" >> semester_sheet.txt
+		fi
+
+
+		pos_number_td=$( cat semester_sheet.txt | sed -n "${line_number}p" | grep -aob ' ;ETD:')
+        pos_letter_td=$(echo "$pos_number_td" | sed  's/: ;ETD.*//')
+		echo "Do you want add TD ? TAP Y or N"
+		read rep_td
+		if [[ $rep_td =~ ^[Yy]$ ]]
+		then
+			Yes_td=Y
+			etd=$(sed -E "${line_number}s/(.{$pos_letter_td})/& ${Yes_td}/" semester_sheet.txt)
+			cat /dev/null > semester_sheet.txt
+	        echo "$etd" >> semester_sheet.txt
+
+			echo -e "\nEnter coef  : "
+			read rep_coef_td
+			pos_number_coefetd=$( cat semester_sheet.txt | sed -n "${line_number}p" | grep -aob ' ;CM:')
+			pos_letter_coef_td=$(echo "$pos_number_coefetd" | sed  's/: ;CM.*//')
+			coef_td=$(sed -E "${line_number}s/(.{$pos_letter_coef_td})/& ${rep_coef_td}/" semester_sheet.txt)
+			cat /dev/null > semester_sheet.txt
+			echo "$coef_td" >> semester_sheet.txt
+
+		else
+			No_td=N
+                        etd=$(sed -E "${line_number}s/(.{$pos_letter_td})/& ${No_td}/" semester_sheet.txt)
+                        cat /dev/null > semester_sheet.txt
+                        echo "$etd" >> semester_sheet.txt
+
+			rep_coef_td=N
+                        pos_number_coefetd=$( cat semester_sheet.txt | sed -n "${line_number}p" | grep -aob ' ;CM:')
+                        pos_letter_coef_td=$(echo "$pos_number_coefetd" | sed  's/: ;CM.*//')
+                        coef_td=$(sed -E "${line_number}s/(.{$pos_letter_coef_td})/& ${rep_coef_td}/" semester_sheet.txt)
+                        cat /dev/null > semester_sheet.txt
+                        echo "$coef_td" >> semester_sheet.txt
+		fi
+
+		pos_number_cm=$( cat semester_sheet.txt | sed -n "${line_number}p" | grep -aob ' ;ECM:')
+        pos_letter_cm=$(echo "$pos_number_cm" | sed  's/: ;ECM.*//')
+		echo "Do you want add CM ? TAP Y or N"
+		read rep_cm
+		if [[ $rep_cm =~ ^[Yy]$ ]]
+		then
+			Yes_cm=Y
+			ecm=$(sed -E "${line_number}s/(.{$pos_letter_cm})/& ${Yes_cm}/" semester_sheet.txt)
+			cat /dev/null > semester_sheet.txt
+	        echo "$ecm" >> semester_sheet.txt
+
+			echo -e "\nEnter coef  : "
+			read rep_coef_cm
+			pos_number_coefecm=$( cat semester_sheet.txt | sed -n "${line_number}p" | grep -aob ' ;DE:')
+			pos_letter_coef_cm=$(echo "$pos_number_coefecm" | sed  's/: ;DE.*//')
+			coef_cm=$(sed -E "${line_number}s/(.{$pos_letter_coef_cm})/& ${rep_coef_cm}/" semester_sheet.txt)
+			cat /dev/null > semester_sheet.txt
+			echo "$coef_cm" >> semester_sheet.txt
+
+		else
+			No_cm=N
+                        ecm=$(sed -E "${line_number}s/(.{$pos_letter_cm})/& ${No_cm}/" semester_sheet.txt)
+                        cat /dev/null > semester_sheet.txt
+                        echo "$ecm" >> semester_sheet.txt
+
+			rep_coef_cm=N
+                        pos_number_coefecm=$( cat semester_sheet.txt | sed -n "${line_number}p" | grep -aob ' ;DE:')
+                        pos_letter_coef_cm=$(echo "$pos_number_coefecm" | sed  's/: ;DE.*//')
+                        coef_cm=$(sed -E "${line_number}s/(.{$pos_letter_coef_cm})/& ${rep_coef_cm}/" semester_sheet.txt)
+                        cat /dev/null > semester_sheet.txt
+                        echo "$coef_cm" >> semester_sheet.txt
+		fi
+
+		pos_number_de=$( cat semester_sheet.txt | sed -n "${line_number}p" | grep -aob ' ;EDE:')
+        pos_letter_de=$(echo "$pos_number_de" | sed  's/: ;EDE.*//')
+		echo "Do you want add DE ? TAP Y or N"
+		read rep_de
+		if [[ $rep_de =~ ^[Yy]$ ]]
+		then
+			Yes_de=Y
+			ede=$(sed -E "${line_number}s/(.{$pos_letter_de})/& ${Yes_de}/" semester_sheet.txt)
+			cat /dev/null > semester_sheet.txt
+	        echo "$ede" >> semester_sheet.txt
+
+			echo -e "\nEnter coef  : "
+			read rep_coef_de
+			pos_number_coefede=$( cat semester_sheet.txt | sed -n "${line_number}p" | grep -aob ' ;CE:')
+			pos_letter_coef_de=$(echo "$pos_number_coefede" | sed  's/: ;CE.*//')
+			coef_de=$(sed -E "${line_number}s/(.{$pos_letter_coef_de})/& ${rep_coef_de}/" semester_sheet.txt)
+			cat /dev/null > semester_sheet.txt
+			echo "$coef_de" >> semester_sheet.txt
+
+		else
+			No_de=N
+                        ede=$(sed -E "${line_number}s/(.{$pos_letter_de})/& ${No_de}/" semester_sheet.txt)
+                        cat /dev/null > semester_sheet.txt
+                        echo "$ede" >> semester_sheet.txt
+
+			rep_coef_de=N
+                        pos_number_coefede=$( cat semester_sheet.txt | sed -n "${line_number}p" | grep -aob ' ;CE:')
+                        pos_letter_coef_de=$(echo "$pos_number_coefede" | sed  's/: ;CE.*//')
+                        coef_de=$(sed -E "${line_number}s/(.{$pos_letter_coef_de})/& ${rep_coef_de}/" semester_sheet.txt)
+                        cat /dev/null > semester_sheet.txt
+                        echo "$coef_de" >> semester_sheet.txt
+		fi
+
+		pos_number_ce=$( cat semester_sheet.txt | sed -n "${line_number}p" | grep -aob ' ;ECE:')
+        pos_letter_ce=$(echo "$pos_number_de" | sed  's/: ;ECE.*//')
+		echo "Do you want add CE ? TAP Y or N"
+		read rep_ce
+		if [[ $rep_ce =~ ^[Yy]$ ]]
+		then
+			Yes_ce=Y
+			ece=$(sed -E "${line_number}s/(.{$pos_letter_ce})/& ${Yes_ce}/" semester_sheet.txt)
+			cat /dev/null > semester_sheet.txt
+	        echo "$ece" >> semester_sheet.txt
+
+			echo -e "\nEnter coef  : "
+			read rep_coef_ce
+			pos_number_coefece=$( cat semester_sheet.txt | sed -n "${line_number}p" | grep -aob ' ;FINISH')
+			pos_letter_coef_ce=$(echo "$pos_number_coefece" | sed  's/: ;FINISH.*//')
+			coef_ce=$(sed -E "${line_number}s/(.{$pos_letter_coef_ce})/& ${rep_coef_ce}/" semester_sheet.txt)
+			cat /dev/null > semester_sheet.txt
+			echo "$coef_ce" >> semester_sheet.txt
+
+		else
+			No_ce=N
+                        ece=$(sed -E "${line_number}s/(.{$pos_letter_ce})/& ${No_ce}/" semester_sheet.txt)
+                        cat /dev/null > semester_sheet.txt
+                        echo "$ece" >> semester_sheet.txt
+
+			rep_coef_ce=N
+                        pos_number_coefece=$( cat semester_sheet.txt | sed -n "${line_number}p" | grep -aob ' ;FINISH')
+                        pos_letter_coef_ce=$(echo "$pos_number_coefece" | sed  's/: ;FINISH.*//')
+                        coef_ce=$(sed -E "${line_number}s/(.{$pos_letter_coef_ce})/& ${rep_coef_ce}/" semester_sheet.txt)
+                        cat /dev/null > semester_sheet.txt
+                        echo "$coef_ce" >> semester_sheet.txt
 		fi
 
     	else
