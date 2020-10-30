@@ -8,12 +8,12 @@ mkdir -m 700 S$sn
 
 echo -e "\nEnter Education Unit"
 read ue
-echo -n "UE:$ue;" >> semester_sheet.txt
+echo -n "UE:$ue ;" >> semester_sheet.txt
 mkdir S$sn/$ue
 
 echo -e "\nEnter Coefficiant of this Education Unit"
 read coefue
-echo -n "COEFUE:$coefue;" >> semester_sheet.txt
+echo -n "COEFUE:$coefue ;" >> semester_sheet.txt
 
 
 echo -e "\nHow many modules do you want to add?"
@@ -32,14 +32,14 @@ for ((i = 1 ; i <= $x ; i++)); do
         then
                 echo -e "\nEnter Module name"
                 read mo
-		cd S$sn
-		mkdir $ue/$mo
-		cd - > /dev/null
+        cd S$sn
+        mkdir $ue/$mo
+        cd - > /dev/null
                 echo -n "$mo ;" >> semester_sheet.txt
         else
                 echo -e "\nEnter Module name"
                 read mo
-		cd S$sn
+        cd S$sn
                 mkdir $ue/$mo
                 cd - > /dev/null
                 echo -n "$mo " >> semester_sheet.txt
@@ -93,8 +93,8 @@ echo -n "EMAIL:$email ;" >> semester_sheet.txt
 
 #cmpt=$(grep -o -P '(?<=MO:).*(?=;COEF:)' semester_sheet.txt | wc -w)
 
-fline=$(grep -o -P '(?<=UE:'$UE').*(?=COEF)' semester_sheet.txt)
-list=$(echo $fline | sed 's/.*MO://; s/;COEF.*//')
+fline=$(grep -o -P '(?<=UE:'$UE').*(?=;COEF:)' semester_sheet.txt)
+list=$(echo $fline | sed 's/.*MO://; s/;COEF.*//') #find module
 
 V=($list)
 
@@ -111,10 +111,10 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
         if [[ $x -eq $[$i+1] ]]
         then
-		mkdir S$sn/$ue/${V[i]}/TP
+        mkdir S$sn/$ue/${V[i]}/TP
                 echo -n "Y ;" >> semester_sheet.txt
         else
-		mkdir S$sn/$ue/${V[i]}/TP
+        mkdir S$sn/$ue/${V[i]}/TP
                 echo -n "Y " >> semester_sheet.txt
         fi
 else
@@ -128,12 +128,12 @@ fi
 done
 
 
-echo -n "ETP:;" >> semester_sheet.txt
+echo -n "ETP: ;" >> semester_sheet.txt
 
 
 echo -n "COEFTP:" >> semester_sheet.txt
 flinetp=$(grep -o -P '(?<=UE:'$UE').*(?=COEFTP)' semester_sheet.txt)
-listyn=$(echo $fline | sed 's/.*;TP://; s/;ETP:.*//')
+listyn=$(echo $flinetp | sed 's/.*;TP://; s/;ETP:.*//')
 cmptyntp=$(echo $listyn | wc -w)
 
 K=($listyn)
@@ -146,23 +146,23 @@ for ((i = 0 ; i < $cmptyntp ; i++)); do
 
 if [[ "${K[i]}" = "Y" ]]
 then
-	if [[ $cmptyntp -eq $[$i+1] ]]
-	then
-		echo -e "\nEnter coef :"
-		read coeftp
-		echo -n "$coeftp ;" >> semester_sheet.txt
-	else
-		echo -e "\nEnter coef :"
+    if [[ $cmptyntp -eq $[$i+1] ]]
+    then
+        echo -e "\nEnter coef :"
+        read coeftp
+        echo -n "$coeftp ;" >> semester_sheet.txt
+    else
+        echo -e "\nEnter coef :"
                 read coeftp
                 echo -n "$coeftp " >> semester_sheet.txt
-	fi
+    fi
 else
-	if [[ $cmptyntp -eq $[$i+1] ]]
-	then
-		echo -n "X ;" >> semester_sheet.txt
-	else
-		echo -n "X " >> semester_sheet.txt
-	fi
+    if [[ $cmptyntp -eq $[$i+1] ]]
+    then
+        echo -n "X ;" >> semester_sheet.txt
+    else
+        echo -n "X " >> semester_sheet.txt
+    fi
 fi
 done
 
@@ -234,7 +234,7 @@ then
                 echo -n "$coeftd " >> semester_sheet.txt
         fi
 else
-        if [[ $cmptyn -eq $[$i+1] ]]
+        if [[ $cmptyntd -eq $[$i+1] ]]
         then
                 echo -n "X ;" >> semester_sheet.txt
         else
@@ -310,10 +310,10 @@ then
                 echo -n "$coefcm " >> semester_sheet.txt
         fi
 else
-	if [[ $cmptyn -eq $[$i+1] ]]
+    if [[ $cmptyncm -eq $[$i+1] ]]
         then
-       	        echo -n "X ;" >> semester_sheet.txt
- 	else
+                echo -n "X ;" >> semester_sheet.txt
+    else
                 echo -n "X " >> semester_sheet.txt
         fi
 fi
@@ -385,7 +385,7 @@ then
                 echo -n "$coefde " >> semester_sheet.txt
         fi
 else
-	if [[ $cmptyn -eq $[$i+1] ]]
+    if [[ $cmptynde -eq $[$i+1] ]]
         then
                 echo -n "X ;" >> semester_sheet.txt
         else
@@ -461,7 +461,7 @@ then
                 echo -n "$coefce " >> semester_sheet.txt
         fi
 else
-        if [[ $cmptyn -eq $[$i+1] ]]
+        if [[ $cmptynce -eq $[$i+1] ]]
         then
                 echo -n "X ;FINISH" >> semester_sheet.txt
         else
