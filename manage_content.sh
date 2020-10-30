@@ -192,7 +192,7 @@ then
 		fi
 
 		pos_number_ce=$( cat semester_sheet.txt | sed -n "${line_number}p" | grep -aob ' ;ECE:')
-        pos_letter_ce=$(echo "$pos_number_de" | sed  's/: ;ECE.*//')
+        pos_letter_ce=$(echo "$pos_number_ce" | sed  's/: ;ECE.*//')
 		echo "Do you want add CE ? TAP Y or N"
 		read rep_ce
 		if [[ $rep_ce =~ ^[Yy]$ ]]
