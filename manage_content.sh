@@ -24,6 +24,9 @@ then
    	echo "2. MO"
 	echo "3. TD"
 	echo "4. TP"
+	echo "5. CM"
+	echo "6. DE"
+	echo "7. CE"
     	echo "Exit"
     	read rep
     	if [[ $rep -eq 1 ]]
