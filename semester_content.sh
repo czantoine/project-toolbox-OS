@@ -478,13 +478,3 @@ else
         fi
 fi
 done
-<<<<<<< HEAD
-s
-=======
-
-
-
-
-
-
->>>>>>> afe5ea0013549735af6c14587b7dc72bc0b365ec
