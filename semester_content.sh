@@ -11,10 +11,11 @@ username=$USER
 username_group=$(id -Gn fred)
 echo "S$sn : $username_group" >> semester.conf
 
+
 echo -e "\nEnter Education Unit"
 read ue
 echo -n "UE:$ue ;" >> semester_sheet.txt
-mkdir S$sn/$ue
+mkdir -m 700 S$sn/$ue
 
 echo -e "\nEnter Coefficiant of this Education Unit"
 read coefue
@@ -37,15 +38,15 @@ for ((i = 1 ; i <= $x ; i++)); do
         then
                 echo -e "\nEnter Module name"
                 read mo
-        cd S$sn
-        mkdir $ue/$mo
-        cd - > /dev/null
+		cd S$sn
+		mkdir -m 700 $ue/$mo
+		cd - > /dev/null
                 echo -n "$mo ;" >> semester_sheet.txt
         else
                 echo -e "\nEnter Module name"
                 read mo
-        cd S$sn
-                mkdir $ue/$mo
+		cd S$sn
+                mkdir -m 700 $ue/$mo
                 cd - > /dev/null
                 echo -n "$mo " >> semester_sheet.txt
         fi
@@ -116,10 +117,10 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
         if [[ $x -eq $[$i+1] ]]
         then
-        mkdir S$sn/$ue/${V[i]}/TP
+		mkdir -m 700 S$sn/$ue/${V[i]}/TP
                 echo -n "Y ;" >> semester_sheet.txt
         else
-        mkdir S$sn/$ue/${V[i]}/TP
+		mkdir -m 700 S$sn/$ue/${V[i]}/TP
                 echo -n "Y " >> semester_sheet.txt
         fi
 else
@@ -151,23 +152,23 @@ for ((i = 0 ; i < $cmptyntp ; i++)); do
 
 if [[ "${K[i]}" = "Y" ]]
 then
-    if [[ $cmptyntp -eq $[$i+1] ]]
-    then
-        echo -e "\nEnter coef :"
-        read coeftp
-        echo -n "$coeftp ;" >> semester_sheet.txt
-    else
-        echo -e "\nEnter coef :"
+	if [[ $cmptyntp -eq $[$i+1] ]]
+	then
+		echo -e "\nEnter coef :"
+		read coeftp
+		echo -n "$coeftp ;" >> semester_sheet.txt
+	else
+		echo -e "\nEnter coef :"
                 read coeftp
                 echo -n "$coeftp " >> semester_sheet.txt
-    fi
+	fi
 else
-    if [[ $cmptyntp -eq $[$i+1] ]]
-    then
-        echo -n "X ;" >> semester_sheet.txt
-    else
-        echo -n "X " >> semester_sheet.txt
-    fi
+	if [[ $cmptyntp -eq $[$i+1] ]]
+	then
+		echo -n "X ;" >> semester_sheet.txt
+	else
+		echo -n "X " >> semester_sheet.txt
+	fi
 fi
 done
 
@@ -192,10 +193,10 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
         if [[ $x -eq $[$i+1] ]]
         then
-                mkdir S$sn/$ue/${VTD[i]}/TD
+                mkdir -m 700 S$sn/$ue/${VTD[i]}/TD
                 echo -n "Y ;" >> semester_sheet.txt
         else
-                mkdir S$sn/$ue/${VTD[i]}/TD
+                mkdir -m 700 S$sn/$ue/${VTD[i]}/TD
                 echo -n "Y " >> semester_sheet.txt
         fi
 else
@@ -269,10 +270,10 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
         if [[ $x -eq $[$i+1] ]]
         then
-                mkdir S$sn/$ue/${VCM[i]}/CM
+                mkdir -m 700 S$sn/$ue/${VCM[i]}/CM
                 echo -n "Y ;" >> semester_sheet.txt
         else
-                mkdir S$sn/$ue/${VCM[i]}/CM
+                mkdir -m 700 S$sn/$ue/${VCM[i]}/CM
                 echo -n "Y " >> semester_sheet.txt
         fi
 else
@@ -315,10 +316,10 @@ then
                 echo -n "$coefcm " >> semester_sheet.txt
         fi
 else
-    if [[ $cmptyncm -eq $[$i+1] ]]
+	if [[ $cmptyncm -eq $[$i+1] ]]
         then
-                echo -n "X ;" >> semester_sheet.txt
-    else
+       	        echo -n "X ;" >> semester_sheet.txt
+ 	else
                 echo -n "X " >> semester_sheet.txt
         fi
 fi
@@ -343,10 +344,10 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
         if [[ $x -eq $[$i+1] ]]
         then
-                mkdir S$sn/$ue/${VDE[i]}/DE
+                mkdir -m 700 S$sn/$ue/${VDE[i]}/DE
                 echo -n "Y ;" >> semester_sheet.txt
         else
-                mkdir S$sn/$ue/${VDE[i]}/DE
+                mkdir -m 700 S$sn/$ue/${VDE[i]}/DE
                 echo -n "Y " >> semester_sheet.txt
         fi
 else
@@ -390,7 +391,7 @@ then
                 echo -n "$coefde " >> semester_sheet.txt
         fi
 else
-    if [[ $cmptynde -eq $[$i+1] ]]
+	if [[ $cmptynde -eq $[$i+1] ]]
         then
                 echo -n "X ;" >> semester_sheet.txt
         else
@@ -420,10 +421,10 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
         if [[ $x -eq $[$i+1] ]]
         then
-                mkdir S$sn/$ue/${VCE[i]}/CE
+                mkdir -m 700 S$sn/$ue/${VCE[i]}/CE
                 echo -n "Y ;" >> semester_sheet.txt
         else
-                mkdir S$sn/$ue/${VCE[i]}/CE
+                mkdir -m 700 S$sn/$ue/${VCE[i]}/CE
                 echo -n "Y " >> semester_sheet.txt
         fi
 else
@@ -474,3 +475,9 @@ else
         fi
 fi
 done
+
+
+
+
+
+
