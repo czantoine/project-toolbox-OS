@@ -8,7 +8,7 @@ mkdir -m 700 S$sn
 
 ##### add user associate semester ####
 username=$USER
-username_group=$(id -Gn fred)
+username_group=$(id -Gn $username)
 echo "S$sn : $username_group" >> semester.conf
 
 
