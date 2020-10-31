@@ -6,6 +6,11 @@ echo -e "\nEnter semester number"
 read sn
 mkdir -m 700 S$sn
 
+##### add user associate semester ####
+username=$USER
+username_group=$(id -Gn fred)
+echo "S$sn : $username_group" >> semester.conf
+
 echo -e "\nEnter Education Unit"
 read ue
 echo -n "UE:$ue ;" >> semester_sheet.txt
