@@ -8,7 +8,10 @@ mkdir -m 700 S$sn
 
 ##### add user associate semester ####
 username=$USER
+NOW=$(date +"%d-%m-%Y-%r")
 username_group=$(id -Gn $username)
+echo "################################" >> semester.conf
+echo "Write at : $NOW" >> semester.conf
 echo "S$sn : $username_group" >> semester.conf
 
 
