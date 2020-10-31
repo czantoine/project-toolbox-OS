@@ -65,6 +65,13 @@ then
         chmod 710 $go_s/$go_ue/$go_mo
         chmod 770 $go_s/$go_ue/$go_mo/$go_c
 
+	username=$USER
+	NOW=$(date +"%d-%m-%Y-%r")
+	username_group=$(id -Gn $username)
+	echo "################################" >> rwx.conf
+	echo "Write at : $NOW" >> rwx.conf
+	echo "$username add : for $group_add $go_s/$go_ue/$go_mo/$go_c" >> rwx.conf
+
 	elif [[ $rep = File ]] || [[ $rep = file ]] || [[ $rep == f ]]
 	then
 
@@ -79,6 +86,14 @@ then
         chmod 710 $go_s/$go_ue/$go_mo
         chmod 710 $go_s/$go_ue/$go_mo/$go_c
 	chmod 770 $go_s/$go_ue/$go_mo/$go_c/$file
+
+	username=$USER
+        NOW=$(date +"%d-%m-%Y-%r")
+        username_group=$(id -Gn $username)
+        echo "################################" >> rwx.conf
+        echo "Write at : $NOW" >> rwx.conf
+        echo "$username add : for $group_add $go_s/$go_ue/$go_mo/$go_c" >> rwx.conf
+
 	else
 		echo "error"
 	fi
