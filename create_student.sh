@@ -1,5 +1,5 @@
 #!/bin/bash
-#create student user
+cd --
 
 echo -e "\nAdd new student user"
 
@@ -13,15 +13,17 @@ echo -e "\nEnter group"
 read group
 
 if [[ $REPLY =~ ^[Yy]$ ]]
-then 
-        read group
+then
+	read group
 fi
 
 sudo groupadd $group
 
 sudo useradd $username --groups student,$group
-sudo usermod -d /home/antoine/Operating_system/Projet/toolbox/student/ $username
-sudo chmod 755 /home/antoine/Operating_system/Projet/toolbox/student/ $username
+sudo mkdir -p /home/$username
+sudo chown $username:$username /home/$username
+sudo usermod -d /home/$username $username
+#sudo chmod 777 /home/$username $username
 
 echo -e "\nSet password for this student"
 sudo passwd $username

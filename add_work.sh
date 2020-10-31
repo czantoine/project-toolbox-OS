@@ -16,5 +16,5 @@ touch $go_s/$go_ue/$go_mo/$go_c/$name_file
 
 touch $go_s/$go_ue/$go_mo/$go_c/progression.info
 
-echo "$name_file : 0%" >> $go_s/$go_ue/$go_mo/$go_c/progression.info
+echo "$name_file : 00%" >> $go_s/$go_ue/$go_mo/$go_c/progression.info
 
