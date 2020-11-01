@@ -6,5 +6,6 @@ set title "Work progress"
 set ylabel "Pourcentage"
 set xtic out rotate by 45
 set xtic font ",12"
+set yrange [0:100]
 set output "test.html"
 plot "ll.txt" using 2:xtic(1) title "Avancement"
