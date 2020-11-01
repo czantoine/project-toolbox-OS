@@ -22,6 +22,14 @@ then
 	echo -e "\n What is the new grade /20 ?"
 	read grade
 	echo "$name_file: $grade/20" >> grade.info
+	
+	cd --
+	NOW=$(date +"%d-%m-%Y-%r")
+	echo "################################" >> grade.conf
+	echo "New grade :" >> grade.conf
+	echo "Write at : $NOW" >> grade.conf
+	echo "Directory : $go_s/$go_ue/$go_mo/$go_c" >> grade.conf
+	echo "Grade added : $name_file: $grade/20" >> grade.conf
 
 elif [[ $rep = Edit ]] || [[ $rep = edit ]] || [[ $rep == e ]]
 then
@@ -41,6 +49,15 @@ then
 	rep2=$(sed "${line_number}s/^\( *[^ ]\+\)/\1 $new_grade\/20/" grade.info)
 	cat /dev/null > grade.info
 	echo "$rep2" >> grade.info
+
+	cd --
+        NOW=$(date +"%d-%m-%Y-%r")
+        echo "################################" >> grade.conf
+        echo "Grade editing :" >> grade.conf
+        echo "Write at : $NOW" >> grade.conf
+        echo "Directory : $go_s/$go_ue/$go_mo/$go_c" >> grade.conf
+        echo "Grade added : $name_file: $new_grade/20" >> grade.conf
+
 else
 	echo "error"
 fi
