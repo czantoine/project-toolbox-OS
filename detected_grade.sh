@@ -2,6 +2,8 @@
 
 user=$USER
 
+email_student_grade=$( cat .email )
+
 directory=$(find /home/$user -name "grade.info")
 uu=$(echo $directory | tr " " "\n")
 cmpt_uu=$(echo $uu | wc -w)
