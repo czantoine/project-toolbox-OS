@@ -1,17 +1,30 @@
 #!/bin/bash
 
+user=$USER
+
+echo -e "\n What is the student you want go?"
+read student
+
 echo -e "\nWhat is the semester you want archive ?"
 read sem
 
-echo -e "\nWhat is the user name you want send archive ?"
-read user_s
+cd /home/$student/
+
+echo -e "\n What is name of user you want send archive ?"
+read us
 
 echo -e "\nWhat is the ip address  you want send archive ?"
 read ip_s
 
-tar cf archive_$sem.tar $sem
+sudo tar cf $sem.tar $sem
 
-scp archive_$sem.tar $user_s@$ip_s:/home/$user_s
+sudo cp $sem.tar /home/$user
+
+cd /home/$user
+pwd
+sudo chmod 700 $sem.tar
+pwd
+sudo scp $sem.tar $us@$ip_s:/home/$us
 
 echo -e "\n Send it !"
 

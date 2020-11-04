@@ -32,7 +32,7 @@ cp manage_pourcentage.sh /home/$username
 cp gnuplot.sh /home/$username
 cp question.remark.sh /home/$username
 cp send.sh /home/$username
-cp submit_work.sh /home/$username 
+cp submit_work.sh /home/$username
 
 touch /home/$username/.email
 echo "$email" >> /home/$username/.email
