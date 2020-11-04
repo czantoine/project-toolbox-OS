@@ -5,8 +5,7 @@ ext=0
 while [ "$ext" = 0 ]; do
 
 echo -e "\n1. Show all user"
-echo "2. Associate user on my cours"
-echo "3. Associate group on my cours"
+echo "2. Associate group on my cours"
 echo "0. Exit"
 
 echo "Enter your choice"
@@ -25,18 +24,8 @@ then
 	show=$(groups $user)
 	echo -e "\n$show"
 
-elif [[ $choice -eq 2 ]]
-then
-	echo -e "\n What is semester you want go ?"
-	read go_s
-	echo -e "\n What is UE you want go ?"
-	read go_ue
-	echo -e "\n What is MO you want go ?"
-	read go_mo
-	echo -e "\n What is course you want go ?"
-	read go_c
 
-elif [[ $choice -eq 3 ]]
+elif [[ $choice -eq 2 ]]
 then
 	echo -e "\n What is semester you want go ?"
         read go_s
