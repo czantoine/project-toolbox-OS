@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo -e "\n What is the student you want go?"
+read student
+
 echo -e "\n Add or edit grade:"
 echo -e "\n What is semester you want go ?"
 read go_s
@@ -12,7 +15,7 @@ read go_c
 echo -e "\n What is name of this file ?"
 read name_file
 
-cd $go_s/$go_ue/$go_mo/$go_c
+cd /home/$student/$go_s/$go_ue/$go_mo/$go_c
 
 echo -e "\n You want add or edit grade ? "
 read rep
@@ -22,8 +25,8 @@ then
 	echo -e "\n What is the new grade /20 ?"
 	read grade
 	echo "$name_file: $grade/20" >> grade.info
-	
-	cd --
+
+	cd /home/$student
 	NOW=$(date +"%d-%m-%Y-%r")
 	echo "################################" >> grade.conf
 	echo "New grade :" >> grade.conf
@@ -50,7 +53,7 @@ then
 	cat /dev/null > grade.info
 	echo "$rep2" >> grade.info
 
-	cd --
+	cd /home/$student
         NOW=$(date +"%d-%m-%Y-%r")
         echo "################################" >> grade.conf
         echo "Grade editing :" >> grade.conf

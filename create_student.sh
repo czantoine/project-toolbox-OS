@@ -18,14 +18,22 @@ then
 fi
 
 sudo groupadd $group
-sudo groupadd student
+
 sudo useradd $username --groups student,$group
 sudo mkdir -p /home/$username
 sudo chown $username:$username /home/$username
 sudo usermod -d /home/$username $username
-#sudo chmod 777 /home/$username $username
 
 cp semester_content.sh /home/$username
+cp manage_content.sh /home/$username
+cp manage_rwx.sh /home/$username
+cp add.work.sh /home/$username
+cp manage_pourcentage.sh /home/$username
+cp gnuplot.sh /home/$username
+cp question.remark.sh /home/$username
+cp send.sh /home/$username
+cp submit_work.sh /home/$username 
+
 touch /home/$username/.email
 echo "$email" >> /home/$username/.email
 
