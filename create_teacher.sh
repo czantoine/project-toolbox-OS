@@ -18,6 +18,7 @@ then
 fi
 
 sudo groupadd $group
+sudo groupadd teacher
 
 sudo useradd $username --groups teacher,$group
 sudo mkdir -p /home/$username

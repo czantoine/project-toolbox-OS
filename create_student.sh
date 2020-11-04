@@ -18,7 +18,7 @@ then
 fi
 
 sudo groupadd $group
-
+sudo groupadd student
 sudo useradd $username --groups student,$group
 sudo mkdir -p /home/$username
 sudo chown $username:$username /home/$username

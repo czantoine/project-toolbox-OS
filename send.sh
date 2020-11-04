@@ -35,15 +35,9 @@ read rgo_c
 
 if [ -d "$go_s/$go_ue/$go_mo/$go_c/" ]
 then
-    if [ -d "$go_s/$go_ue/$go_mo/$go_c/name_file" ]
-	then
-		cp $go_s/$go_ue/$go_mo/$go_c/$name_file /home/$tt/$rgo_s/$rgo_ue/$rgo_mo/$rgo_c
-		echo -e "\nFile have been send and received by $user"
-		exit 1
-	else
-    		echo "Error: File  $go_s/$go_ue/$go_mo/$go_c/$name_file does not exists."
-		exit 1
-	fi
+	cp $go_s/$go_ue/$go_mo/$go_c/$name_file /home/$user/$rgo_s/$rgo_ue/$rgo_mo/$rgo_c
+	echo -e "\nFile have been send and received for $user"
+	exit 1
 else
     echo "Error: Directory $go_s/$go_ue/$go_mo/$go_c/ does not exists."
 fi
