@@ -13,7 +13,7 @@ ext=0
 
 while [ "$ext" = 0 ]; do
 
-echo -e "\nWhat do you want to do ? Insert ADD or DELETE : "
+echo -e "\nWhat do you want to do ? Insert ADD or MODIFY : "
 read adel
 
 if [[ $adel = add ]] || [[ $adel = ADD ]]
@@ -225,15 +225,15 @@ then
 		fi
 
     	else
-		echo "Program Shutdown"
+		echo "Error option: Program Shutdown"
         	ext=1
    	 fi
 
 
 
-elif [[ $adel = delete ]] || [[ $adel = DELETE ]]
+elif [[ $adel = modify ]] || [[ $adel = MODIFY ]]
 then
-    echo -e "\nWhat do you want to delete ?"
+    echo -e "\nWhat do you want to modify ?"
     echo "Enter your choice"
     echo "1. A Semester"
     echo "2. A UE or a Module or a Teaching Methods"
@@ -247,7 +247,7 @@ then
 	read semname
 
 
-	echo -e "\nWhat do you want to delete in this Semester?"
+	echo -e "\nWhat do you want to modify in this Semester?"
 	echo "Enter your choice"
 	echo "1. The Semester"
 
@@ -256,19 +256,19 @@ then
 	read repsem
 	if [[ $repsem -eq 1 ]]
 	then
-	    #Suppression Semester
-	    echo "Suppression Semester"
+	    #Modify Semester
+	    echo "Modification Semester"
 	else
-	    echo "Program Shutdown"
+	    echo "Error option: Program Shutdown"
             ext=1
 	fi
 
     elif [[ $rep -eq 2 ]]
     then
-	echo -e "\nWhich Semester do you want to delete something?"
+	echo -e "\nWhich Semester do you want to modify something?"
         read semname
 
-	echo -e "\nWhat do you want to delete in this Semester"
+	echo -e "\nWhat do you want to modify in this Semester"
 	echo "Enter your choice"
 	echo "1. A UE"
 	echo "2. A Module or a Teaching Methods"
@@ -281,7 +281,8 @@ then
 	    echo -e "\nWhich UE do you want to select?"
 	    read uename
 
-	    echo -e "\nWhat do you want to delete in this UE?"
+
+	    echo -e "\nWhat do you want to modify in this UE?"
 	    echo "Enter your choice"
 	    echo "1. The UE"
 	    echo "2. The Coef of the UE"
@@ -289,26 +290,35 @@ then
 	    echo "Exit"
 
 	   read repue
-	   if [[ $repue -eq 1 ]]
+	   if [[ $repue -eq 1 ]]	#Modify UE
            then
-                #Suppression UE
-		echo "Suppression UE"
 
-           elif [[ $repue -eq 2 ]]
-           then 
-                #Suppression COEF UE
-		echo "Suppression coef UE "
+		fline=$(grep -o -P '(?<=UE:'$uename').*(?=;FINISH)' semester_sheet.txt)
+		list=$(echo $fline | sed 's/.*UE://; s/;COEFUE.*//')
+
+
+		echo -e "\nInsert the new name of the UE?"
+		read newuename
+
+		modue=$(sed 's/'$unname'/'$newuename'/' semester.txt)
+		cat /dev/null > semester_content.txt
+		echo -n "$modue" >> semester_content.txt
+
+           elif [[ $repue -eq 2 ]]	#Modify coef UE
+           then
+
+		echo "You cannot modify the coef af the UE!"
            else
-               echo "Program Shutdown"
+               echo "Error option: Program Shutdown"
                ext=1
            fi
 
 	elif [[ $rep2 -eq 2 ]]
 	then
-	    echo -e "\nWhich UE do you want to delete something?"
+	    echo -e "\nWhich UE do you want to modify something?"
             read uename
 
-	    echo -e "\nWhat do you want to delete in this UE?"
+	    echo -e "\nWhat do you want to modify in this UE?"
 	    echo "Enter your choice"
 	    echo "1. A Module"
 	    echo "2. A Teaching Methods"
@@ -320,9 +330,8 @@ then
 	    then
 		echo -e "\nWhich Module do you want to select?"
 		read modname
-                #teachm=$uename/$modname/$tmname
 
-                echo -e "\nWhat do you want to delete in this Module?"
+                echo -e "\nWhat do you want to modify in this Module?"
                 echo "Enter your choice"
                 echo "1. The Module"
                 echo "2. The Coef of the Module"
@@ -330,24 +339,31 @@ then
 		echo "Exit"
 
 		read repmod
-		if [[ $repmod -eq 1 ]]
+		if [[ $repmod -eq 1 ]]		#Modify Module
 		then
-		    #Suppression Module
-		    echo "Suppression Module"
 
-		elif [[ $repmod -eq 1 ]]
+		    fline=$(grep -o -P '(?<=UE:'$uename').*(?=;FINISH)' semester_sheet.txt)
+                    list=$(echo $fline | sed 's/.*MO://; s/;COEF.*//')
+
+		    V=($list)
+
+                    echo -e "\nInsert the new name of the Module?"
+                    read newmodname
+
+                    modmod=$(sed 's/'$modname'/'$newmodname'/' semester_sheet.txt)
+                    cat /dev/null > semester_sheet.txt
+                    echo -n "$modmod" >> semester_sheet.txt
+
+
+		elif [[ $repmod -eq 2 ]]	#Modify coef Module
 		then
-		    #Suppression coef Module
-		    echo "Suppression coef module"
 
+		    echo "\nYou cannot modify the coef of the module!"
 
 		else
-		    echo "Program Shutdown"
+		    echo "Error option: Program Shutdown"
 		    ext=1
 		fi
-		#teachm=$uename/$modname/$tmname/COEF$tmname
-		# Supression COEF + EVAL
-		#teachm=$uename/$modname/$tmname/E$tmname
 
 
 	    elif [[ $rep3 -eq 2 ]]
@@ -358,9 +374,9 @@ then
 
 	        echo -e "\nWhich Teaching Methods do you want to select?"
 		read tmname
-		teachm=$uename/$modname/$tmname/COEF$tmname
 
-		echo -e "\nWhat do you want to delete in this Teaching Methods?"
+
+		echo -e "\nWhat do you want to modify in this Teaching Methods?"
                 echo "Enter your choice"
                 echo "1. The Teaching Methods"
                 echo "2. The Coef of the Teaching Methods"
@@ -368,39 +384,39 @@ then
 		echo "Exit"
 		read repteach
 
-		if [[ $repteach -eq 1 ]]
+		if [[ $repteach -eq 1 ]]	#Modify Teaching Methods
 		then
-		    #Suppression Teaching Methods
-		    echo "Suppression Teaching Methods"
 
-		elif [[ $repteach -eq 2 ]]
-		then 
-		    #Suppression coef Teaching Methods
-		    echo "Suppression coef of the Teaching Methods"
+                    echo "You can't modify the name of a teaching methods. It is only addable or deletable" 
+
+		elif [[ $repteach -eq 2 ]]	#Modify coef Teaching Methods
+		then
+
+                    echo "You cannot modify the coef of the teaching methods!"
 
 		else
-		    echo "Program Shutdown"
+		    echo "Error option: Program Shutdown"
 		    ext=1
 		fi
 
 	    else
-		echo "Program Shutdown"
+		echo "Error option: Program Shutdown"
         	ext=1
 	    fi
 
     	else
-	    echo "Program Shutdown"
+	    echo "Error option: Program Shutdown"
             ext=1
         fi
 
     else
-    	echo "Program Shutdown"
+    	echo "Error option: Program Shutdown"
     	ext=1
     fi
 
 
 else
-    echo "no"
+    echo "Error"
 fi
 
 done
