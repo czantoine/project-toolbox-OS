@@ -25,6 +25,9 @@ sudo mkdir -p /home/$username
 sudo chown $username:$username /home/$username
 sudo usermod -d /home/$username $username
 
+touch /home/$username/.email
+echo "$email" >> /home/$username/.email
+
 echo -e "\nSet password for this teachery"
 sudo passwd $username
 
