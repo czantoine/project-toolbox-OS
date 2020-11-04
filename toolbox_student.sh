@@ -18,6 +18,9 @@ echo "3. Add a group on my course or file"
 echo "4. Create a new work"
 echo "5. Manage my pourcentage file advencement"
 echo "6. Show workflow and grade on histogram"
+echo "7. Send questions & remark"
+echo "8. Send file at other student"
+echo "9. Submit work"
 echo "0. Exit"
 
 echo "Enter your choice"
@@ -52,6 +55,21 @@ elif [[ $choice -eq 6 ]]
 then
 
 bash gnuplot.sh
+
+elif [[ $choice -eq 7 ]]
+then
+
+bash question.remark.sh
+
+elif [[ $choice -eq 8 ]]
+then
+
+send.sh
+
+elif [[ $choice -eq 9 ]]
+then
+
+submit_work.sh
 
 else
 	exit 1
