@@ -24,6 +24,7 @@ sudo mkdir -p /home/$username
 sudo chown $username:$username /home/$username
 sudo usermod -d /home/$username $username
 
+cp toolbox_student.sh /home/$username
 cp semester_content.sh /home/$username
 cp manage_content.sh /home/$username
 cp manage_rwx.sh /home/$username
