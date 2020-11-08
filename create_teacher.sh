@@ -25,6 +25,9 @@ sudo mkdir -p /home/$username
 sudo chown $username:$username /home/$username
 sudo usermod -d /home/$username $username
 
+cp toolbox_teacher.sh /home/$username
+cp grade.sh /home/$username
+
 touch /home/$username/.email
 echo "$email" >> /home/$username/.email
 mkdir -m 770 /home/$username/ARCHIVE
