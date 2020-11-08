@@ -29,7 +29,8 @@ elif [[ $choice -eq 3 ]]
 then
 	sudo apt install ssmtp
 	sudo apt install mailutils
-
+	cd file_system
+	sudo cat ssmtp.conf > /etc/ssmtp/ssmtp.conf
 elif [[ $choice -eq 4 ]]
 then
 	sudo apt update
