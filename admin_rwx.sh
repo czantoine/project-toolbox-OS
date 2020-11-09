@@ -8,6 +8,7 @@ while [ "$ext" = 0 ]; do
 echo -e "\n1. Show all user"
 echo "2. Associate user on a cours"
 echo "3. Associate group on a cours"
+echo "4. Create new group for new team mate"
 echo "0. Exit"
 
 echo "Enter your choice"
@@ -156,6 +157,26 @@ then
 	else
 		echo "error"
 	fi
+elif [[ $choice -eq 4 ]]
+then
+	echo -e "\n Create a new group team mate :"
+        read new_team_mate
+        sudo groupadd $new_team_mate
+        echo "Who many people you want add in new group team mate ?"
+        read digit
+
+        for(( i = 0 ; i < digit ; i++ )); do
+                echo -e "\n What is username of team mate ?"
+                read mate
+                sudo usermod -g $new_team_mate $mate
+
+		cd $che
+        	NOW=$(date +"%d-%m-%Y-%r")
+        	echo "################################" >> rwx.conf
+        	echo "Write at : $NOW" >> rwx.conf
+        	echo "$mate have been add to new group : $new_team_mate" >> rwx.conf
+
+        done
 else
 	exit 1
 fi
