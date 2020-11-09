@@ -1,5 +1,4 @@
 #!/bin/bash
-cd--
 
 echo -e "\nAdd new teacher user"
 
@@ -25,14 +24,17 @@ sudo mkdir -p /home/$username
 sudo chown $username:$username /home/$username
 sudo usermod -d /home/$username $username
 
-cp toolbox_teacher.sh /home/$username
-cp grade.sh /home/$username
+sudo cp toolbox_teacher.sh /home/$username
+sudo cp grade.sh /home/$username
 
-touch /home/$username/.email
-echo "$email" >> /home/$username/.email
-mkdir -m 770 /home/$username/ARCHIVE
+touch .email
+echo "$email" >> .email
+sudo cp .email /home/$username
+rm .email
+
+sudo mkdir -m 770 /home/$username/ARCHIVE
 cd /home/$username
-chgrp $group ARCHIVE
+sudo chgrp $group ARCHIVE
 
 echo -e "\nSet password for this teachery"
 sudo passwd $username
