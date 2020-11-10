@@ -14,10 +14,12 @@ while [ "$ext" = 0 ]; do
 
 echo "1. Create new Student"
 echo "2. Create new Teacher"
-echo "3. Manage rwx on group or owner"
-echo "4. Scheduling question remark"
-echo "5. Scheduling grade"
-echo "6. Install ssh,ssmtp,gnuplot"
+echo "3. Create new Student with automatic list"
+echo "4. Create new Teacher with automatic list"
+echo "5. Manage rwx on group or owner"
+echo "6. Scheduling question remark"
+echo "7. Scheduling grade"
+echo "8. Install ssh,ssmtp,gnuplot"
 echo "0. Exit"
 
 echo "Enter your choice"
@@ -33,22 +35,32 @@ then
 
 bash create_teacher.sh
 
-elif [[ $choice -eq 3 ]]
+if [[ $choice -eq 3 ]]
 then
 
-bash admin_rwx.sh
+bash create_student_auto.sh
 
 elif [[ $choice -eq 4 ]]
 then
 
-bash scheduling.sh
+bash create_teacher_auto.sh
 
 elif [[ $choice -eq 5 ]]
 then
 
-bash scheduling_grade.sh
+bash admin_rwx.sh
 
 elif [[ $choice -eq 6 ]]
+then
+
+bash scheduling.sh
+
+elif [[ $choice -eq 7 ]]
+then
+
+bash scheduling_grade.sh
+
+elif [[ $choice -eq 8 ]]
 then
 
 bash install.sh

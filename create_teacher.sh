@@ -1,5 +1,7 @@
 #!/bin/bash
 
+server=$(cat file_system/.numserver)
+
 echo -e "\nAdd new teacher user"
 
 echo -e "\nEnter username"
@@ -36,7 +38,11 @@ sudo mkdir -m 770 /home/$username/ARCHIVE
 cd /home/$username
 sudo chgrp $group ARCHIVE
 
-echo -e "\nSet password for this teachery"
-sudo passwd $username
+echo -e "\nSet password for this teacher"
+echo -e "\n What is the new password"
+read pas
+echo "$username:$pas" | sudo chpasswd
+
+echo "Welcome! Your account has been created.  Your username is $username and password is \"$pas\" without the quotes. The number of server is $server" | mail -s "New Account for $username" $email -b root $username
 
 echo -e "\nUser created $username"
