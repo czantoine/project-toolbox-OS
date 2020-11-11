@@ -192,7 +192,7 @@ then
 		fi
 
 		pos_number_ce=$( cat semester_sheet.txt | sed -n "${line_number}p" | grep -aob ' ;ECE:')
-        pos_letter_ce=$(echo "$pos_number_ce" | sed  's/: ;ECE.*//')
+		pos_letter_ce=$(echo "$pos_number_ce" | sed  's/: ;ECE.*//')
 		echo "Do you want add CE ? TAP Y or N"
 		read rep_ce
 		if [[ $rep_ce =~ ^[Yy]$ ]]
@@ -200,7 +200,7 @@ then
 			Yes_ce=Y
 			ece=$(sed -E "${line_number}s/(.{$pos_letter_ce})/& ${Yes_ce}/" semester_sheet.txt)
 			cat /dev/null > semester_sheet.txt
-	        echo "$ece" >> semester_sheet.txt
+			echo "$ece" >> semester_sheet.txt
 
 			echo -e "\nEnter coef  : "
 			read rep_coef_ce
@@ -237,20 +237,20 @@ then
     echo "Enter your choice"
     echo "1. A Semester"
     echo "2. A UE or a Module or a Teaching Methods"
-
+    
     echo "Exit"
-
+    
     read rep
     if [[ $rep -eq 1 ]]
     then
 	echo -e "\nWhich Semester do you want to select?"
 	read semname
-
-
+	
+	
 	echo -e "\nWhat do you want to modify in this Semester?"
 	echo "Enter your choice"
 	echo "1. The Semester"
-
+	
 	echo "Exit"
 
 	read repsem
@@ -262,180 +262,410 @@ then
 	    echo "Error option: Program Shutdown"
             ext=1
 	fi
-
+	
     elif [[ $rep -eq 2 ]]
     then
 	echo -e "\nWhich Semester do you want to modify something?"
         read semname
-
+	
 	echo -e "\nWhat do you want to modify in this Semester"
 	echo "Enter your choice"
 	echo "1. A UE"
 	echo "2. A Module or a Teaching Methods"
-
+	
 	echo "Exit"
-
+	
 	read rep2
 	if [[ $rep2 -eq 1 ]]
 	then
 	    echo -e "\nWhich UE do you want to select?"
 	    read uename
-
-
+	    
+	    fcline=$(grep -n "$uename" semester_sheet.txt | cut -d: -f1)
+	    
 	    echo -e "\nWhat do you want to modify in this UE?"
 	    echo "Enter your choice"
 	    echo "1. The UE"
 	    echo "2. The Coef of the UE"
-
+	    
 	    echo "Exit"
-
-	   read repue
-	   if [[ $repue -eq 1 ]]	#Modify UE
-           then
-
+	    
+	    read repue
+	    if [[ $repue -eq 1 ]]	#Modify UE
+            then
+		
 		fline=$(grep -o -P '(?<=UE:'$uename').*(?=;FINISH)' semester_sheet.txt)
 		list=$(echo $fline | sed 's/.*UE://; s/;COEFUE.*//')
-
-
+		
+		
 		echo -e "\nInsert the new name of the UE?"
 		read newuename
-
-		modue=$(sed 's/'$unname'/'$newuename'/' semester.txt)
+		
+		modue=$(sed ''$fcline's/'$unname'/'$newuename'/' semester.txt)
 		cat /dev/null > semester_content.txt
 		echo -n "$modue" >> semester_content.txt
-
-           elif [[ $repue -eq 2 ]]	#Modify coef UE
-           then
-
-		echo "You cannot modify the coef af the UE!"
-           else
-               echo "Error option: Program Shutdown"
-               ext=1
-           fi
-
+		
+            elif [[ $repue -eq 2 ]]	#Modify coef UE
+            then
+		
+		fline=$(grep -o -P '(?<=UE:'$uename').*(?=;FINISH)' semester_sheet.txt)
+                list=$(echo $fline | sed 's/.*COEFUE://; s/;MO.*//')
+		
+		echo -e "\nInsert the new coef of the UE?"
+                read newuecoef
+		
+		stringuecoef="COEFUE:$list"
+		newstringuecoef="COEFUE:$newuecoef"
+		
+		moduecoef=$(sed ''$fcline's/'"$stringuecoef"'/'"$newstringuecoef"'/' semester.txt)
+                cat /dev/null > semester_content.txt
+                echo -n "$moduecoef" >> semester_content.txt
+		
+            else
+		echo "Error option: Program Shutdown"
+		ext=1
+            fi
+	    
 	elif [[ $rep2 -eq 2 ]]
 	then
 	    echo -e "\nWhich UE do you want to modify something?"
             read uename
-
+	    
+	    fcline=$(grep -n "$uename" semester_sheet.txt | cut -d: -f1)
+	    
 	    echo -e "\nWhat do you want to modify in this UE?"
 	    echo "Enter your choice"
 	    echo "1. A Module"
 	    echo "2. A Teaching Methods"
-
+	    
 	    echo "Exit"
-
+	    
 	    read rep3
 	    if [[ $rep3 -eq 1 ]]
 	    then
 		echo -e "\nWhich Module do you want to select?"
 		read modname
-
+		
                 echo -e "\nWhat do you want to modify in this Module?"
                 echo "Enter your choice"
                 echo "1. The Module"
                 echo "2. The Coef of the Module"
-
+		
 		echo "Exit"
-
+		
 		read repmod
 		if [[ $repmod -eq 1 ]]		#Modify Module
 		then
-
+		    
 		    fline=$(grep -o -P '(?<=UE:'$uename').*(?=;FINISH)' semester_sheet.txt)
                     list=$(echo $fline | sed 's/.*MO://; s/;COEF.*//')
-
+		    
 		    V=($list)
-
+		    
                     echo -e "\nInsert the new name of the Module?"
                     read newmodname
-
-                    modmod=$(sed 's/'$modname'/'$newmodname'/' semester_sheet.txt)
+		    
+		    for i in "${!V[@]}"; do
+                        if [[ $modname = ${V[i]} ]]
+                        then
+                            ipos=$i
+                        fi
+                    done
+		    
+		    for i in "${!V[@]}"; do
+    			if [[ $i -eq 0 && $i -eq $ipos ]]
+    			then
+        		    newstringmodname="MO:$newmodname"
+    			elif [[ $i -eq 0 && $i != $ipos ]]
+    			then
+    			    newstringmodname="MO:${V[i]}"
+    			elif [[ $i -eq $ipos ]]
+    			then
+    			    newstringmodname="$string2 $newmodname"
+    			else
+        		    newstringmodname="$string2 ${V[i]}"
+    			fi
+		    done
+		    
+		    stringmodname="MO:$list"
+		    
+                    modmod=$(sed ''$fcline's/'"$stringmodname"'/'"$newstringmodname"'/' semester_sheet.txt)
                     cat /dev/null > semester_sheet.txt
                     echo -n "$modmod" >> semester_sheet.txt
-
-
+		    
+		    
 		elif [[ $repmod -eq 2 ]]	#Modify coef Module
 		then
-
-		    echo "\nYou cannot modify the coef of the module!"
-
+		    
+		    fline=$(grep -o -P '(?<=UE:'$uename').*(?=;FINISH)' semester_sheet.txt)
+                    list=$(echo $fline | sed 's/.*COEF://; s/;TEACH:.*//')
+		    
+                    V=($list)
+		    
+                    echo -e "\nInsert the new coef of the Module?"
+                    read newmodcoef
+		    
+                    for i in "${!V[@]}"; do
+                        if [[ $modname = ${V[i]} ]]
+                        then
+                            ipos=$i
+                        fi
+                    done
+		    
+                    for i in "${!V[@]}"; do
+                        if [[ $i -eq 0 && $i -eq $ipos ]]
+                        then
+                            newstringmodcoef="COEF:$newmodcoef"
+                        elif [[ $i -eq 0 && $i != $ipos ]]
+                        then
+                            newstringmodcoef="COEF:${V[i]}"
+                        elif [[ $i -eq $ipos ]]
+                        then
+                            newstringmodcoef="$newstringmodcoef $newmodcoef"
+                        else
+                            newstringmodcoef="$newstringmodcoef ${V[i]}"
+                        fi
+                    done
+		    
+                    stringmodcoef="COEF:$list"
+		    
+                    modmodcoef=$(sed ''$fcline's/'"$stringmodcoef"'/'"$newstringmodcoef"'/' semester_sheet.txt)
+                    cat /dev/null > semester_sheet.txt
+                    echo -n "$modmodcoef" >> semester_sheet.txt
+		    
 		else
 		    echo "Error option: Program Shutdown"
 		    ext=1
 		fi
-
-
+		
+		
 	    elif [[ $rep3 -eq 2 ]]
 	    then
 		echo -e "\nWhich Module do you want to select before selecting teaching methods?"
                 read modname
-
-
+		
+		
 	        echo -e "\nWhich Teaching Methods do you want to select?"
 		read tmname
-
-
+		
+		
 		echo -e "\nWhat do you want to modify in this Teaching Methods?"
                 echo "Enter your choice"
                 echo "1. The Teaching Methods"
                 echo "2. The Coef of the Teaching Methods"
-
+		
 		echo "Exit"
 		read repteach
-
+		
 		if [[ $repteach -eq 1 ]]	#Modify Teaching Methods
 		then
-
+		    
                     echo "You can't modify the name of a teaching methods. It is only addable or deletable" 
-
+		    
 		elif [[ $repteach -eq 2 ]]	#Modify coef Teaching Methods
 		then
-
-                    echo "You cannot modify the coef of the teaching methods!"
-
+		    
+		    if [[  $tmname = "TP" ]]
+		    then
+			fline=$(grep -o -P '(?<=UE:'$uename').*(?=;FINISH)' semester_sheet.txt)
+			list=$(echo $fline | sed 's/.*COEFTP://; s/;.*//')
+			
+			V=($list)
+			
+			echo -e "\nInsert the new coef of the Teaching Methods?"
+			read newtmcoef
+			
+			for i in "${!V[@]}"; do
+                            if [[ $i -eq 0 && $i -eq $ipos ]]
+                            then
+				newstringtmcoef="COEF$tmname:$newtmcoef"
+                            elif [[ $i -eq 0 && $i != $ipos ]]
+                            then
+				newstringtmcoef="COEF$tmname:${V[i]}"
+                            elif [[ $i -eq $ipos ]]
+                            then
+				newstringtmcoef="$newstringtmcoef $newtmcoef"
+                            else
+				newstringtmcoef="$newstringtmcoef ${V[i]}"
+                            fi
+			done
+			
+                    stringtmcoef="COEF$tmname:$list"
+		    
+                    modtmcoef=$(sed ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' semester_sheet.txt)
+                    cat /dev/null > semester_sheet.txt
+                    echo -n "$modtmcoef" >> semester_sheet.txt
+		    
+		    elif [[ $tmname = "TD" ]]
+		    then
+			fline=$(grep -o -P '(?<=UE:'$uename').*(?=;FINISH)' semester_sheet.txt)
+			list=$(echo $fline | sed 's/.*COEFTD://; s/;.*//')
+			
+			V=($list)
+			
+			echo -e "\nInsert the new coef of the Teaching Methods?"
+			read newtmcoef
+			
+			for i in "${!V[@]}"; do
+                            if [[ $i -eq 0 && $i -eq $ipos ]]
+                            then
+				newstringtmcoef="COEF$tmname:$newtmcoef"
+                            elif [[ $i -eq 0 && $i != $ipos ]]
+                            then
+				newstringtmcoef="COEF$tmname:${V[i]}"
+                            elif [[ $i -eq $ipos ]]
+                            then
+				newstringtmcoef="$newstringtmcoef $newtmcoef"
+                            else
+				newstringtmcoef="$newstringtmcoef ${V[i]}"
+                            fi
+			done
+			
+			stringtmcoef="COEF$tmname:$list"
+			
+			modtmcoef=$(sed ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' semester_sheet.txt)
+			cat /dev/null > semester_sheet.txt
+			echo -n "$modtmcoef" >> semester_sheet.txt
+			
+                    elif [[ $tmname = "CM" ]]
+                    then
+			fline=$(grep -o -P '(?<=UE:'$uename').*(?=;FINISH)' semester_sheet.txt)
+			list=$(echo $fline | sed 's/.*COEFCM://; s/;.*//')
+			
+			V=($list)
+			
+			echo -e "\nInsert the new coef of the Teaching Methods?"
+			read newtmcoef
+			
+			for i in "${!V[@]}"; do
+                            if [[ $i -eq 0 && $i -eq $ipos ]]
+                            then
+				newstringtmcoef="COEF$tmname:$newtmcoef"
+                            elif [[ $i -eq 0 && $i != $ipos ]]
+                            then
+				newstringtmcoef="COEF$tmname:${V[i]}"
+                            elif [[ $i -eq $ipos ]]
+                            then
+				newstringtmcoef="$newstringtmcoef $newtmcoef"
+                            else
+				newstringtmcoef="$newstringtmcoef ${V[i]}"
+                            fi
+			done
+			
+			stringtmcoef="COEF$tmname:$list"
+			
+			modtmcoef=$(sed ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' semester_sheet.txt)
+			cat /dev/null > semester_sheet.txt
+			echo -n "$modtmcoef" >> semester_sheet.txt
+			
+                    elif [[ $tmname = "DE" ]]
+                    then
+			fline=$(grep -o -P '(?<=UE:'$uename').*(?=;FINISH)' semester_sheet.txt)
+			list=$(echo $fline | sed 's/.*COEFDE://; s/;.*//')
+			
+			V=($list)
+			
+			echo -e "\nInsert the new coef of the Teaching Methods?"
+			read newtmcoef
+			
+			for i in "${!V[@]}"; do
+                            if [[ $i -eq 0 && $i -eq $ipos ]]
+                            then
+				newstringtmcoef="COEF$tmname:$newtmcoef"
+                            elif [[ $i -eq 0 && $i != $ipos ]]
+                            then
+				newstringtmcoef="COEF$tmname:${V[i]}"
+                            elif [[ $i -eq $ipos ]]
+                            then
+				newstringtmcoef="$newstringtmcoef $newtmcoef"
+                            else
+				newstringtmcoef="$newstringtmcoef ${V[i]}"
+                            fi
+			done
+			
+			stringtmcoef="COEF$tmname:$list"
+			
+			modtmcoef=$(sed ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' semester_sheet.txt)
+			cat /dev/null > semester_sheet.txt
+			echo -n "$modtmcoef" >> semester_sheet.txt
+			
+			
+                    elif [[ $tmname = "CE" ]]
+                    then
+			fline=$(grep -o -P '(?<=UE:'$uename').*(?=;FINISH)' semester_sheet.txt)
+			list=$(echo $fline | sed 's/.*COEFCE://; s/;.*//')
+			
+			V=($list)
+			
+			echo -e "\nInsert the new coef of the Teaching Methods?"
+			read newtmcoef
+			
+			for i in "${!V[@]}"; do
+                            if [[ $i -eq 0 && $i -eq $ipos ]]
+                            then
+				newstringtmcoef="COEF$tmname:$newtmcoef"
+                            elif [[ $i -eq 0 && $i != $ipos ]]
+                            then
+				newstringtmcoef="COEF$tmname:${V[i]}"
+                            elif [[ $i -eq $ipos ]]
+                            then
+				newstringtmcoef="$newstringtmcoef $newtmcoef"
+                            else
+				newstringtmcoef="$newstringtmcoef ${V[i]}"
+                            fi
+			done
+			
+			stringtmcoef="COEF$tmname:$list"
+			
+			modtmcoef=$(sed ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' semester_sheet.txt)
+			cat /dev/null > semester_sheet.txt
+			echo -n "$modtmcoef" >> semester_sheet.txt
+		    else
+			echo "Error option: Program Shutdown"
+		    fi
+		    
 		else
 		    echo "Error option: Program Shutdown"
 		    ext=1
 		fi
-
+		
 	    else
 		echo "Error option: Program Shutdown"
         	ext=1
 	    fi
-
+	    
     	else
 	    echo "Error option: Program Shutdown"
             ext=1
         fi
-
+	
     else
     	echo "Error option: Program Shutdown"
     	ext=1
     fi
-
- elif [[ $adel = delete ]] || [[ $adel = DELETE ]]
+    
+elif [[ $adel = delete ]] || [[ $adel = DELETE ]]
 then
     echo -e "\nWhat do you want to delete ?"
     echo "Enter your choice"
     echo "1. A Semester"
     echo "2. A UE or a Module or a Teaching Methods"
-
+    
     echo "Exit"
-
+    
     read rep
     if [[ $rep -eq 1 ]]
     then
 	echo -e "\nWhich Semester do you want to select?"
 	read semname
-
-
+	
+	
 	echo -e "\nWhat do you want to delete in this Semester?"
 	echo "Enter your choice"
 	echo "1. The Semester"
-
+	
 	echo "Exit"
-
+	
 	read repsem
 	if [[ $repsem -eq 1 ]]
 	then
@@ -445,69 +675,119 @@ then
 	    echo "Error option: Program Shutdown"
             ext=1
 	fi
-
+	
     elif [[ $rep -eq 2 ]]
     then
 	echo -e "\nWhich Semester do you want to delete something?"
         read semname
-
+	
 	echo -e "\nWhat do you want to delete in this Semester"
 	echo "Enter your choice"
 	echo "1. A UE"
 	echo "2. A Module or a Teaching Methods"
-
+	
 	echo "Exit"
-
+	
 	read rep2
 	if [[ $rep2 -eq 1 ]]
 	then
 	    echo -e "\nWhich UE do you want to select?"
 	    read uename
-
-
+	    
+	    fcline=$(grep -n "$uename" semester_sheet.txt | cut -d: -f1)
+	    
 	    echo -e "\nWhat do you want to delete in this UE?"
 	    echo "Enter your choice"
 	    echo "1. The UE"
 	    echo "2. The Coef of the UE"
-
+	    
 	    echo "Exit"
-
-	   read repue
-	   if [[ $repue -eq 1 ]]	#Delete UE
-           then
-
+	    
+	    read repue
+	    if [[ $repue -eq 1 ]]	#Delete UE
+            then
+		
+		fcline=$(grep -n "$uename" semester_sheet.txt | cut -d: -f1)
 		fline=$(grep -o -P '(?<=UE:'$uename').*(?=;FINISH)' semester_sheet.txt)
-		list=$(echo $fline | sed 's/.*UE://; s/;COEFUE.*//')
-
-
-		echo -e "\nInsert the new name of the UE?"
-		read newuename
-
-		modue=$(sed 's/'$unname'/'$newuename'/' semester.txt)
+		
+		listcue=$(echo $fline | sed 's/.*;COEFUE://; s/;.*//')
+		listmod1=$(echo $fline | sed 's/.*;MO://; s/;.*//')
+		listmod2=$(echo $fline | sed 's/.*;COEF://; s/;.*//')
+		listteach=$(echo $fline | sed 's/.*;TEACH://; s/;.*//')
+		listmteach=$(echo $fline | sed 's/.*;EMAILTEACH://; s/;.*//')
+		listtp1=$(echo $fline | sed 's/.*;TP://; s/;.*//')
+		listtp2=$(echo $fline | sed 's/.*;ETP://; s/;.*//')
+		listtp3=$(echo $fline | sed 's/.*;COEFTP://; s/;.*//')
+		listtd1=$(echo $fline | sed 's/.*;TD://; s/;.*//')
+		listtd2=$(echo $fline | sed 's/.*;ETD://; s/;.*//')
+		listtd3=$(echo $fline | sed 's/.*;COEFTD://; s/;.*//')
+		listcm1=$(echo $fline | sed 's/.*;CM://; s/;.*//')
+		listcm2=$(echo $fline | sed 's/.*;ECM://; s/;.*//')
+		listcm3=$(echo $fline | sed 's/.*;COEFCM://; s/;.*//')
+		listde1=$(echo $fline | sed 's/.*;DE://; s/;.*//')
+		listde2=$(echo $fline | sed 's/.*;EDE://; s/;.*//')
+		listde3=$(echo $fline | sed 's/.*;COEFDE://; s/;.*//')
+		listce1=$(echo $fline | sed 's/.*;CE://; s/;.*//')
+		listce2=$(echo $fline | sed 's/.*;ECE://; s/;.*//')
+		listce3=$(echo $fline | sed 's/.*;COEFCE://; s/;.*//')
+		
+		stringcue="COEFUE:$listcue"
+		stringmod1="MO:$listmod1"
+		stringmod2="COEF:$listmod2"
+		stringteach="TEACH:$listteach"
+		stringmteach="EMAILTEACH:$listmteach"
+		stringtmtp1="TP:$listtp1"
+		stringtmtp2="ETP:$listtp2"
+		stringtmtp3="COEFTP:$listtp3"
+		stringtmtd1="TD:$listtd1"
+		stringtmtd2="ETD:$listtd2"
+		stringtmtd3="COEFTD:$listtd3"
+		stringtmcm1="CM:$listcm1"
+		stringtmcm2="ECM:$listcm2"
+		stringtmcm3="COEFCM:$listcm3"
+		stringtmde1="DE:$listde1"
+		stringtmde2="EDE:$listde2"
+		stringtmde3="COEFDE:$listde3"
+		stringtmce1="CE:$listce1"
+		stringtmce2="ECE:$listce2"
+		stringtmce3="COEFCE:$listce3"
+		
+		delue=$(sed -e ''$fcline's/'"$uename"'//' -e ''$fcline's/'"$stringcue"'/COEFUE:/' -e ''$fcline's/'"$stringmod1"'/MOD:/' -e ''$fcline's/'"$stringmod2"'/COEF/' -e ''$fcline's/'"$stringteach"'/TEACH:/' -e ''$fcline's/'"$stringmteach"'/EMAILTEACH:/' -e ''$fcline's/'"$stringtmtp1"'/TP:/' -e ''$fcline's/'"$stringtmtp2"'/ETP:/' -e ''$fcline's/'"$stringtmtp3"'/COEFTP:/' -e ''$fcline's/'"$stringtmtd1"'/TD:/' -e ''$fcline's/'"$stringtmtd2"'/ETD:/' -e ''$fcline's/'"$stringtmtd3"'/COEFTD:/' -e ''$fcline's/'"$stringtmcm1"'/CM:/' -e ''$fcline's/'"$stringtmcm2"'/ECM:/' -e ''$fcline's/'"$stringtmcm3"'/COEFCM:/' -e ''$fcline's/'"$stringtmde1"'/DE:/' -e ''$fcline's/'"$stringtmde2"'/EDE:/' -e ''$fcline's/'"$stringtmde3"'/COEFDE:/' -e ''$fcline's/'"$stringtmce1"'/CE:/' -e ''$fcline's/'"$stringtmce2"'/ECE:/' -e ''$fcline's/'"$stringtmce3"'/COEFCE:/' semester_sheet.txt )
+		cat /dev/null > semester_sheet.txt
+		echo -n "$delue" >> semester_sheet.txt
+		
+            elif [[ $repue -eq 2 ]]	#Delete coef UE
+            then
+		
+		fline=$(grep -o -P '(?<=UE:'$uename').*(?=;FINISH)' semester_sheet.txt)
+		list=$(echo $fline | sed 's/.*COEFUE://; s/;MO.*//')
+		
+       		stringuecoef="COEFUE:$list"
+       		newstringuecoef="COEFUE:X"
+		
+       		deluecoef=$(sed ''$fcline's/'"$stringuecoef"'/'"$newstringuecoef"'/' semester_sheet.txt)
 		cat /dev/null > semester_content.txt
-		echo -n "$modue" >> semester_content.txt
-
-           elif [[ $repue -eq 2 ]]	#Delete coef UE
-           then
-
-		echo "You cannot delete the coef af the UE!"
-           else
-               echo "Error option: Program Shutdown"
-               ext=1
-           fi
-
+		echo -n "$deluecoef" >> semester_content.tx
+	       
+            else
+		echo "Error option: Program Shutdown"
+		ext=1
+            fi
+	    
 	elif [[ $rep2 -eq 2 ]]
 	then
 	    echo -e "\nWhich UE do you want to delete something?"
             read uename
-
+	    
+	    fcline=$(grep -n "$uename" semester_sheet.txt | cut -d: -f1)
+	    
 	    echo -e "\nWhat do you want to delete in this UE?"
 	    echo "Enter your choice"
 	    echo "1. A Module"
 	    echo "2. A Teaching Methods"
-
+	    
 	    echo "Exit"
-
+	    
 	    read rep3
 	    if [[ $rep3 -eq 1 ]]
 	    then
@@ -518,30 +798,202 @@ then
                 echo "Enter your choice"
                 echo "1. The Module"
                 echo "2. The Coef of the Module"
-
+		
 		echo "Exit"
-
+		
 		read repmod
 		if [[ $repmod -eq 1 ]]		#Delete Module
 		then
-
+		    
+		    fcline=$(grep -n "$uename" semester_sheet.txt | cut -d: -f1)
+		    
 		    fline=$(grep -o -P '(?<=UE:'$uename').*(?=;FINISH)' semester_sheet.txt)
-                    list=$(echo $fline | sed 's/.*MO://; s/;COEF.*//')
-
-		    V=($list)
-
-                    echo -e "\nInsert the new name of the Module?"
-                    read newmodname
-
-                    modmod=$(sed 's/'$modname'/'$newmodname'/' semester_sheet.txt)
-                    cat /dev/null > semester_sheet.txt
-                    echo -n "$modmod" >> semester_sheet.txt
-
+		    listmod1=$(echo $fline | sed 's/.*;MO://; s/;.*//')
+		    listmod2=$(echo $fline | sed 's/.*;COEF://; s/;.*//')
+		    listtp1=$(echo $fline | sed 's/.*;TP://; s/;.*//')
+		    listtp2=$(echo $fline | sed 's/.*;ETP://; s/;.*//')
+		    listtp3=$(echo $fline | sed 's/.*;COEFTP://; s/;.*//')
+		    listtd1=$(echo $fline | sed 's/.*;TD://; s/;.*//')
+		    listtd2=$(echo $fline | sed 's/.*;ETD://; s/;.*//')
+		    listtd3=$(echo $fline | sed 's/.*;COEFTD://; s/;.*//')
+		    listcm1=$(echo $fline | sed 's/.*;CM://; s/;.*//')
+		    listcm2=$(echo $fline | sed 's/.*;ECM://; s/;.*//')
+		    listcm3=$(echo $fline | sed 's/.*;COEFCM://; s/;.*//')
+		    listde1=$(echo $fline | sed 's/.*;DE://; s/;.*//')
+		    listde2=$(echo $fline | sed 's/.*;EDE://; s/;.*//')
+		    listde3=$(echo $fline | sed 's/.*;COEFDE://; s/;.*//')
+		    listce1=$(echo $fline | sed 's/.*;CE://; s/;.*//')
+		    listce2=$(echo $fline | sed 's/.*;ECE://; s/;.*//')
+		    listce3=$(echo $fline | sed 's/.*;COEFCE://; s/;.*//')
+		    
+		    
+		    Vm1=($listmod1)
+		    Vm2=($listmod2)
+		    Vtp1=($listtp1)
+		    Vtp2=($listtp2)
+		    Vtp3=($listtp3)
+		    Vtd1=($listtd1)
+		    Vtd2=($listtd2)
+		    Vtd3=($listtd3)
+		    Vcm1=($listcm1)
+		    Vcm2=($listcm2)
+		    Vcm3=($listcm3)
+		    Vde1=($listde1)
+		    Vde2=($listde2)
+		    Vde3=($listde3)
+		    Vce1=($listce1)
+		    Vce2=($listce2)
+		    Vce3=($listce3)
+		    
+		    for i in "${!Vm1[@]}"; do
+			if [[ $modname = ${Vm1[i]} ]]
+			then
+			    ipos=$i
+			fi
+		    done
+		    
+		    echo $ipos
+		    
+		    for i in "${!Vm1[@]}"; do
+			if [[ $i -eq 0 && $i -eq $ipos ]]
+			then
+			    newstringmod1="MO:"
+			    newstringmod2="COEF:"
+			    newstringtmtp1="TP:"
+			    newstringtmtp2="ETP:"
+			    newstringtmtp3="COEFTP:"
+			    newstringtmtd1="TD:"
+			    newstringtmtd2="ETD:"
+			    newstringtmtd3="COEFTD:"
+			    newstringtmcm1="CM:"
+			    newstringtmcd2="ECM:"
+			    newstringtmcm3="COEFCM:"
+			    newstringtmde1="DE:"
+			    newstringtmde2="EDE:"
+			    newstringtmde3="COEFDE:"
+			    newstringtmce1="CE:"
+			    newstringtmce2="ECE:"
+			    newstringtmce3="COEFCE:"
+			elif [[ $i -eq 0 && $i != $ipos ]]
+			then
+			    newstringmod1="MO:${Vm1[i]}"
+			    newstringmod2="COEF:${Vm2[i]}"
+			    newstringtmtp1="TP:${Vtp1[i]}"
+			    newstringtmtp2="ETP:${Vtp2[i]}"
+			    newstringtmtp3="COEFTP:${Vtp3[i]}"
+			    newstringtmtd1="TD:${Vtd1[i]}"
+			    newstringtmtd2="ETD:${Vtd2[i]}"
+			    newstringtmtd3="COEFTD:${Vtd3[i]}"
+			    newstringtmcm1="CM:${Vcm1[i]}"
+			    newstringtmcm2="ECM:${Vcm2[i]}"
+			    newstringtmcm3="COEFCM:${Vcm3[i]}"
+			    newstringtmde1="DE:${Vde1[i]}"
+			    newstringtmde2="EDE:${Vde2[i]}"
+			    newstringtmde3="COEFDE:${Vde3[i]}"
+			    newstringtmce1="CE:${Vce1[i]}"
+			    newstringtmce2="ECE:${Vce2[i]}"
+			    newstringtmce3="COEFCE:${Vce3[i]}"
+			elif [[ $i != 0 && $i -eq $ipos ]]
+			then
+			    newstringmod1="$newstringmod1"
+			    newstringmod2="$newstringmod2"
+			    newstringtmtp1="$newstringtmtp1"
+			    newstringtmtp2="$newstringtmtp2"
+			    newstringtmtp3="$newstringtmtp3"
+			    newstringtmtd1="$newstringtmtd1"
+			    newstringtmtd2="$newstringtmtd2"
+			    newstringtmtd3="$newstringtmtd3"
+			    newstringtmcm1="$newstringtmcm1"
+			    newstringtmcm2="$newstringtmcm2"
+			    newstringtmcm3="$newstringtmcm3"
+			    newstringtmde1="$newstringtmde1"
+			    newstringtmde2="$newstringtmde2"
+			    newstringtmde3="$newstringtmde3"
+			    newstringtmce1="$newstringtmce1"
+			    newstringtmce2="$newstringtmce2"
+			    newstringtmce3="$newstringtmce3"
+			else
+			    newstringmod1="$newstringmod1 ${Vm1[i]}"
+			    newstringmod2="$newstringmod2 ${Vm2[i]}"
+			    newstringtmtp1="$newstringtmtp1 ${Vtp1[i]}"
+			    newstringtmtp2="$newstringtmtp2 ${Vtp2[i]}"
+			    newstringtmtp3="$newstringtmtp3 ${Vtp3[i]}"
+			    newstringtmtd1="$newstringtmtd1 ${Vtd1[i]}"
+			    newstringtmtd2="$newstringtmtd2 ${Vtd2[i]}"
+			    newstringtmtd3="$newstringtmtd3 ${Vtd3[i]}"
+			    newstringtmcm1="$newstringtmcm1 ${Vcm1[i]}"
+			    newstringtmcm2="$newstringtmcm2 ${Vcm2[i]}"
+			    newstringtmcm3="$newstringtmcm3 ${Vcm3[i]}"
+			    newstringtmde1="$newstringtmde1 ${Vde1[i]}"
+			    newstringtmde2="$newstringtmde2 ${Vde2[i]}"
+			    newstringtmde3="$newstringtmde3 ${Vde3[i]}"
+			    newstringtmce1="$newstringtmce1 ${Vce1[i]}"
+			    newstringtmce2="$newstringtmce2 ${Vce2[i]}"
+			    newstringtmce3="$newstringtmce3 ${Vce3[i]}"
+			fi
+		    done
+		    
+		    stringmod1="MO:$listmod1"
+		    stringmod2="COEF:$listmod2"
+		    stringtmtp1="TP:$listtp1"
+		    stringtmtp2="ETP:$listtp2"
+		    stringtmtp3="COEFTP:$listtp3"
+		    stringtmtd1="TD:$listtd1"
+		    stringtmtd2="ETD:$listtd2"
+		    stringtmtd3="COEFTD:$listtd3"
+		    stringtmcm1="CM:$listcm1"
+		    stringtmcm2="ECM:$listcm2"
+		    stringtmcm3="COEFCM:$listcm3"
+		    stringtmde1="DE:$listde1"
+		    stringtmde2="EDE:$listde2"
+		    stringtmde3="COEFDE:$listde3"
+		    stringtmce1="CE:$listce1"
+		    stringtmce2="ECE:$listce2"
+		    stringtmce3="COEFCE:$listce3"
+		    
+		    delmod=$(sed -e ''$fcline's/'"$stringmod1"'/'"$newstringmod1"'/' -e ''$fcline's/'"$stringmod2"'/'"$newstringmod2"'/' -e ''$fcline's/'"$stringtmtp1"'/'"$newstringtmtp1"'/' -e ''$fcline's/'"$stringtmtp2"'/'"$newstringtmtp2"'/' -e ''$fcline's/'"$stringtmtp3"'/'"$newstringtmtp3"'/' -e ''$fcline's/'"$stringtmtd1"'/'"$newstringtmtd1"'/' -e ''$fcline's/'"$stringtmtd2"'/'"$newstringtmtd2"'/' -e ''$fcline's/'"$stringtmtd3"'/'"$newstringtmtd3"'/' -e ''$fcline's/'"$stringtmcm1"'/'"$newstringtmcm1"'/' -e ''$fcline's/'"$stringtmcm2"'/'"$newstringtmcm2"'/' -e ''$fcline's/'"$stringtmcm3"'/'"$newstringtmcm3"'/' -e ''$fcline's/'"$stringtmde1"'/'"$newstringtmde1"'/' -e ''$fcline's/'"$stringtmde2"'/'"$newstringtmde2"'/' -e ''$fcline's/'"$stringtmde3"'/'"$newstringtmde3"'/' -e ''$fcline's/'"$stringtmce1"'/'"$newstringtmce1"'/' -e ''$fcline's/'"$stringtmce2"'/'"$newstringtmce2"'/' -e ''$fcline's/'"$stringtmce3"'/'"$newstringtmce3"'/' semester_sheet.txt )
+		    cat /dev/null > semester_sheet.txt
+		    echo -n "$delmod" >> semester_sheet.txt
+		    
 
 		elif [[ $repmod -eq 2 ]]	#Delete coef Module
 		then
 
-		    echo "\nYou cannot modify the coef of the module!"
+		    fline=$(grep -o -P '(?<=UE:'$uename').*(?=;FINISH)' semester_sheet.txt)
+		    list1=$(echo $fline | sed 's/.*;MO://; s/;.*//')
+		    list2=$(echo $fline | sed 's/.*COEF://; s/;TEACH:.*//')
+		    
+		    V1=($list1)
+		    V2=($list2)
+		    
+		    for i in "${!V1[@]}"; do
+			if [[ $modname = ${V1[i]} ]]
+			then
+			    ipos=$i
+			fi
+		    done
+		    
+		    for i in "${!V1[@]}"; do
+			printf 'V2[%s] = %s\n' "$i" "${V2[i]}"
+			if [[ $i -eq 0 && $i -eq $ipos ]]
+			then
+			    newstringmodcoef="COEF:X"
+			elif [[ $i -eq 0 && $i != $ipos ]]
+			then
+			    newstringmodcoef="COEF:${V2[i]}"
+			elif [[ $i != 0 && $i -eq $ipos ]]
+			then
+			    newstringmodcoef="$newstringmodcoef X"
+			else
+			    newstringmodcoef="$newstringmodcoef ${V2[i]}"
+			fi
+		    done
+		    
+		    stringmodcoef="COEF:$list2"
+		    
+		    delmodcoef=$(sed ''$fcline's/'"$stringmodcoef"'/'"$newstringmodcoef"'/' semester_sheet.txt)
+                    cat /dev/null > semester_sheet.txt
+                    echo -n "$delmodcoef" >> semester_sheet.txt
 
 		else
 		    echo "Error option: Program Shutdown"
@@ -569,19 +1021,373 @@ then
 
 		if [[ $repteach -eq 1 ]]	#Delete Teaching Methods
 		then
+		    if [[  $tmname = "TP" ]]
+		    then
+			fline=$(grep -o -P '(?<=UE:'$uename').*(?=;FINISH)' semester_sheet.txt)
+			list1=$(echo $fline | sed 's/.*;TP://; s/;.*//')
+			list2=$(echo $fline | sed 's/.*;ETP://; s/;.*//')
+			list3=$(echo $fline | sed 's/.*;COEFTP://; s/;.*//')
+			
+			V1=($list1)
+			V2=($list2)
+			V3=($list3)
+			
+			for i in "${!V1[@]}"; do
+			    if [[ $i -eq 0 && $i -eq $ipos ]]
+			    then
+				newstringtm="$tmname:N"
+				newstringtme="E$tmname:X"
+				newstringtmcoef="COEF$tmname:X"
+			    elif [[ $i -eq 0 && $i != $ipos ]]
+			    then
+				newstringtm="$tmname:${V1[i]}"
+				newstringtme="E$tmname:${V2[i]}"
+				newstringtmcoef="COEF$tmname:${V3[i]}"
+			    elif [[ $i -eq $ipos ]]
+			    then
+				newstringtm="$newstringtm N"
+				newstringtme="$newstringtme X"
+				newstringtmcoef="$newstringtmcoef X"
+			    else
+				newstringtm="$newstringtm ${V1[i]}"
+				newstringtme="$newstringtme ${V2[i]}"
+				newstringtmcoef="$newstringtmcoef ${V3[i]}"
+			    fi
+			done
+			stringtm="$tmname:$list1"
+			stringtme="E$tmname:$list2"
+			stringtmcoef="COEF$tmname:$list3"
+			
+			deltm=$(sed -e ''$fcline's/'"$stringtm"'/'"$newstringtm"'/' -e ''$fcline's/'"$stringtme"'/'"$newstringtme"'/' -e ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' semester_sheet.txt )
+			cat /dev/null > semester_sheet.txt
+			echo -n "$deltm" >> semester_sheet.txt
 
-                    echo "You can't modify the name of a teaching methods. It is only addable or deletable" 
+		    elif [[ $tmname = "TD" ]]
+		    then
+			fline=$(grep -o -P '(?<=UE:'$uename').*(?=;FINISH)' semester_sheet.txt)
+			list1=$(echo $fline | sed 's/.*;TD://; s/;.*//')
+			list2=$(echo $fline | sed 's/.*;ETD://; s/;.*//')
+			list3=$(echo $fline | sed 's/.*;COEFTD://; s/;.*//')
 
+			V1=($list1)
+			V2=($list2)
+			V3=($list3)
+
+			for i in "${!V1[@]}"; do
+			    if [[ $i -eq 0 && $i -eq $ipos ]]
+			    then
+				newstringtm="$tmname:N"
+				newstringtme="E$tmname:X"
+				newstringtmcoef="COEF$tmname:X"
+			    elif [[ $i -eq 0 && $i != $ipos ]]
+			    then
+				newstringtm="$tmname:${V1[i]}"
+				newstringtme="E$tmname:${V2[i]}"
+				newstringtmcoef="COEF$tmname:${V3[i]}"
+			    elif [[ $i -eq $ipos ]]
+			    then
+				newstringtm="$newstringtm N"
+				newstringtme="$newstringtme X"
+				newstringtmcoef="$newstringtmcoef X"
+			    else
+				newstringtm="$newstringtm ${V1[i]}"
+				newstringtme="$newstringtme ${V2[i]}"
+				newstringtmcoef="$newstringtmcoef ${V3[i]}"
+			    fi
+			done
+			stringtm="$tmname:$list1"
+			stringtme="E$tmname:$list2"
+			stringtmcoef="COEF$tmname:$list3"
+
+			deltm=$(sed -e ''$fcline's/'"$stringtm"'/'"$newstringtm"'/' -e ''$fcline's/'"$stringtme"'/'"$newstringtme"'/' -e ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' semester_sheet.txt )
+			cat /dev/null > semester_sheet.txt
+			echo -n "$deltm" >> semester_sheet.txt
+
+                    elif [[ $tmname = "CM" ]]
+                    then
+			fline=$(grep -o -P '(?<=UE:'$uename').*(?=;FINISH)' semester_sheet.txt)
+			list1=$(echo $fline | sed 's/.*;CM://; s/;.*//')
+			list2=$(echo $fline | sed 's/.*ECM://; s/;.*//')
+			list3=$(echo $fline | sed 's/.*COEFCM://; s/;.*//')
+
+			V1=($list1)
+			V2=($list2)
+			V3=($list3)
+
+			for i in "${!V1[@]}"; do
+			    if [[ $i -eq 0 && $i -eq $ipos ]]
+			    then
+				newstringtm="$tmname:N"
+				newstringtme="E$tmname:X"
+				newstringtmcoef="COEF$tmname:X"
+			    elif [[ $i -eq 0 && $i != $ipos ]]
+			    then
+				newstringtm="$tmname:${V1[i]}"
+				newstringtme="E$tmname:${V2[i]}"
+				newstringtmcoef="COEF$tmname:${V3[i]}"
+			    elif [[ $i -eq $ipos ]]
+			    then
+				newstringtm="$newstringtm N"
+				newstringtme="$newstringtme X"
+				newstringtmcoef="$newstringtmcoef X"
+			    else
+				newstringtm="$newstringtm ${V1[i]}"
+				newstringtme="$newstringtme ${V2[i]}"
+				newstringtmcoef="$newstringtmcoef ${V3[i]}"
+			    fi
+			done
+			stringtm="$tmname:$list1"
+			stringtme="E$tmname:$list2"
+			stringtmcoef="COEF$tmname:$list3"
+
+			deltm=$(sed -e ''$fcline's/'"$stringtm"'/'"$newstringtm"'/' -e ''$fcline's/'"$stringtme"'/'"$newstringtme"'/' -e ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' semester_sheet.txt )
+			cat /dev/null > semester_sheet.txt
+			echo -n "$deltm" >> semester_sheet.txt
+
+                    elif [[ $tmname = "DE" ]]
+                    then
+			fline=$(grep -o -P '(?<=UE:'$uename').*(?=;FINISH)' semester_sheet.txt)
+			list1=$(echo $fline | sed 's/.*;DE://; s/;.*//')
+			list2=$(echo $fline | sed 's/.*;EDE://; s/;.*//')
+			list3=$(echo $fline | sed 's/.*;COEFDE://; s/;.*//')
+			
+			V1=($list1)
+			V2=($list2)
+			V3=($list3)
+			
+			for i in "${!V1[@]}"; do
+			    if [[ $i -eq 0 && $i -eq $ipos ]]
+			    then
+				newstringtm="$tmname:N"
+				newstringtme="E$tmname:X"
+				newstringtmcoef="COEF$tmname:X"
+			    elif [[ $i -eq 0 && $i != $ipos ]]
+			    then
+				newstringtm="$tmname:${V1[i]}"
+				newstringtme="E$tmname:${V2[i]}"
+				newstringtmcoef="COEF$tmname:${V3[i]}"
+			    elif [[ $i -eq $ipos ]]
+			    then
+				newstringtm="$newstringtm N"
+				newstringtme="$newstringtme X"
+				newstringtmcoef="$newstringtmcoef X"
+			    else
+				newstringtm="$newstringtm ${V1[i]}"
+				newstringtme="$newstringtme ${V2[i]}"
+				newstringtmcoef="$newstringtmcoef ${V3[i]}"
+			    fi
+			done
+			stringtm="$tmname:$list1"
+			stringtme="E$tmname:$list2"
+			stringtmcoef="COEF$tmname:$list3"
+
+			deltm=$(sed -e ''$fcline's/'"$stringtm"'/'"$newstringtm"'/' -e ''$fcline's/'"$stringtme"'/'"$newstringtme"'/' -e ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' semester_sheet.txt )
+			cat /dev/null > semester_sheet.txt
+			echo -n "$deltm" >> semester_sheet.txt
+
+
+                    elif [[ $tmname = "CE" ]]
+                    then
+			fline=$(grep -o -P '(?<=UE:'$uename').*(?=;FINISH)' semester_sheet.txt)
+			
+			list1=$(echo $fline | sed 's/.*;CE://; s/;.*//')
+			list2=$(echo $fline | sed 's/.*;ECE://; s/;.*//')
+			list3=$(echo $fline | sed 's/.*;COEFCE://; s/;.*//')
+			
+			V1=($list1)
+			V2=($list2)
+			V3=($list3)
+			
+			for i in "${!V1[@]}"; do
+			    if [[ $i -eq 0 && $i -eq $ipos ]]
+			    then
+				newstringtm="$tmname:N"
+				newstringtme="E$tmname:X"
+				newstringtmcoef="COEF$tmname:X"
+			    elif [[ $i -eq 0 && $i != $ipos ]]
+			    then
+				newstringtm="$tmname:${V1[i]}"
+				newstringtme="E$tmname:${V2[i]}"
+				newstringtmcoef="COEF$tmname:${V3[i]}"
+			    elif [[ $i -eq $ipos ]]
+			    then
+				newstringtm="$newstringtm N"
+				newstringtme="$newstringtme X"
+				newstringtmcoef="$newstringtmcoef X"
+			    else
+				newstringtm="$newstringtm ${V1[i]}"
+				newstringtme="$newstringtme ${V2[i]}"
+				newstringtmcoef="$newstringtmcoef ${V3[i]}"
+			    fi
+			done
+			stringtm="$tmname:$list1"
+			stringtme="E$tmname:$list2"
+			stringtmcoef="COEF$tmname:$list3"
+			
+			deltm=$(sed -e ''$fcline's/'"$stringtm"'/'"$newstringtm"'/' -e ''$fcline's/'"$stringtme"'/'"$newstringtme"'/' -e ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' semester_sheet.txt )
+			cat /dev/null > semester_sheet.txt
+			echo -n "$deltm" >> semester_sheet.txt
+		    else
+			echo "Error option: Program Shutdown"
+			ext=1
+		    fi
+                    
 		elif [[ $repteach -eq 2 ]]	#Delete coef Teaching Methods
 		then
-
-                    echo "You cannot modify the coef of the teaching methods!"
-
+		    
+                    if [[  $tmname = "TP" ]]
+		    then
+			fline=$(grep -o -P '(?<=UE:'$uename').*(?=;FINISH)' semester_sheet.txt)
+			list=$(echo $fline | sed 's/.*;COEFTP://; s/;.*//')
+			
+			V=($list)
+			
+			
+			for i in "${!V[@]}"; do
+                            if [[ $i -eq 0 && $i -eq $ipos ]]
+                            then
+				newstringtmcoef="COEF$tmname:X"
+                            elif [[ $i -eq 0 && $i != $ipos ]]
+                            then
+				newstringtmcoef="COEF$tmname:${V[i]}"
+                            elif [[ $i -eq $ipos ]]
+                            then
+				newstringtmcoef="$newstringtmcoef X"
+                            else
+				newstringtmcoef="$newstringtmcoef ${V[i]}"
+                            fi
+			done
+			
+			stringtmcoef="COEF$tmname:$list"
+			
+			deltmcoef=$(sed ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' semester_sheet.txt)
+			cat /dev/null > semester_sheet.txt
+			echo -n "$deltmcoef" >> semester_sheet.txt
+			
+		    elif [[ $tmname = "TD" ]]
+		    then
+			fline=$(grep -o -P '(?<=UE:'$uename').*(?=;FINISH)' semester_sheet.txt)
+			list=$(echo $fline | sed 's/.*;COEFTD://; s/;.*//')
+			
+			V=($list)
+			
+			for i in "${!V[@]}"; do
+                            if [[ $i -eq 0 && $i -eq $ipos ]]
+                            then
+				newstringtmcoef="COEF$tmname:X"
+                            elif [[ $i -eq 0 && $i != $ipos ]]
+                            then
+				newstringtmcoef="COEF$tmname:${V[i]}"
+                            elif [[ $i -eq $ipos ]]
+                            then
+				newstringtmcoef="$newstringtmcoef X"
+                            else
+				newstringtmcoef="$newstringtmcoef ${V[i]}"
+                            fi
+			done
+			
+			stringtmcoef="COEF$tmname:$list"
+			
+			deltmcoef=$(sed ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' semester_sheet.txt)
+			cat /dev/null > semester_sheet.txt
+			echo -n "$deltmcoef" >> semester_sheet.txt
+			
+                    elif [[ $tmname = "CM" ]]
+                    then
+			fline=$(grep -o -P '(?<=UE:'$uename').*(?=;FINISH)' semester_sheet.txt)
+			list=$(echo $fline | sed 's/.*;COEFCM://; s/;.*//')
+			
+			V=($list)
+			
+			for i in "${!V[@]}"; do
+                            if [[ $i -eq 0 && $i -eq $ipos ]]
+                            then
+				newstringtmcoef="COEF$tmname:X"
+                            elif [[ $i -eq 0 && $i != $ipos ]]
+                            then
+				newstringtmcoef="COEF$tmname:${V[i]}"
+                            elif [[ $i -eq $ipos ]]
+                            then
+				newstringtmcoef="$newstringtmcoef X"
+                            else
+				newstringtmcoef="$newstringtmcoef ${V[i]}"
+                            fi
+			done
+			
+			stringtmcoef="COEF$tmname:$list"
+			
+			deltmcoef=$(sed ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' semester_sheet.txt)
+			cat /dev/null > semester_sheet.txt
+			echo -n "$deltmcoef" >> semester_sheet.txt
+			
+                    elif [[ $tmname = "DE" ]]
+                    then
+			fline=$(grep -o -P '(?<=UE:'$uename').*(?=;FINISH)' semester_sheet.txt)
+			list=$(echo $fline | sed 's/.*;COEFDE://; s/;.*//')
+			
+			V=($list)
+			
+			
+			for i in "${!V[@]}"; do
+                            if [[ $i -eq 0 && $i -eq $ipos ]]
+                            then
+				newstringtmcoef="COEF$tmname:X"
+                            elif [[ $i -eq 0 && $i != $ipos ]]
+                            then
+				newstringtmcoef="COEF$tmname:${V[i]}"
+                            elif [[ $i -eq $ipos ]]
+                            then
+				newstringtmcoef="$newstringtmcoef X"
+                            else
+				newstringtmcoef="$newstringtmcoef ${V[i]}"
+                            fi
+			done
+			
+			stringtmcoef="COEF$tmname:$list"
+			
+			deltmcoef=$(sed ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' semester_sheet.txt)
+			cat /dev/null > semester_sheet.txt
+			echo -n "$deltmcoef" >> semester_sheet.txt
+			
+			
+                    elif [[ $tmname = "CE" ]]
+                    then
+			fline=$(grep -o -P '(?<=UE:'$uename').*(?=;FINISH)' semester_sheet.txt)
+			list=$(echo $fline | sed 's/.*;COEFCE://; s/;.*//')
+			
+			V=($list)
+			
+			
+			for i in "${!V[@]}"; do
+                            if [[ $i -eq 0 && $i -eq $ipos ]]
+                            then
+				newstringtmcoef="COEF$tmname:X"
+                            elif [[ $i -eq 0 && $i != $ipos ]]
+                            then
+				newstringtmcoef="COEF$tmname:${V[i]}"
+                            elif [[ $i -eq $ipos ]]
+                            then
+				newstringtmcoef="$newstringtmcoef X"
+                            else
+				newstringtmcoef="$newstringtmcoef ${V[i]}"
+                            fi
+			done
+			
+			stringtmcoef="COEF$tmname:$list"
+			
+			deltmcoef=$(sed ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' semester_sheet.txt)
+			cat /dev/null > semester_sheet.txt
+			echo -n "$deltmcoef" >> semester_sheet.txt
+		    else
+			echo "Error option: Program Shutdown"
+			ext=1
+		    fi
+		    
 		else
 		    echo "Error option: Program Shutdown"
 		    ext=1
 		fi
-
+		
 	    else
 		echo "Error option: Program Shutdown"
         	ext=1
