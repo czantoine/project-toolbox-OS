@@ -89,6 +89,24 @@ else
 					echo -n ""${M[m]} "" | sudo tee -a semester_${SE[x]}.info
 				done
 
+				for ((m = 0 ; m <= $cmpt_mo ; m++)); do
+                                        sudo mkdir -m 700 ${SE[x]}/${UE[x]}/${M[m]}/TP
+                               		sudo chown ${V[i]}:${V[i]} ${SE[x]}/${UE[x]}/${M[m]}/TP
+					sudo rmdir ${V[i]}:${V[i]} ${SE[x]}/${UE[x]}/TP
+					sudo mkdir -m 700 ${SE[x]}/${UE[x]}/${M[m]}/TD
+                                        sudo chown ${V[i]}:${V[i]} ${SE[x]}/${UE[x]}/${M[m]}/TD
+                                        sudo rmdir ${V[i]}:${V[i]} ${SE[x]}/${UE[x]}/TD
+					sudo mkdir -m 700 ${SE[x]}/${UE[x]}/${M[m]}/CM
+                                        sudo chown ${V[i]}:${V[i]} ${SE[x]}/${UE[x]}/${M[m]}/CM
+                                        sudo rmdir ${V[i]}:${V[i]} ${SE[x]}/${UE[x]}/CM
+					sudo mkdir -m 700 ${SE[x]}/${UE[x]}/${M[m]}/DE
+                                        sudo chown ${V[i]}:${V[i]} ${SE[x]}/${UE[x]}/${M[m]}/DE
+                                        sudo rmdir ${V[i]}:${V[i]} ${SE[x]}/${UE[x]}/DE
+					sudo mkdir -m 700 ${SE[x]}/${UE[x]}/${M[m]}/CE
+                                        sudo chown ${V[i]}:${V[i]} ${SE[x]}/${UE[x]}/${M[m]}/CE
+                                        sudo rmdir ${V[i]}:${V[i]} ${SE[x]}/${UE[x]}/CE
+				done
+
 				for coef in ${COEF[*]}
                                 do
                                         echo ""
@@ -121,8 +139,13 @@ else
 
 				############ TP ############
 
+				for tp in ${TP[*]}
+                                do
+                                        echo ""
+                                done
+
 				echo -n ";TP:" | sudo tee -a semester_${SE[x]}.info
-                                list_tp=$(echo $TP | tr "," "\n")
+                                list_tp=$(echo ${TP[x]} | tr "," "\n")
                                 T=($list_tp)
 
                                 for t in "${!T[@]}"; do
@@ -132,17 +155,20 @@ else
                                 for ((t = 0 ; t < $cmpt_mo ; t++)); do
 					if [[ ${T[t]} = TP ]]
 					then
-                                        	sudo mkdir -m 700 ${SE[x]}/${UE[x]}/${M[x]}/TP
-                                        	sudo chown ${V[i]}:${V[i]} ${SE[x]}/${UE[x]}/${M[x]}/TP
                                         	echo -n "Y " | sudo tee -a semester_${SE[x]}.info
 					else
-						echo -n "N " | sudo tee -a semester_${SE[x]}.info
+						echo -n "N " | sudo tee -a semester_${SE[x]}.info						
 					fi
+                                done
+
+				for coeftp in ${CTP[*]}
+                                do
+                                        echo ""
                                 done
 
 				echo -n ";ETP: " | sudo tee -a semester_${SE[x]}.info
 				echo -n ";COEFTP:" | sudo tee -a semester_${SE[x]}.info
-                                listc_tp=$(echo $CTP | tr "," "\n")
+                                listc_tp=$(echo ${CTP[x]} | tr "," "\n")
                                 TPC=($listc_tp)
 
                                 for tpc in "${!TPC[@]}"; do
@@ -154,11 +180,17 @@ else
 					then
 						echo -n "X " | sudo tee -a semester_${SE[x]}.info
 					else
-                                        echo -n ""${TPC[tpc]} "" | sudo tee -a semester_${SE[x]}.info
-                                	fi
+                                        	echo -n ""${TPC[tpc]} "" | sudo tee -a semester_${SE[x]}.info
+					fi
 				done
 
+
 				################ TD ################
+
+				for td in ${TD[*]}
+                                do
+                                        echo ""
+                                done
 
                                 echo -n ";TD:" | sudo tee -a semester_${SE[x]}.info
                                 list_td=$(echo $TD | tr "," "\n")
@@ -171,17 +203,21 @@ else
                                 for ((tt = 0 ; tt < $cmpt_mo ; tt++)); do
                                         if [[ ${TT[tt]} = TD ]]
                                         then
-                                                sudo mkdir -m 700 ${SE[x]}/${UE[x]}/${M[x]}/TD
-                                                sudo chown ${V[i]}:${V[i]} ${SE[x]}/${UE[x]}/${M[x]}/TD
                                                 echo -n "Y " | sudo tee -a semester_${SE[x]}.info
                                         else
                                                 echo -n "N " | sudo tee -a semester_${SE[x]}.info
-                                        fi
+					fi
                                 done
+
+				for coeftd in ${CTD[*]}
+                                do
+                                        echo ""
+                                done
+
 
                                 echo -n ";ETD: " | sudo tee -a semester_${SE[x]}.info
                                 echo -n ";COEFTD:" | sudo tee -a semester_${SE[x]}.info
-                                listc_td=$(echo $CTD | tr "," "\n")
+                                listc_td=$(echo ${CTD[x]} | tr "," "\n")
                                 TTDC=($listc_td)
 
                                 for ttdc in "${!TTDC[@]}"; do
@@ -193,11 +229,17 @@ else
                                         then
                                                 echo -n "X " | sudo tee -a semester_${SE[x]}.info
                                         else
-                                        echo -n ""${TTDC[ttdc]} "" | sudo tee -a semester_${SE[x]}.info
+                           	             echo -n ""${TTDC[ttdc]} "" | sudo tee -a semester_${SE[x]}.info
                                         fi
                                 done
 
 				########### CM ############
+
+				for cm in ${CM[*]}
+                                do
+                                        echo ""
+                                done
+
 
                                 echo -n ";CM:" | sudo tee -a semester_${SE[x]}.info
                                 list_cm=$(echo $CM | tr "," "\n")
@@ -210,17 +252,20 @@ else
                                 for ((c = 0 ; c < $cmpt_mo ; c++)); do
                                         if [[ ${C[c]} = CM ]]
                                         then
-                                                sudo mkdir -m 700 ${SE[x]}/${UE[x]}/${M[x]}/CM
-                                                sudo chown ${V[i]}:${V[i]} ${SE[x]}/${UE[x]}/${M[x]}/CM
                                                 echo -n "Y " | sudo tee -a semester_${SE[x]}.info
                                         else
                                                 echo -n "N " | sudo tee -a semester_${SE[x]}.info
-                                        fi
+					fi
+                                done
+
+				for coefcm in ${CCM[*]}
+                                do
+                                        echo ""
                                 done
 
                                 echo -n ";ECM: " | sudo tee -a semester_${SE[x]}.info
                                 echo -n ";COEFCM:" | sudo tee -a semester_${SE[x]}.info
-                                listc_cm=$(echo $CCM | tr "," "\n")
+                                listc_cm=$(echo ${CCM[x]} | tr "," "\n")
                                 CMC=($listc_cm)
 
                                 for cmc in "${!CMC[@]}"; do
@@ -230,92 +275,114 @@ else
                                 for ((cmc = 0 ; cmc <= $cmpt_mo ; cmc++)); do
                                         if [[ ${CMC[cmc]} = X ]]
                                         then
-                                                echo -n "X " | sudo tee -a semester_${SE[x]}.info
+                                             echo -n "X " | sudo tee -a semester_${SE[x]}.info
                                         else
-                                        echo -n ""${CMC[cmc]} "" | sudo tee -a semester_${SE[x]}.info
+                   	                     echo -n ""${CMC[cmc]} "" | sudo tee -a semester_${SE[x]}.info
                                         fi
                                 done
 
-				############## DE ###############
-
-				echo -n ";DE:" | sudo tee -a semester_${SE[x]}.info
-                                list_de=$(echo $DE | tr "," "\n")
-                                D=($list_de)
-
-                                for d in "${!D[@]}"; do
-                                        printf 'D[%s] = %s\n' "$d" "${D[d]}" > /dev/null
+				############ DE ########
+				
+				for de in ${DE[*]}
+                                do
+                                        echo ""
                                 done
 
-                                for ((d = 0 ; d < $cmpt_mo ; d++)); do
-                                        if [[ ${D[d]} = DE ]]
+                                echo -n ";DE:" | sudo tee -a semester_${SE[x]}.info
+                                list_de=$(echo $DE | tr "," "\n")
+                                TTT=($list_de)
+
+                                for ttt in "${!TTT[@]}"; do
+                                        printf 'TTT[%s] = %s\n' "$ttt" "${TTT[ttt]}" > /dev/null
+                                done
+
+                                for ((ttt = 0 ; ttt < $cmpt_mo ; ttt++)); do
+                                        if [[ ${TTT[ttt]} = DE ]]
                                         then
-                                                sudo mkdir -m 700 ${SE[x]}/${UE[x]}/${M[x]}/DE
-                                                sudo chown ${V[i]}:${V[i]} ${SE[x]}/${UE[x]}/${M[x]}/DE
                                                 echo -n "Y " | sudo tee -a semester_${SE[x]}.info
                                         else
                                                 echo -n "N " | sudo tee -a semester_${SE[x]}.info
-                                        fi
+					fi
                                 done
+
+				for coefde in ${CDE[*]}
+                                do
+                                        echo ""
+                                done
+
 
                                 echo -n ";EDE: " | sudo tee -a semester_${SE[x]}.info
                                 echo -n ";COEFDE:" | sudo tee -a semester_${SE[x]}.info
-                                listc_de=$(echo $CDE | tr "," "\n")
-                                CDE=($listc_de)
+                                listc_de=$(echo ${CDE[x]} | tr "," "\n")
+                                TTDCDE=($listc_de)
 
-                                for cde in "${!CDE[@]}"; do
-                                        printf 'CDE[%s] = %s\n' "$cde" "${CDE[cde]}" > /dev/null
+                                for ttdcde in "${!TTDCDE[@]}"; do
+                                        printf 'TTDCDE[%s] = %s\n' "$ttdcde" "${TTDCDE[ttdcde]}" > /dev/null
                                 done
 
-                                for ((cde = 0 ; cde <= $cmpt_mo ; cde++)); do
-                                        if [[ ${CDE[cde]} = X ]]
+                                for ((ttdcde = 0 ; ttdcde <= $cmpt_mo ; ttdcde++)); do
+					if [[ ${TTDCDE[ttdcde]} = X ]]
                                         then
                                                 echo -n "X " | sudo tee -a semester_${SE[x]}.info
                                         else
-                                        	echo -n ""${CDE[cde]} "" | sudo tee -a semester_${SE[x]}.info
+                           	             echo -n ""${TTDCDE[ttdcde]} "" | sudo tee -a semester_${SE[x]}.info
                                         fi
                                 done
 
-				############ CE ###########
 
-				echo -n ";CE:" | sudo tee -a semester_${SE[x]}.info
-                                list_ce=$(echo $CE | tr "," "\n")
-                                CC=($list_ce)
+				############ CE ########
 
-                                for cc in "${!CC[@]}"; do
-                                        printf 'CC[%s] = %s\n' "$cc" "${CC[cc]}" > /dev/null
+
+				for ce in ${CE[*]}
+                                do
+                                        echo ""
                                 done
 
-                                for ((cc = 0 ; cc < $cmpt_mo ; cc++)); do
-                                        if [[ ${CC[cc]} = CE ]]
+                                echo -n ";CE:" | sudo tee -a semester_${SE[x]}.info
+                                list_ce=$(echo $CE | tr "," "\n")
+                                TT=($list_ce)
+
+                                for ttyy in "${!TTYY[@]}"; do
+                                        printf 'TTYY[%s] = %s\n' "$ttyy" "${TTYY[ttyy]}" > /dev/null
+                                done
+
+                                for ((ttyy = 0 ; ttyy < $cmpt_mo ; ttyy++)); do
+                                        if [[ ${TTYY[ttyy]} = CE ]]
                                         then
-                                                sudo mkdir -m 700 ${SE[x]}/${UE[x]}/${M[x]}/CE
-                                                sudo chown ${V[i]}:${V[i]} ${SE[x]}/${UE[x]}/${M[x]}/CE
                                                 echo -n "Y " | sudo tee -a semester_${SE[x]}.info
                                         else
                                                 echo -n "N " | sudo tee -a semester_${SE[x]}.info
-                                        fi
+					fi
                                 done
+
+				for coeftdce in ${CCE[*]}
+                                do
+                                        echo ""
+                                done
+
 
                                 echo -n ";ECE: " | sudo tee -a semester_${SE[x]}.info
                                 echo -n ";COEFCE:" | sudo tee -a semester_${SE[x]}.info
-                                listc_ce=$(echo $CCE | tr "," "\n")
-                                CCCE=($listc_ce)
+                                listc_ce=$(echo ${CCE[x]} | tr "," "\n")
+                                TTDCCE=($listc_ce)
 
-                                for ccce in "${!CCCE[@]}"; do
-                                        printf 'CCCE[%s] = %s\n' "$ccce" "${CCCE[ccce]}" > /dev/null
+                                for ttdcce in "${!TTDCCE[@]}"; do
+                                        printf 'TTDCCE[%s] = %s\n' "$ttdcce" "${TTDCCE[ttdcce]}" > /dev/null
                                 done
 
-                                for ((ccce = 0 ; ccce <= $cmpt_mo ; ccce++)); do
-                                        if [[ ${CCCE[ccce]} = X ]]
+                                for ((ttdcce = 0 ; ttdcce <= $cmpt_mo ; ttdcce++)); do
+					if [[ ${TTDCCE[ttdcce]} = X ]]
                                         then
                                                 echo -n "X " | sudo tee -a semester_${SE[x]}.info
                                         else
-                                        	echo -n ""${CCCE[ccce]} "" | sudo tee -a semester_${SE[x]}.info
+                           	             echo -n ""${TTDCCE[ttdcce]} "" | sudo tee -a semester_${SE[x]}.info
                                         fi
                                 done
 
+
 				echo -n ";FINISH" | sudo tee -a semester_${SE[x]}.info
 
+				echo -e "\n" | sudo tee -a semester_${SE[x]}.info
 
 				x=$x+1
 			done
