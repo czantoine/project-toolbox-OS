@@ -43,6 +43,7 @@ If you discover a bug on the project, please [search our issue tracker](https://
 
 - [x] Create and edit grade file 
 - [x] Create student grade file all course 
+- [x] Add students grade for all student
 
 ### Credits
 - [Stephen AP](https://github.com/EverAged)
