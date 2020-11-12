@@ -36,12 +36,25 @@ else
     	then
 		group_member=$(grep "$ggg" /etc/group)
 		clear_group=$(echo $group_member | sed 's/.*://')
-		list=$(echo $clear_group | tr "," "\n")
-        	cmpt_list=$(echo $list | wc -w)
-		V=($list)
-		for i in "${!V[@]}"; do
-   			printf 'V[%s] = %s\n' "$i" "${V[i]}" #> /dev/null
+		listt=$(echo $clear_group | tr "," "\n")
+        	cmpt_listt=$(echo $listt | wc -w)
+		VV=($listt)
+		for i in "${!VV[@]}"; do
+   			printf 'VV[%s] = %s\n' "$i" "${VV[i]}" #> /dev/null
 		done
+		for ((i = 0 ; i < $cmpt_listt ; i++)); do
+			ss=$(groups ${VV[i]})
+			if [[ $ss == *"student"* ]]; then
+  			var3="$var3${VV[i]},"
+			fi
+		done
+
+		clear_groupp=$(echo $var3 | tr "," "\n")
+		cmpt_list=$(echo $clear_groupp | wc -w)
+		V=($clear_groupp)
+		for i in "${!V[@]}"; do
+                        printf 'V[%s] = %s\n' "$i" "${V[i]}" #> /dev/null
+                done
 
 		for ((i = 0 ; i < $cmpt_list ; i++)); do
 			cd /home/${V[i]}/
@@ -57,7 +70,7 @@ else
     				echo ""${SE[x]}" : $username_group" | sudo tee -a semester.conf
 
 				for ue in ${UE[*]}
-                        	do
+        			do
                                 	sudo mkdir -m 700 ${SE[x]}/${UE[x]}
                                 	sudo chown ${V[i]}:${V[i]} ${SE[x]}/${UE[x]}
                         	done
