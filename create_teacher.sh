@@ -28,6 +28,7 @@ sudo usermod -d /home/$username $username
 
 sudo cp toolbox_teacher.sh /home/$username
 sudo cp grade.sh /home/$username
+sudo cp set_grade_file.sh /home/$username
 
 touch .email
 echo "$email" >> .email

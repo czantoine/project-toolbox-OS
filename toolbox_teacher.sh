@@ -12,7 +12,7 @@ ext=0
 while [ "$ext" = 0 ]; do
 
 echo "1. Evaluation grade"
-echo "2. "
+echo "2. Add student grade file into course"
 echo "0. Exit"
 
 echo "Enter your choice"
@@ -25,6 +25,8 @@ bash grade.sh
 
 elif [[ $choice -eq 2 ]]
 then
+
+bash set_grade_file.sh
 
 echo ""
 

@@ -37,6 +37,7 @@ else
 
 		sudo cp toolbox_teacher.sh /home/${name[$x]}
 		sudo cp grade.sh /home/${name[$x]}
+		sudo cp set_grade_file.sh /home/${name[$x]}
 
 		touch .email
 		echo "${mail[$x]}" >> .email

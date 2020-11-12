@@ -8,6 +8,7 @@ echo "1. Install ssh"
 echo "2. Install gnuplot"
 echo "3. Install ssmtp"
 echo "4. Update & Upgrade"
+echo "5. Server ip"
 echo "0. Exit"
 
 echo "Enter your choice"
@@ -31,12 +32,26 @@ then
 	sudo apt install mailutils
 	cd file_system
 	sudo cat ssmtp.conf > /etc/ssmtp/ssmtp.conf
+
 elif [[ $choice -eq 4 ]]
 then
 	sudo apt update
 	sudo apt upgrade
 
+elif [[ $choice -eq 5 ]]
+then
+	echo -e "\nActuel server ip is : "
+	cat file_system/.numserver
+	echo -e "\nNeed change the address ? TAP YES or NO "
+	read rep
+	if [[ $rep = YES ]] || [[ $rep = yes ]] || [[ $rep == NO ]]
+	then
+		echo -e "\nWhat is the need ip address ? "
+		read new_ip
+		echo $new_ip > file_system/.numserver
+		echo -e "\nip have been change : $new_ip"
 else
+
 	exit 1
 fi
 done

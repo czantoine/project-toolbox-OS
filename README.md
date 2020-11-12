@@ -17,10 +17,15 @@ If you discover a bug on the project, please [search our issue tracker](https://
 
 - [x] Create new Student account set group and cp file 
 - [x] Create new Teacher account, set group and cp file 
+- [x] Create new Student account automatic mode with student.csv
+- [x] Create new Teacher account automactic mode with teacher.csv
+- [x] Create new Semester account automactic mode with semester.csv
+- [x] Create new Semester dir Teacher manualy
+- [x] Create new Semester dir Teacher  automactic mode with semester.csv
 - [x] Manage group and owner file or directory
 - [x] Archive semester and send via ssh for other client machine
 - [x] Scheduling automatic email for all student when student update question & remark and when teacher update grade
-- [x] Easy install ssh, ssmtp and gnuplot
+- [x] Easy install ssh, ssmtp and gnuplot, server ip address
 
 #### Toolbox Student 
 
