@@ -4,7 +4,8 @@
 
 echo -e "\nEnter semester number"
 read sn
-mkdir -m 700 S$sn
+mkdir -m 710 S$sn
+chgrp teacher S$SN
 
 ##### add user associate semester ####
 username=$USER
@@ -17,12 +18,13 @@ echo "S$sn : $username_group" >> semester.conf
 
 echo -e "\nEnter Education Unit"
 read ue
-echo -n "UE:$ue ;" >> semester_sheet.txt
-mkdir -m 700 S$sn/$ue
+echo -n "UE:$ue ;" >> semester_S$sn.info
+mkdir -m 710 S$sn/$ue
+chgrp teacher S$sn/$ue
 
 echo -e "\nEnter Coefficiant of this Education Unit"
 read coefue
-echo -n "COEFUE:$coefue ;" >> semester_sheet.txt
+echo -n "COEFUE:$coefue ;" >> semester_S$sn.info
 
 
 echo -e "\nHow many modules do you want to add?"
@@ -34,7 +36,7 @@ then
         exit 1
 fi
 
-echo -n "MO:" >> semester_sheet.txt
+echo -n "MO:" >> semester_S$sn.info
 
 for ((i = 1 ; i <= $x ; i++)); do
         if [[ $x -eq i ]]
@@ -42,16 +44,18 @@ for ((i = 1 ; i <= $x ; i++)); do
                 echo -e "\nEnter Module name"
                 read mo
 		cd S$sn
-		mkdir -m 700 $ue/$mo
+		mkdir -m 710 $ue/$mo
+		chgrp teacher /$ue/$mo
 		cd - > /dev/null
-                echo -n "$mo ;" >> semester_sheet.txt
+                echo -n "$mo ;" >> semester_S$sn.info
         else
                 echo -e "\nEnter Module name"
                 read mo
 		cd S$sn
-                mkdir -m 700 $ue/$mo
+                mkdir -m 710 $ue/$mo
+		chgrp teacher /$ue/$mo
                 cd - > /dev/null
-                echo -n "$mo " >> semester_sheet.txt
+                echo -n "$mo " >> semester_S$sn.info
         fi
 done
 
@@ -61,18 +65,18 @@ done
 
 
 echo -e "\nEnter Coef of Module Unit"
-echo -n "COEF:" >> semester_sheet.txt
+echo -n "COEF:" >> semester_S$sn.info
 
 for ((i = 1 ; i <= $x ; i++)); do
         if [[ $x -eq i ]]
         then
                 echo -e "\nCoef of $i module is:"
                 read coef
-                echo -n "$coef ;" >> semester_sheet.txt
+                echo -n "$coef ;" >> semester_S$sn.info
         else
                 echo -e "\nCoef of $i module is :"
                 read coef
-                echo -n "$coef ," >> semester_sheet.txt
+                echo -n "$coef ," >> semester_S$sn.info
         fi
 done
 
@@ -84,7 +88,7 @@ done
 
 echo -e "\nName of Teacher"
 read teach
-echo -n "TEACH:$teach ;" >> semester_sheet.txt
+echo -n "TEACH:$teach ;" >> semester_S$sn.info
 
 #########################
 ##### Email Teacher #####
@@ -93,7 +97,7 @@ echo -n "TEACH:$teach ;" >> semester_sheet.txt
 
 echo -e "\nEmail of Teacher"
 read email
-echo -n "EMAIL:$email ;" >> semester_sheet.txt
+echo -n "EMAIL:$email ;" >> semester_S$sn.info
 
 
 #########################
@@ -102,7 +106,7 @@ echo -n "EMAIL:$email ;" >> semester_sheet.txt
 
 #cmpt=$(grep -o -P '(?<=MO:).*(?=;COEF:)' semester_sheet.txt | wc -w)
 
-fline=$(grep -o -P '(?<=UE:'$UE').*(?=;COEF:)' semester_sheet.txt)
+fline=$(grep -o -P '(?<=UE:'$UE').*(?=;COEF:)' semester_S$sn.info)
 list=$(echo $fline | sed 's/.*MO://; s/;COEF.*//') #find module
 
 V=($list)
@@ -111,7 +115,7 @@ for i in "${!V[@]}"; do
     printf 'V[%s] = %s\n' "$i" "${V[i]}" > /dev/null
 done
 
-echo -n "TP:" >> semester_sheet.txt
+echo -n "TP:" >> semester_S$sn.info
 
 for ((i = 0 ; i < $x ; i++)); do
 read -p "Do you want add TP for the ${V[i]} ? TAP Y or N : " -n 1 -r
@@ -120,28 +124,30 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
         if [[ $x -eq $[$i+1] ]]
         then
-		mkdir -m 700 S$sn/$ue/${V[i]}/TP
-                echo -n "Y ;" >> semester_sheet.txt
+		mkdir -m 770 S$sn/$ue/${V[i]}/TP
+		chgrp teacher S$sn/$ue/${V[i]}/TP
+                echo -n "Y ;" >> semester_S$sn.info
         else
-		mkdir -m 700 S$sn/$ue/${V[i]}/TP
-                echo -n "Y " >> semester_sheet.txt
+		mkdir -m 770 S$sn/$ue/${V[i]}/TP
+		chgrp teacher S$sn/$ue/${V[i]}/TP
+                echo -n "Y " >> semester_S$sn.info
         fi
 else
         if [[ $x -eq $[$i+1] ]]
         then
-                echo -n "N ;" >> semester_sheet.txt
+                echo -n "N ;" >> semester_S$sn.info
         else
-                echo -n "N " >> semester_sheet.txt
+                echo -n "N " >> semester_S$sn.info
         fi
 fi
 done
 
 
-echo -n "ETP: ;" >> semester_sheet.txt
+echo -n "ETP: ;" >> semester_S$sn.info
 
 
-echo -n "COEFTP:" >> semester_sheet.txt
-flinetp=$(grep -o -P '(?<=UE:'$UE').*(?=COEFTP)' semester_sheet.txt)
+echo -n "COEFTP:" >> semester_S$sn.info
+flinetp=$(grep -o -P '(?<=UE:'$UE').*(?=COEFTP)' semester_S$sn.info)
 listyn=$(echo $flinetp | sed 's/.*;TP://; s/;ETP:.*//')
 cmptyntp=$(echo $listyn | wc -w)
 
@@ -159,18 +165,18 @@ then
 	then
 		echo -e "\nEnter coef :"
 		read coeftp
-		echo -n "$coeftp ;" >> semester_sheet.txt
+		echo -n "$coeftp ;" >> semester_S$sn.info
 	else
 		echo -e "\nEnter coef :"
                 read coeftp
-                echo -n "$coeftp " >> semester_sheet.txt
+                echo -n "$coeftp " >> semester_S$sn.info
 	fi
 else
 	if [[ $cmptyntp -eq $[$i+1] ]]
 	then
-		echo -n "X ;" >> semester_sheet.txt
+		echo -n "X ;" >> semester_S$sn.info
 	else
-		echo -n "X " >> semester_sheet.txt
+		echo -n "X " >> semester_S$sn.info
 	fi
 fi
 done
@@ -187,7 +193,7 @@ for i in "${!VTD[@]}"; do
     printf 'VTD[%s] = %s\n' "$i" "${VTD[i]}" > /dev/null
 done
 
-echo -n "TD:" >> semester_sheet.txt
+echo -n "TD:" >> semester_S$sn.info
 
 for ((i = 0 ; i < $x ; i++)); do
 read -p "Do you want add TD for the ${VTD[i]} ? TAP Y or N : " -n 1 -r
@@ -196,28 +202,30 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
         if [[ $x -eq $[$i+1] ]]
         then
-                mkdir -m 700 S$sn/$ue/${VTD[i]}/TD
-                echo -n "Y ;" >> semester_sheet.txt
+                mkdir -m 770 S$sn/$ue/${VTD[i]}/TD
+		chgrp teacher S$sn/$ue/${V[i]}/TD
+                echo -n "Y ;" >> semester_S$sn.info
         else
-                mkdir -m 700 S$sn/$ue/${VTD[i]}/TD
-                echo -n "Y " >> semester_sheet.txt
+                mkdir -m 770 S$sn/$ue/${VTD[i]}/TD
+		chgrp teacher S$sn/$ue/${V[i]}/TD
+                echo -n "Y " >> semester_S$sn.info
         fi
 else
         if [[ $x -eq $[$i+1] ]]
         then
-                echo -n "N ;" >> semester_sheet.txt
+                echo -n "N ;" >> semester_S$sn.info
         else
-                echo -n "N " >> semester_sheet.txt
+                echo -n "N " >> semester_S$sn.info
         fi
 fi
 done
 
 
-echo -n "ETD:;" >> semester_sheet.txt
+echo -n "ETD:;" >> semester_S$sn.info
 
 
-echo -n "COEFTD:" >> semester_sheet.txt
-flinetd=$(grep -o -P '(?<=UE:'$UE').*(?=COEFTD)' semester_sheet.txt)
+echo -n "COEFTD:" >> semester_S$sn.info
+flinetd=$(grep -o -P '(?<=UE:'$UE').*(?=COEFTD)' semester_S$sn.info)
 listyntd=$(echo $flinetd | sed 's/.*;TD://; s/;ETD:.*//')
 cmptyntd=$(echo $listyntd | wc -w)
 
@@ -236,18 +244,18 @@ then
         then
                 echo -e "\nEnter coef :"
                 read coeftd
-                echo -n "$coeftd;" >> semester_sheet.txt
+                echo -n "$coeftd;" >> semester_S$sn.info
         else
                 echo -e "\nEnter coef :"
                 read coeftd
-                echo -n "$coeftd " >> semester_sheet.txt
+                echo -n "$coeftd " >> semester_S$sn.info
         fi
 else
         if [[ $cmptyntd -eq $[$i+1] ]]
         then
-                echo -n "X ;" >> semester_sheet.txt
+                echo -n "X ;" >> semester_S$sn.info
         else
-                echo -n "X " >> semester_sheet.txt
+                echo -n "X " >> semester_S$sn.info
         fi
 fi
 done
@@ -264,7 +272,7 @@ for i in "${!VCM[@]}"; do
     printf 'VCM[%s] = %s\n' "$i" "${VCM[i]}" > /dev/null
 done
 
-echo -n "CM:" >> semester_sheet.txt
+echo -n "CM:" >> semester_S$sn.info
 
 for ((i = 0 ; i < $x ; i++)); do
 read -p "Do you want add CM for the ${VCM[i]} ? TAP Y or N : " -n 1 -r
@@ -273,28 +281,30 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
         if [[ $x -eq $[$i+1] ]]
         then
-                mkdir -m 700 S$sn/$ue/${VCM[i]}/CM
-                echo -n "Y ;" >> semester_sheet.txt
+                mkdir -m 770 S$sn/$ue/${VCM[i]}/CM
+		chgrp teacher S$sn/$ue/${V[i]}/CM
+                echo -n "Y ;" >> semester_S$sn.info
         else
-                mkdir -m 700 S$sn/$ue/${VCM[i]}/CM
-                echo -n "Y " >> semester_sheet.txt
+                mkdir -m 770 S$sn/$ue/${VCM[i]}/CM
+                chgrp teacher S$sn/$ue/${V[i]}/CM
+		echo -n "Y " >> semester_S$sn.info
         fi
 else
         if [[ $x -eq $[$i+1] ]]
         then
-                echo -n "N ;" >> semester_sheet.txt
+                echo -n "N ;" >> semester_S$sn.info
         else
-                echo -n "N " >> semester_sheet.txt
+                echo -n "N " >> semester_S$sn.info
         fi
 fi
 done
 
 
-echo -n "ECM:;" >> semester_sheet.txt
+echo -n "ECM:;" >> semester_S$sn.info
 
 
-echo -n "COEFCM:" >> semester_sheet.txt
-flinecm=$(grep -o -P '(?<=UE:'$UE').*(?=COEFCM)' semester_sheet.txt)
+echo -n "COEFCM:" >> semester_S$sn.info
+flinecm=$(grep -o -P '(?<=UE:'$UE').*(?=COEFCM)' semester_S$sn.info)
 listyncm=$(echo $flinecm | sed 's/.*;CM://; s/;ECM:.*//')
 cmptyncm=$(echo $listyncm | wc -w)
 
@@ -312,18 +322,18 @@ then
         then
                 echo -e "\nEnter coef :"
                 read coefcm
-                echo -n "$coefcm ;" >> semester_sheet.txt
+                echo -n "$coefcm ;" >> semester_S$sn.info
         else
                 echo -e "\nEnter coef :"
                 read coefcm
-                echo -n "$coefcm " >> semester_sheet.txt
+                echo -n "$coefcm " >> semester_S$sn.info
         fi
 else
 	if [[ $cmptyncm -eq $[$i+1] ]]
         then
-       	        echo -n "X ;" >> semester_sheet.txt
+       	        echo -n "X ;" >> semester_S$sn.info
  	else
-                echo -n "X " >> semester_sheet.txt
+                echo -n "X " >> semester_S$sn.info
         fi
 fi
 done
@@ -338,7 +348,7 @@ for i in "${!VDE[@]}"; do
     printf 'VDE[%s] = %s\n' "$i" "${VDE[i]}" > /dev/null
 done
 
-echo -n "DE:" >> semester_sheet.txt
+echo -n "DE:" >> semester_S$sn.info
 
 for ((i = 0 ; i < $x ; i++)); do
 read -p "Do you want add DE for the ${VDE[i]} ? TAP Y or N : " -n 1 -r
@@ -347,28 +357,30 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
         if [[ $x -eq $[$i+1] ]]
         then
-                mkdir -m 700 S$sn/$ue/${VDE[i]}/DE
-                echo -n "Y ;" >> semester_sheet.txt
+                mkdir -m 770 S$sn/$ue/${VDE[i]}/DE
+		chgrp teacher S$sn/$ue/${V[i]}/DE
+                echo -n "Y ;" >> semester_S$sn.info
         else
-                mkdir -m 700 S$sn/$ue/${VDE[i]}/DE
-                echo -n "Y " >> semester_sheet.txt
+                mkdir -m 770 S$sn/$ue/${VDE[i]}/DE
+		chgrp teacher S$sn/$ue/${V[i]}/DE
+                echo -n "Y " >> semester_S$sn.info
         fi
 else
         if [[ $x -eq $[$i+1] ]]
         then
-                echo -n "N ;" >> semester_sheet.txt
+                echo -n "N ;" >> semester_S$sn.info
         else
-                echo -n "N " >> semester_sheet.txt
+                echo -n "N " >> semester_S$sn.info
         fi
 fi
 done
 
 
-echo -n "EDE:;" >> semester_sheet.txt
+echo -n "EDE:;" >> semester_S$sn.info
 
 
-echo -n "COEFDE:" >> semester_sheet.txt
-flinede=$(grep -o -P '(?<=UE:'$UE').*(?=COEFDE)' semester_sheet.txt)
+echo -n "COEFDE:" >> semester_S$sn.info
+flinede=$(grep -o -P '(?<=UE:'$UE').*(?=COEFDE)' semester_S$sn.info)
 listynde=$(echo $flinede | sed 's/.*;DE://; s/;EDE:.*//')
 cmptynde=$(echo $listynde | wc -w)
 
@@ -387,18 +399,18 @@ then
         then
                 echo -e "\nEnter coef :"
                 read coefde
-                echo -n "$coefde ;" >> semester_sheet.txt
+                echo -n "$coefde ;" >> semester_S$sn.info
         else
                 echo -e "\nEnter coef :"
                 read coefde
-                echo -n "$coefde " >> semester_sheet.txt
+                echo -n "$coefde " >> semester_S$sn.info
         fi
 else
 	if [[ $cmptynde -eq $[$i+1] ]]
         then
-                echo -n "X ;" >> semester_sheet.txt
+                echo -n "X ;" >> semester_S$sn.info
         else
-                echo -n "X " >> semester_sheet.txt
+                echo -n "X " >> semester_S$sn.info
         fi
 fi
 done
@@ -415,7 +427,7 @@ for i in "${!VCE[@]}"; do
     printf 'VCE[%s] = %s\n' "$i" "${VCE[i]}" > /dev/null
 done
 
-echo -n "CE:" >> semester_sheet.txt
+echo -n "CE:" >> semester_S$sn.info
 
 for ((i = 0 ; i < $x ; i++)); do
 read -p "Do you want add CE for the ${VCE[i]} ? TAP Y or N : " -n 1 -r
@@ -424,28 +436,30 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
         if [[ $x -eq $[$i+1] ]]
         then
-                mkdir -m 700 S$sn/$ue/${VCE[i]}/CE
-                echo -n "Y ;" >> semester_sheet.txt
+                mkdir -m 770 S$sn/$ue/${VCE[i]}/CE
+		chgrp teacher S$sn/$ue/${V[i]}/CE
+                echo -n "Y ;" >> semester_S$sn.info
         else
-                mkdir -m 700 S$sn/$ue/${VCE[i]}/CE
-                echo -n "Y " >> semester_sheet.txt
+                mkdir -m 770 S$sn/$ue/${VCE[i]}/CE
+		chgrp teacher S$sn/$ue/${V[i]}/CE
+                echo -n "Y " >> semester_S$sn.info
         fi
 else
         if [[ $x -eq $[$i+1] ]]
         then
-                echo -n "N ;" >> semester_sheet.txt
+                echo -n "N ;" >> semester_S$sn.info
         else
-                echo -n "N " >> semester_sheet.txt
+                echo -n "N " >> semester_S$sn.info
         fi
 fi
 done
 
 
-echo -n "ECE:;" >> semester_sheet.txt
+echo -n "ECE:;" >> semester_S$sn.info
 
 
-echo -n "COEFCE:" >> semester_sheet.txt
-flinece=$(grep -o -P '(?<=UE:'$UE').*(?=COEFCE)' semester_sheet.txt)
+echo -n "COEFCE:" >> semester_S$sn.info
+flinece=$(grep -o -P '(?<=UE:'$UE').*(?=COEFCE)' semester_S$sn.info)
 listynce=$(echo $flinece | sed 's/.*;CE://; s/;ECE:.*//')
 cmptynce=$(echo $listynce | wc -w)
 
@@ -463,18 +477,18 @@ then
         then
                 echo -e "\nEnter coef :"
                 read coefce
-                echo "$coefce ;FINISH" >> semester_sheet.txt
+                echo "$coefce ;FINISH" >> semester_S$sn.info
         else
                 echo -e "\nEnter coef :"
                 read coefce
-                echo -n "$coefce " >> semester_sheet.txt
+                echo -n "$coefce " >> semester_S$sn.info
         fi
 else
         if [[ $cmptynce -eq $[$i+1] ]]
         then
-                echo -n "X ;FINISH" >> semester_sheet.txt
+                echo -n "X ;FINISH" >> semester_S$sn.info
         else
-                echo -n "X " >> semester_sheet.txt
+                echo -n "X " >> semester_S$sn.info
         fi
 fi
 done

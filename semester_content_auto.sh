@@ -65,14 +65,20 @@ else
 			x=0
 			for se in ${SE[*]}
 			do
-				sudo mkdir -m 700 ${SE[x]}
-				sudo chown ${V[i]}:${V[i]}  ${SE[x]}
+				
+ 				for teach in ${TEACH[*]}
+                                do
+                                        echo ""
+                                done
+
+				sudo mkdir -m 710 ${SE[x]}
+				sudo chown ${V[i]}:${TEACH[i]}  ${SE[x]}
     				echo ""${SE[x]}" : $username_group" | sudo tee -a semester.conf
 
 				for ue in ${UE[*]}
         			do
-                                	sudo mkdir -m 700 ${SE[x]}/${UE[x]}
-                                	sudo chown ${V[i]}:${V[i]} ${SE[x]}/${UE[x]}
+                                	sudo mkdir -m 710 ${SE[x]}/${UE[x]}
+                                	sudo chown ${V[i]}:${TEACH[i]} ${SE[x]}/${UE[x]}
                         	done
 				echo -n "UE:"${UE[x]} "" | sudo tee -a semester_${SE[x]}.info
 
@@ -97,27 +103,27 @@ else
 				done
 
 				for ((m = 0 ; m <= $cmpt_mo ; m++)); do
-					sudo mkdir -m 700 ${SE[x]}/${UE[x]}/${M[m]}
-					sudo chown ${V[i]}:${V[i]} ${SE[x]}/${UE[x]}/${M[m]}
+					sudo mkdir -m 710 ${SE[x]}/${UE[x]}/${M[m]}
+					sudo chown ${V[i]}:${TEACH[i]} ${SE[x]}/${UE[x]}/${M[m]}
 					echo -n ""${M[m]} "" | sudo tee -a semester_${SE[x]}.info
 				done
 
 				for ((m = 0 ; m <= $cmpt_mo ; m++)); do
-                                        sudo mkdir -m 700 ${SE[x]}/${UE[x]}/${M[m]}/TP
-                               		sudo chown ${V[i]}:${V[i]} ${SE[x]}/${UE[x]}/${M[m]}/TP
-					sudo rmdir ${V[i]}:${V[i]} ${SE[x]}/${UE[x]}/TP
-					sudo mkdir -m 700 ${SE[x]}/${UE[x]}/${M[m]}/TD
-                                        sudo chown ${V[i]}:${V[i]} ${SE[x]}/${UE[x]}/${M[m]}/TD
-                                        sudo rmdir ${V[i]}:${V[i]} ${SE[x]}/${UE[x]}/TD
-					sudo mkdir -m 700 ${SE[x]}/${UE[x]}/${M[m]}/CM
-                                        sudo chown ${V[i]}:${V[i]} ${SE[x]}/${UE[x]}/${M[m]}/CM
-                                        sudo rmdir ${V[i]}:${V[i]} ${SE[x]}/${UE[x]}/CM
-					sudo mkdir -m 700 ${SE[x]}/${UE[x]}/${M[m]}/DE
-                                        sudo chown ${V[i]}:${V[i]} ${SE[x]}/${UE[x]}/${M[m]}/DE
-                                        sudo rmdir ${V[i]}:${V[i]} ${SE[x]}/${UE[x]}/DE
-					sudo mkdir -m 700 ${SE[x]}/${UE[x]}/${M[m]}/CE
-                                        sudo chown ${V[i]}:${V[i]} ${SE[x]}/${UE[x]}/${M[m]}/CE
-                                        sudo rmdir ${V[i]}:${V[i]} ${SE[x]}/${UE[x]}/CE
+                                        sudo mkdir -m 770 ${SE[x]}/${UE[x]}/${M[m]}/TP
+                               		sudo chown ${V[i]}:${TEACH[i]} ${SE[x]}/${UE[x]}/${M[m]}/TP
+					sudo rmdir ${SE[x]}/${UE[x]}/TP
+					sudo mkdir -m 770 ${SE[x]}/${UE[x]}/${M[m]}/TD
+                                        sudo chown ${V[i]}:${TEACH[i]} ${SE[x]}/${UE[x]}/${M[m]}/TD
+                                        sudo rmdir ${SE[x]}/${UE[x]}/TD
+					sudo mkdir -m 770 ${SE[x]}/${UE[x]}/${M[m]}/CM
+                                        sudo chown ${V[i]}:${TEACH[i]} ${SE[x]}/${UE[x]}/${M[m]}/CM
+                                        sudo rmdir ${SE[x]}/${UE[x]}/CM
+					sudo mkdir -m 770 ${SE[x]}/${UE[x]}/${M[m]}/DE
+                                        sudo chown ${V[i]}:${TEACH[i]} ${SE[x]}/${UE[x]}/${M[m]}/DE
+                                        sudo rmdir ${SE[x]}/${UE[x]}/DE
+					sudo mkdir -m 770 ${SE[x]}/${UE[x]}/${M[m]}/CE
+                                        sudo chown ${V[i]}:${TEACH[i]} ${SE[x]}/${UE[x]}/${M[m]}/CE
+                                        sudo rmdir ${SE[x]}/${UE[x]}/CE
 				done
 
 				for coef in ${COEF[*]}
@@ -170,7 +176,7 @@ else
 					then
                                         	echo -n "Y " | sudo tee -a semester_${SE[x]}.info
 					else
-						echo -n "N " | sudo tee -a semester_${SE[x]}.info						
+						echo -n "N " | sudo tee -a semester_${SE[x]}.info
 					fi
                                 done
 

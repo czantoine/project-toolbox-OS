@@ -1,5 +1,7 @@
 #!/bin/bash
 
+user=$USER
+
 echo -e "\n What is the student you want go?"
 read student
 
@@ -32,7 +34,7 @@ then
 	echo "New grade :" >> grade.conf
 	echo "Write at : $NOW" >> grade.conf
 	echo "Directory : $go_s/$go_ue/$go_mo/$go_c" >> grade.conf
-	echo "Grade added : $name_file: $grade/20" >> grade.conf
+	echo "Grade added by $user : $name_file: $grade/20" >> grade.conf
 
 elif [[ $rep = Edit ]] || [[ $rep = edit ]] || [[ $rep == e ]]
 then
@@ -59,7 +61,7 @@ then
         echo "Grade editing :" >> grade.conf
         echo "Write at : $NOW" >> grade.conf
         echo "Directory : $go_s/$go_ue/$go_mo/$go_c" >> grade.conf
-        echo "Grade added : $name_file: $new_grade/20" >> grade.conf
+        echo "Grade added by $user : $name_file: $new_grade/20" >> grade.conf
 
 else
 	echo "error"
