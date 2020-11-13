@@ -15,10 +15,10 @@ If you discover a bug on the project, please [search our issue tracker](https://
  
 #### Toolbox Admin
 
-- [x] Create new Student account set group and cp file 
-- [x] Create new Teacher account, set group and cp file 
-- [x] Create new Student account automatic mode with student.csv
-- [x] Create new Teacher account automactic mode with teacher.csv
+- [x] Create new Student account with toolbox for the student, set group and cp file
+- [x] Create new Teacher account with toobox for the teacher, set group and cp file 
+- [x] Create new Student account all automatic mode with student.csv
+- [x] Create new Teacher account all automactic mode with teacher.csv
 - [x] Create new Semester account automactic mode with semester.csv
 - [x] Create new Semester dir Teacher manualy
 - [x] Create new Semester dir Teacher  automactic mode with semester.csv
