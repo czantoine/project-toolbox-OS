@@ -7,6 +7,7 @@ Operating system project.
 - [Bugs](#bugs--issues)
 - [Features](#features)
 - [Credits](#credits)
+- [Wiki](https://github.com/czantoine/project-toolbox-OS/wiki)
 
 ### [Bugs / Issues](https://github.com/czantoine/project-toolbox-OS/issues)
 If you discover a bug on the project, please [search our issue tracker](https://github.com/czantoine/project-toolbox-OS/issues) first. If it hasn't been reported, please [create a new issue](https://github.com/czantoine/c-anne/project-toolbox-OS/new) and ensure you follow the template guide so that our team can assist you as quickly as possible.
