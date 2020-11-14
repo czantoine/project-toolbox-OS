@@ -38,7 +38,7 @@ then
 
 bash create_teacher.sh
 
-if [[ $choice -eq 3 ]]
+elif [[ $choice -eq 3 ]]
 then
 
 bash create_student_auto.sh
