@@ -32,8 +32,9 @@ else
   	for user in ${name[*]}
   	do
 		sudo useradd ${name[$x]} --groups student,${groups[$x]}
-		echo "${name[$x]}:${pas[$x]}" | sudo chpasswd
+		echo "${name[$x]}:${groups[$x]}" | sudo chpasswd
 		sudo mkdir -p /home/${name[$x]}
+		sudo chown ${name[$x]}:${groups[$x]} /home/${name[$x]}
 
 		sudo cp toolbox_student.sh /home/${name[$x]}
 		sudo cp semester_content.sh /home/${name[$x]}

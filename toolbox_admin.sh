@@ -6,7 +6,7 @@ echo "#   TOOLBOX   #"
 echo "#    ADMIN    #"
 echo "#             #"
 echo "###############"
-
+echo ""
 
 ext=0
 
@@ -31,56 +31,67 @@ read choice
 if [[ $choice -eq 1 ]]
 then
 
+echo ""
 bash create_student.sh
 
 elif [[ $choice -eq 2 ]]
 then
 
+echo ""
 bash create_teacher.sh
 
 elif [[ $choice -eq 3 ]]
 then
 
+echo ""
 bash create_student_auto.sh
 
 elif [[ $choice -eq 4 ]]
 then
 
+echo ""
 bash create_teacher_auto.sh
 
 elif [[ $choice -eq 5 ]]
 then
 
+echo ""
 bash semester_content_auto.sh
 
 elif [[ $choice -eq 6 ]]
 then
 
+echo ""
 bash create_dir.sh
 
 elif [[ $choice -eq 7 ]]
 then
 
+echo ""
 bash create_dir_auto.sh
 
 elif [[ $choice -eq 8 ]]
 then
 
+echo ""
 bash admin_rwx.sh
 
 elif [[ $choice -eq 9 ]]
 then
 
+echo ""
 bash scheduling.sh
 
 elif [[ $choice -eq 10 ]]
 then
 
+echo ""
 bash scheduling_grade.sh
 
 elif [[ $choice -eq 11 ]]
 then
 
+echo ""
 bash install.sh
 
 else

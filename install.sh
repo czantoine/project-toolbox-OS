@@ -31,7 +31,8 @@ then
 	sudo apt install ssmtp
 	sudo apt install mailutils
 	cd file_system
-	sudo cat ssmtp.conf > /etc/ssmtp/ssmtp.conf
+	sudo cp ssmtp.conf /etc/ssmtp/ssmtp.conf
+	cd -
 
 elif [[ $choice -eq 4 ]]
 then
@@ -41,15 +42,18 @@ then
 elif [[ $choice -eq 5 ]]
 then
 	echo -e "\nActuel server ip is : "
-	cat file_system/.numserver
+	cd file_system/
+	cat .numserver
 	echo -e "\nNeed change the address ? TAP YES or NO "
 	read rep
 	if [[ $rep = YES ]] || [[ $rep = yes ]] || [[ $rep == NO ]]
 	then
 		echo -e "\nWhat is the need ip address ? "
 		read new_ip
-		echo $new_ip > file_system/.numserver
+		echo $new_ip > .numserver
 		echo -e "\nip have been change : $new_ip"
+	fi
+	cd -
 else
 
 	exit 1

@@ -23,7 +23,7 @@ sudo groupadd student
 
 sudo useradd $username --groups student,$group
 sudo mkdir -p /home/$username
-sudo chown $username:$username /home/$username
+sudo chown $username:$group /home/$username
 sudo usermod -d /home/$username $username
 
 sudo cp toolbox_student.sh /home/$username
@@ -44,7 +44,7 @@ rm .email
 
 
 echo -e "\nSet password for this student"
-echo -e "\n What is the new password"
+echo -e "\nWhat is the new password"
 read pas
 echo "$username:$pas" | sudo chpasswd
 
