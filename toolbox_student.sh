@@ -6,7 +6,7 @@ echo "#   TOOLBOX   #"
 echo "#   STUDENT   #"
 echo "#             #"
 echo "###############"
-
+echo ""
 
 ext=0
 
