@@ -48,6 +48,6 @@ echo -e "\nWhat is the new password"
 read pas
 echo "$username:$pas" | sudo chpasswd
 
-echo "Welcome! Your account has been created.  Your username is $username and password is \"$pas\" without the quotes. The number of server is $server" | mail -s "New Account for $username" $email -b root $username
+echo "Welcome! Your account has been created.  Your username is $username and password is \"$pas\" without the quotes. The number of server is $server" | mail -s "New Account for $username" $email
 
 echo -e "\nUser created $username"
