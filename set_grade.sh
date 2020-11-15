@@ -13,7 +13,7 @@ if grep -q $ggg /etc/group
         	cmpt_listt=$(echo $listt | wc -w)
 		VV=($listt)
 		for i in "${!VV[@]}"; do
-   			printf 'VV[%s] = %s\n' "$i" "${VV[i]}" #> /dev/null
+   			printf 'VV[%s] = %s\n' "$i" "${VV[i]}" > /dev/null
 		done
 		for ((i = 0 ; i < $cmpt_listt ; i++)); do
 			ss=$(groups ${VV[i]})
@@ -26,7 +26,7 @@ if grep -q $ggg /etc/group
 		cmpt_list=$(echo $clear_groupp | wc -w)
 		V=($clear_groupp)
 		for i in "${!V[@]}"; do
-                        printf 'V[%s] = %s\n' "$i" "${V[i]}" #> /dev/null
+                        printf 'V[%s] = %s\n' "$i" "${V[i]}" > /dev/null
                 done
 
 		echo -e "\n What is semester you want go ?"

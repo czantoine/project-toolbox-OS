@@ -11,7 +11,7 @@ cmpt_list=$(echo $list | wc -w)
 V=($list)
 
 for i in "${!V[@]}"; do
-    printf 'V[%s] = %s\n' "$i" "${V[i]}"
+    printf 'V[%s] = %s\n' "$i" "${V[i]}" > /dev/null
 done
 
 for ((i = 0 ; i < $cmpt_list ; i++)); do
@@ -25,7 +25,7 @@ for ((i = 0 ; i < $cmpt_list ; i++)); do
 	for k in "${!D[@]}"; do
 		printf 'D[%s] = %s\n' "$k" "${D[k]}" > /dev/null
 	done
-
+	echo "..."
 	cd
 	cd /home/${V[i]}/
 	for((l = 0 ; l < cmpt_uu ; l++));do

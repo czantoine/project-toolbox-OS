@@ -2,7 +2,7 @@
 
 user=$USER
 
-echo -e "\nAre you sure to add student grade for which course ? TAP YES or NO"
+echo -e "\nAre you sure to add student grade for each course ? TAP YES or NO"
 read rep
 
 if [[ $rep = yes ]] || [[ $rep = YES ]] || [[ $rep == y ]]
@@ -80,5 +80,5 @@ then
 
 
 else
-	echo "allright"
+	echo "bye"
 fi

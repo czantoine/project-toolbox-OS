@@ -49,7 +49,7 @@ for ((i = 0 ; i < $cmpt_list ; i++)); do
 			then
     				echo "do something because they're different"
 				sudo cp question_remark.conf /home/${T[c]}/question_remark.txt
-				echo "copie done"
+				echo "copy done"
 				mail -s "Update Question & Remark" $email <<< 'Hello ! New file have been detected check your repo'
 			else
   				echo "do something because they're identical"
