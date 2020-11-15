@@ -25,6 +25,8 @@ then
 	echo "Write at : $NOW" >> question_remark.txt
 	echo "$question" >> question_remark.txt
 	echo -e "\n Your question have been writing !"
+	cd
+	echo "New question $Now " question_remark.conf
 
 elif [[ $rep_q_r = Remark ]] || [[ $rep_q_r = R ]] || [[ $rep_q_r == r ]]
 then
@@ -36,6 +38,9 @@ then
         echo "Whrite at : $NOW" >> question_remark.txt
         echo "$remark" >> question_remark.txt
 	echo -e "\n Your remark have been writing !"
+	cd 
+	echo "New question $Now " question_remark.conf
+
 else
 	echo -e "error"
 	exit 1

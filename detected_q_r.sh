@@ -43,12 +43,12 @@ for ((i = 0 ; i < $cmpt_list ; i++)); do
 		T=($name_teacher)
 		for c in "${!T[@]}"; do
     			printf 'T[%s] = %s\n' "$c" "${T[c]}"
-			diff --brief <(sudo sort ${D[c]}) <(sudo sort /home/${T[c]}/question_remark.txt) > /dev/null
+			diff --brief <(sudo sort question_remark.conf) <(sudo sort /home/${T[c]}/question_remark.txt) > /dev/null
 			comp_value=$?
 			if [ $comp_value -eq 1 ]
 			then
     				echo "do something because they're different"
-				sudo cp ${D[c]} /home/${T[c]}/question_remark.txt
+				sudo cp question_remark.conf /home/${T[c]}/question_remark.txt
 				echo "copie done"
 				mail -s "Update Question & Remark" $email <<< 'Hello ! New file have been detected check your repo'
 			else
