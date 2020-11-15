@@ -40,7 +40,7 @@ else
         	cmpt_listt=$(echo $listt | wc -w)
 		VV=($listt)
 		for i in "${!VV[@]}"; do
-   			printf 'VV[%s] = %s\n' "$i" "${VV[i]}" #> /dev/null
+   			printf 'VV[%s] = %s\n' "$i" "${VV[i]}" > /dev/null
 		done
 		for ((i = 0 ; i < $cmpt_listt ; i++)); do
 			ss=$(groups ${VV[i]})
@@ -53,7 +53,7 @@ else
 		cmpt_list=$(echo $clear_groupp | wc -w)
 		V=($clear_groupp)
 		for i in "${!V[@]}"; do
-                        printf 'V[%s] = %s\n' "$i" "${V[i]}" #> /dev/null
+                        printf 'V[%s] = %s\n' "$i" "${V[i]}" > /dev/null
                 done
 
 		for ((i = 0 ; i < $cmpt_list ; i++)); do
@@ -65,14 +65,14 @@ else
 			x=0
 			for se in ${SE[*]}
 			do
-				
+
  				for teach in ${TEACH[*]}
                                 do
                                         echo ""
                                 done
 
 				sudo mkdir -m 710 ${SE[x]}
-				sudo chown ${V[i]}:${TEACH[i]}  ${SE[x]}
+				sudo chown ${V[i]}:${TEACH[i]} ${SE[x]}
     				echo ""${SE[x]}" : $username_group" | sudo tee -a semester.conf
 
 				for ue in ${UE[*]}
@@ -301,7 +301,7 @@ else
                                 done
 
 				############ DE ########
-				
+
 				for de in ${DE[*]}
                                 do
                                         echo ""
