@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# S1:math:3:geo,reel:3,4:teller:ac11f@free.fr:TP,TP:3,4:TD,X:3,X:CM,CM:4,3:X,DE:X,3:CE,CE:3,3
+# S1:math:3:geo,reel:3,4:prof:test@gmail.fr:TP,TP:3,4:TD,X:3,X:CM,CM:4,3:X,DE:X,3:CE,CE:3,3
 # Semester:UE:COEFUE:MO:COEF:TEACH:EMAILTEACH:TP:ETP:TD:ETD:CM:ECM:DE:EDE:CE:ECE
 
 filein="semester.csv"
