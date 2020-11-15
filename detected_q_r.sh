@@ -35,9 +35,9 @@ for ((i = 0 ; i < $cmpt_list ; i++)); do
                 printf 'S[%s] = %s\n' "$p" "${S[p]}" > /dev/null
         done
 
-	number_line_file=$(wc -l < ${S[p]})
+	number_line_file=$(wc -l < "${S[p]}")
 	for((l = 1 ; l <= number_line_file ; l++));do
-		ligne=$(sed -n "${l},1p" ${S[p]})
+		ligne=$(sed -n "${l},1p" "${S[p]}")
 		name_teacher=$(echo $ligne | sed 's/.*;TEACH://; s/;EMAILTEACH:.*//')
 		email=$(echo $ligne | sed 's/.*;EMAILTEACH://; s/;TP:.*//')
 		T=($name_teacher)

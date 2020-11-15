@@ -42,7 +42,6 @@ echo "$email" >> .email
 sudo cp .email /home/$username
 rm .email
 
-
 echo -e "\nSet password for this student"
 echo -e "\nWhat is the new password"
 read pas
