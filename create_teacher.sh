@@ -22,8 +22,8 @@ sudo groupadd $group
 sudo groupadd teacher
 
 sudo useradd $username --groups teacher,$group
-sudo mkdir -p /home/$username
-sudo chown $username:$username /home/$username
+sudo mkdir -m 710 /home/$username
+sudo chown $username:$group /home/$username
 sudo usermod -d /home/$username $username
 
 sudo cp toolbox_teacher.sh /home/$username

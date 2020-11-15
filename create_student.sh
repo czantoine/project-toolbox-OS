@@ -22,7 +22,7 @@ sudo groupadd $group
 sudo groupadd student
 
 sudo useradd $username --groups student,$group
-sudo mkdir -m 700 /home/$username
+sudo mkdir -m 710 /home/$username
 sudo chown $username:$group /home/$username
 sudo usermod -d /home/$username $username
 

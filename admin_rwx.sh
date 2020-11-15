@@ -50,12 +50,12 @@ then
 	sudo chown $user_add $go_s
         sudo chown $user_add $go_s/$go_ue
         sudo chown $user_add $go_s/$go_ue/$go_mo
-        sudo chown $user__add $go_s/$go_ue/$go_mo/$go_c
+        sudo chown $user_add $go_s/$go_ue/$go_mo/$go_c
 
-        sudo chmod 700 $go_s
-        sudo chmod 700 $go_s/$go_ue
-        sudo chmod 700 $go_s/$go_ue/$go_mo
-        sudo chmod 700 $go_s/$go_ue/$go_mo/$go_c
+        sudo chmod 710 $go_s
+        sudo chmod 710 $go_s/$go_ue
+        sudo chmod 710 $go_s/$go_ue/$go_mo
+        sudo chmod 770 $go_s/$go_ue/$go_mo/$go_c
 
 	cd $che
 	username=$USER
@@ -74,11 +74,11 @@ then
         sudo chown $user_add $go_s/$go_ue/$go_mo/$go_c
 	sudo chown $user_add $go_s/$go_ue/$go_mo/$go_c/$file
 
-        sudo chmod 700 $go_s
-        sudo chmod 700 $go_s/$go_ue
-        sudo chmod 700 $go_s/$go_ue/$go_mo
-        sudo chmod 700 $go_s/$go_ue/$go_mo/$go_c
-	sudo chmod 700 $go_s/$go_ue/$go_mo/$go_c/$file
+        sudo chmod 710 $go_s
+        sudo chmod 710 $go_s/$go_ue
+        sudo chmod 710 $go_s/$go_ue/$go_mo
+        sudo chmod 710 $go_s/$go_ue/$go_mo/$go_c
+	sudo chmod 770 $go_s/$go_ue/$go_mo/$go_c/$file
 
 	cd $che
 	username=$USER
