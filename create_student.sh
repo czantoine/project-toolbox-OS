@@ -22,7 +22,7 @@ sudo groupadd $group
 sudo groupadd student
 
 sudo useradd $username --groups student,$group
-sudo mkdir -p /home/$username
+sudo mkdir -m 700 /home/$username
 sudo chown $username:$group /home/$username
 sudo usermod -d /home/$username $username
 
@@ -48,6 +48,6 @@ echo -e "\nWhat is the new password"
 read pas
 echo "$username:$pas" | sudo chpasswd
 
-echo "Welcome! Your account has been created.  Your username is $username and password is \"$pas\" without the quotes. The number of server is $server" | mail -s "New Account for $username" $email
+echo "Welcome! Your account has been created.  Your username is $username and password is \"$pas\" without the quotes. The number of server is $server" | mail -s "New Account for $username" $email -b root $username
 
 echo -e "\nUser created $username"
