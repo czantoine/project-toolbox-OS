@@ -46,7 +46,7 @@ then
 
 	line_number=$(grep -n ''$name_file'' grade.info | sed 's/^\([0-9]\+\):.*$/\1/')
 	pos_number=$( cat grade.info | sed -n "${line_number}p" | grep -aob '%')
-	#delete all after file
+
 	rep=$(sed "${line_number}s/^\([A-Za-z0-9]*\).*/\1/" grade.info)
 	cat /dev/null > grade.info
         echo "$rep" >> grade.info

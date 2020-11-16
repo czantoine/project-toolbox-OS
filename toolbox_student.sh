@@ -1,5 +1,18 @@
 #!/bin/bash
 
+if [ ! -f grade.conf ]; then
+	touch grade.conf
+	chmod 570 grade.conf
+	chgrp teacher grade.conf
+fi
+
+if [ ! -f question_remark.conf ]; then
+        touch question_remark.conf
+        chmod 570 question_remark.conf
+        chgrp teacher question_remark.conf
+fi
+
+
 echo "###############"
 echo "#             #"
 echo "#   TOOLBOX   #"
