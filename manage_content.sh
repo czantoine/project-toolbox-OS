@@ -637,7 +637,7 @@ then
 	read rep2
 	if [[ $rep2 -eq 1 ]]
 	then
-	    ue=$(grep -Eo '^[^ ]+' semester_S'%semester'.txt)
+	    ue=$(grep -Eo '^[^ ]+' $semestername)
 	    echo -e "\nThis is all of your UE :\n$ue"
 	    echo -e "\nWhich UE do you want to select?"
 	    read uename
