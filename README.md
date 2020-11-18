@@ -26,6 +26,7 @@ If you discover a bug on the project, please [search our issue tracker](https://
 - [x] Manage group and owner file or directory
 - [x] Archive semester and send via ssh for other client machine
 - [x] Scheduling automatic email for all student when student update question & remark and when teacher update grade
+- [x] Save a semester via scp to a other client machine
 - [x] Easy install ssh, ssmtp and gnuplot, server ip address
 
 #### Toolbox Student 
