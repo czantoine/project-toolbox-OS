@@ -1769,6 +1769,6 @@ then
     fi   
 
 else
-    echo "Error"
+    echo "Exit: Program Shutdown"
 fi
 done
