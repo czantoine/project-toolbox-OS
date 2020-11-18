@@ -612,7 +612,7 @@ then
 	    echo -e "\nInsert the new number of the Semester?"
 	    read newsemester
 	    
-	    mv $semname /$newsemname
+	    mv $semname $newsemname
 	else
 	    echo "Error option: Program Shutdown"
             ext=1
