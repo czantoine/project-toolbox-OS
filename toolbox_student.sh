@@ -77,12 +77,12 @@ bash question.remark.sh
 elif [[ $choice -eq 8 ]]
 then
 
-send.sh
+bash send.sh
 
 elif [[ $choice -eq 9 ]]
 then
 
-submit_work.sh
+bash submit_work.sh
 
 else
 	exit 1
