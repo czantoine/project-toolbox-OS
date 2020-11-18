@@ -42,7 +42,7 @@ then
 	echo -e "\nInsert the number of the semester:"
 	read semester
 	semname="S$semester"
-	semestername="Semester_S$semester.info"
+	semestername="semester_S$semester.info"
         echo -e "\nWhich UE do you want to add a Module ?"
 	first_word=$(grep -Eo '^[^ ]+' $semestername)
 	echo -e "\nThis is what you have :\n$first_word"
@@ -237,7 +237,7 @@ then
 	    echo -e "\nInsert the number of the semester:"
 	    read semester
 	    semname="S$semester"
-	    semestername="Semester_S$semester.info"
+	    semestername="semester_S$semester.info"
             echo -e "\nWhich UE do you want to add a TP ?"
 	    ue=$(grep -Eo '^[^ ]+' $semestername)
 	    echo -e "\nThis is what you have :\n$ue"
@@ -306,7 +306,7 @@ then
 	    echo -e "\nInsert the number of the semester:"
 	    read semester
 	    semname="S$semester"
-	    semestername="Semester_S$semester.info"
+	    semestername="semester_S$semester.info"
             echo -e "\nWhich UE do you want to add a TD ?"
 	    ue=$(grep -Eo '^[^ ]+' $semestername)
 	    echo -e "\nThis is what you have :\n$ue"
@@ -374,7 +374,7 @@ then
 	    echo -e "\nInsert the number of the semester:"
 	    read semester
 	    semname="S$semester"
-	    semestername="Semester_S$semester.info"
+	    semestername="semester_S$semester.info"
             echo -e "\nWhich UE do you want to add a CM ?"
 	    ue=$(grep -Eo '^[^ ]+' $semestername)
 	    echo -e "\nThis is what you have :\n$ue"
@@ -442,7 +442,7 @@ then
 	    echo -e "\nInsert the number of the semester:"
 	    read semester
 	    semname="S$semester"
-	    semestername="Semester_S$semester.info"
+	    semestername="semester_S$semester.info"
             echo -e "\nWhich UE do you want to add a DE ?"
 	    ue=$(grep -Eo '^[^ ]+' $semestername)
 	    echo -e "\nThis is what you have :\n$ue"
@@ -510,7 +510,7 @@ then
 	    echo -e "\nInsert the number of the semester:"
 	    read semester
 	    semname="S$semester"
-	    semestername="Semester_S$semester.info"
+	    semestername="semester_S$semester.info"
             echo -e "\nWhich UE do you want to add a CE ?"
 	    ue=$(grep -Eo '^[^ ]+' $semestername)
 	    echo -e "\nThis is what you have :\n$ue"
@@ -599,7 +599,7 @@ then
 	echo -e "\nInsert the number of the semester:"
 	read semester
 	semname="S$semester"	
-	semestername="Semester_S$semester.info"
+	semestername="semester_S$semester.info"
 	
 	echo -e "\nWhat do you want to modify in this Semester?"
 	echo "Enter your choice"
@@ -611,8 +611,7 @@ then
 	then
 	    echo -e "\nInsert the new number of the Semester?"
 	    read newsemester
-	    newsemname="Semester_$newsemester"
-
+	    
 	    mv /$semname /$newsemname
 	else
 	    echo "Error option: Program Shutdown"
@@ -627,7 +626,7 @@ then
 	echo -e "\nInsert the number of the semester:"
 	read semester
 	semname="S$semester"
-	semestername="Semester_S$semester.info"
+	semestername="semester_S$semester.info"
 	
 	echo -e "\nWhat do you want to modify in this Semester"
 	echo "Enter your choice"
@@ -1022,7 +1021,7 @@ then
 	echo -e "\nInsert the number of the semester:"
 	read semester
 	semname="S$semester"
-	semestername="Semester_S$semester.info"
+	semestername="semester_S$semester.info"
 	
 	echo -e "\nWhich Semester do you want to select?"
 	read semname
@@ -1049,7 +1048,7 @@ then
 	echo -e "\nInsert the number of the semester:"
 	read semester
 	semname="S$semester"
-	semestername="Semester_S$semester.info"
+	semestername="semester_S$semester.info"
 	
 	echo -e "\nWhat do you want to delete in this Semester"
 	echo "Enter your choice"
