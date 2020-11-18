@@ -32,7 +32,7 @@ If you discover a bug on the project, please [search our issue tracker](https://
 #### Toolbox Student 
 
 - [x] Create new semester
-- [x] Edit a semester
+- [x] Edit a semester, add or delete
 - [x] Add a group on my course or file
 - [x] Create a new work
 - [x] Manage my pourcentage file advencement
