@@ -642,7 +642,7 @@ then
 	    echo -e "\nWhich UE do you want to select?"
 	    read uename
 	    
-	    fcline=$(grep -n "$uename" semester_S'%semester'.txt | cut -d: -f1)
+	    fcline=$(grep -n "$uename" $semestername | cut -d: -f1)
 	    
 	    echo -e "\nWhat do you want to modify in this UE?"
 	    echo "Enter your choice"
