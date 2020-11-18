@@ -8,7 +8,7 @@ fi
 
 if [ ! -f question_remark.conf ]; then
         touch question_remark.conf
-        chmod 570 question_remark.conf
+        chmod 770 question_remark.conf
         chgrp teacher question_remark.conf
 fi
 
@@ -77,12 +77,12 @@ bash question.remark.sh
 elif [[ $choice -eq 8 ]]
 then
 
-send.sh
+bash send.sh
 
 elif [[ $choice -eq 9 ]]
 then
 
-submit_work.sh
+bash submit_work.sh
 
 else
 	exit 1
