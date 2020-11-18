@@ -1770,5 +1770,6 @@ then
 
 else
     echo "Exit: Program Shutdown"
+    ext=1
 fi
 done
