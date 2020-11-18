@@ -57,7 +57,7 @@ bash manage_rwx.sh
 elif [[ $choice -eq 4 ]]
 then
 
-bash add.work.sh
+bash add_work.sh
 
 elif [[ $choice -eq 5 ]]
 then
