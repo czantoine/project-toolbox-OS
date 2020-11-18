@@ -22,7 +22,8 @@ echo "7. Add directory Teacher with automatic list"
 echo "8. Manage rwx on group or owner"
 echo "9. Scheduling question remark"
 echo "10. Scheduling grade"
-echo "11. Install ssh,ssmtp,gnuplot"
+echo "11. Save semester"
+echo "12. Install ssh,ssmtp,gnuplot"
 echo "0. Exit"
 
 echo "Enter your choice"
@@ -88,7 +89,14 @@ then
 echo ""
 bash scheduling_grade.sh
 
+
 elif [[ $choice -eq 11 ]]
+then
+
+echo ""
+bash save_semester.sh
+
+elif [[ $choice -eq 12 ]]
 then
 
 echo ""
