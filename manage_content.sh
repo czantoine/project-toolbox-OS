@@ -659,11 +659,11 @@ then
 		echo -e "\nInsert the new name of the UE?"
 		read newuename
 		
-		modue=$(sed ''$fcline's/'$unname'/'$newuename'/' semester.txt)
+		modue=$(sed ''$fcline's/'$unname'/'$newuename'/' $semestername)
 		cat /dev/null > $semestername
 		echo -n "$modue" >> $semestername
 
-		mv $semname/$uename /$semname/$newuename
+		mv $semname/$uename $semname/$newuename
 		
             elif [[ $repue -eq 2 ]]	#Modify coef UE
             then
@@ -677,7 +677,7 @@ then
 		stringuecoef="COEFUE:$list"
 		newstringuecoef="COEFUE:$newuecoef"
 		
-		moduecoef=$(sed ''$fcline's/'"$stringuecoef"'/'"$newstringuecoef"'/' semester.txt)
+		moduecoef=$(sed ''$fcline's/'"$stringuecoef"'/'"$newstringuecoef"'/' $semestername)
                 cat /dev/null > $semestername
                 echo -n "$moduecoef" >> $semestername
 		
