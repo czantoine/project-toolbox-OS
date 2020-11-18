@@ -5,7 +5,7 @@
 echo -e "\nEnter semester number"
 read sn
 mkdir -m 710 S$sn
-chgrp teacher S$SN
+#chgrp teacher S$sn
 
 ##### add user associate semester ####
 username=$USER
@@ -20,7 +20,7 @@ echo -e "\nEnter Education Unit"
 read ue
 echo -n "UE:$ue ;" >> semester_S$sn.info
 mkdir -m 710 S$sn/$ue
-chgrp teacher S$sn/$ue
+#chgrp teacher S$sn/$ue
 
 echo -e "\nEnter Coefficiant of this Education Unit"
 read coefue
@@ -45,7 +45,7 @@ for ((i = 1 ; i <= $x ; i++)); do
                 read mo
 		cd S$sn
 		mkdir -m 710 $ue/$mo
-		chgrp teacher /$ue/$mo
+		#chgrp teacher /$ue/$mo
 		cd - > /dev/null
                 echo -n "$mo ;" >> semester_S$sn.info
         else
@@ -53,7 +53,7 @@ for ((i = 1 ; i <= $x ; i++)); do
                 read mo
 		cd S$sn
                 mkdir -m 710 $ue/$mo
-		chgrp teacher /$ue/$mo
+		#chgrp teacher /$ue/$mo
                 cd - > /dev/null
                 echo -n "$mo " >> semester_S$sn.info
         fi
@@ -125,11 +125,11 @@ then
         if [[ $x -eq $[$i+1] ]]
         then
 		mkdir -m 770 S$sn/$ue/${V[i]}/TP
-		chgrp teacher S$sn/$ue/${V[i]}/TP
+		#chgrp teacher S$sn/$ue/${V[i]}/TP
                 echo -n "Y ;" >> semester_S$sn.info
         else
 		mkdir -m 770 S$sn/$ue/${V[i]}/TP
-		chgrp teacher S$sn/$ue/${V[i]}/TP
+		#chgrp teacher S$sn/$ue/${V[i]}/TP
                 echo -n "Y " >> semester_S$sn.info
         fi
 else
@@ -203,11 +203,11 @@ then
         if [[ $x -eq $[$i+1] ]]
         then
                 mkdir -m 770 S$sn/$ue/${VTD[i]}/TD
-		chgrp teacher S$sn/$ue/${V[i]}/TD
+		#chgrp teacher S$sn/$ue/${V[i]}/TD
                 echo -n "Y ;" >> semester_S$sn.info
         else
                 mkdir -m 770 S$sn/$ue/${VTD[i]}/TD
-		chgrp teacher S$sn/$ue/${V[i]}/TD
+		#chgrp teacher S$sn/$ue/${V[i]}/TD
                 echo -n "Y " >> semester_S$sn.info
         fi
 else
@@ -282,11 +282,11 @@ then
         if [[ $x -eq $[$i+1] ]]
         then
                 mkdir -m 770 S$sn/$ue/${VCM[i]}/CM
-		chgrp teacher S$sn/$ue/${V[i]}/CM
+		#chgrp teacher S$sn/$ue/${V[i]}/CM
                 echo -n "Y ;" >> semester_S$sn.info
         else
                 mkdir -m 770 S$sn/$ue/${VCM[i]}/CM
-                chgrp teacher S$sn/$ue/${V[i]}/CM
+                #chgrp teacher S$sn/$ue/${V[i]}/CM
 		echo -n "Y " >> semester_S$sn.info
         fi
 else
@@ -358,11 +358,11 @@ then
         if [[ $x -eq $[$i+1] ]]
         then
                 mkdir -m 770 S$sn/$ue/${VDE[i]}/DE
-		chgrp teacher S$sn/$ue/${V[i]}/DE
+		#chgrp teacher S$sn/$ue/${V[i]}/DE
                 echo -n "Y ;" >> semester_S$sn.info
         else
                 mkdir -m 770 S$sn/$ue/${VDE[i]}/DE
-		chgrp teacher S$sn/$ue/${V[i]}/DE
+		#chgrp teacher S$sn/$ue/${V[i]}/DE
                 echo -n "Y " >> semester_S$sn.info
         fi
 else
@@ -437,11 +437,11 @@ then
         if [[ $x -eq $[$i+1] ]]
         then
                 mkdir -m 770 S$sn/$ue/${VCE[i]}/CE
-		chgrp teacher S$sn/$ue/${V[i]}/CE
+		#chgrp teacher S$sn/$ue/${V[i]}/CE
                 echo -n "Y ;" >> semester_S$sn.info
         else
                 mkdir -m 770 S$sn/$ue/${VCE[i]}/CE
-		chgrp teacher S$sn/$ue/${V[i]}/CE
+		#chgrp teacher S$sn/$ue/${V[i]}/CE
                 echo -n "Y " >> semester_S$sn.info
         fi
 else
