@@ -8,7 +8,7 @@ fi
 
 if [ ! -f question_remark.conf ]; then
         touch question_remark.conf
-        chmod 570 question_remark.conf
+        chmod 770 question_remark.conf
         chgrp teacher question_remark.conf
 fi
 
