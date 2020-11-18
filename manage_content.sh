@@ -660,8 +660,8 @@ then
 		read newuename
 		
 		modue=$(sed ''$fcline's/'$unname'/'$newuename'/' semester.txt)
-		cat /dev/null > semester_content.txt
-		echo -n "$modue" >> semester_content.txt
+		cat /dev/null > $semestername
+		echo -n "$modue" >> $semestername
 
 		mv /$semname/$uename /$semname/$newuename
 		
@@ -678,8 +678,8 @@ then
 		newstringuecoef="COEFUE:$newuecoef"
 		
 		moduecoef=$(sed ''$fcline's/'"$stringuecoef"'/'"$newstringuecoef"'/' semester.txt)
-                cat /dev/null > semester_content.txt
-                echo -n "$moduecoef" >> semester_content.txt
+                cat /dev/null > $semestername
+                echo -n "$moduecoef" >> $semestername
 		
             else
 		echo "Error option: Program Shutdown"
@@ -1136,8 +1136,8 @@ then
        		newstringuecoef="COEFUE:X"
 		
        		deluecoef=$(sed ''$fcline's/'"$stringuecoef"'/'"$newstringuecoef"'/' $semestername)
-		cat /dev/null > semester_content.txt
-		echo -n "$deluecoef" >> semester_content.tx
+		cat /dev/null > $semestername
+		echo -n "$deluecoef" >> $semestername
 	       
             else
 		echo "Error option: Program Shutdown"
