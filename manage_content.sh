@@ -53,7 +53,7 @@ then
 	read modname
 	pos_number=$( cat $semestername | sed -n "${line_number}p" | grep -aob ' ;COEF:')
 	pos_letter=$(echo "$pos_number" | sed  's/: ;COEF.*//')
-	aa=$(sed -E "${line_number}s/(.{$pos_letter})/& ${name}/" $semestername)
+	aa=$(sed -E "${line_number}s/(.{$pos_letter})/& ${name}/" "$semestername")
 	cat /dev/null > $semestername
 	echo "$aa" >> $semestername
 
@@ -63,7 +63,7 @@ then
         read addcoef
 	pos_number_coef=$( cat $semestername | sed -n "${line_number}p" | grep -aob ' ;TEACH:')
         pos_letter_coef=$(echo "$pos_number_coef" | sed  's/: ;TEACH.*//')
-	co=$(sed -E "${line_number}s/(.{$pos_letter_coef})/&, ${addcoef}/" $semestername)
+	co=$(sed -E "${line_number}s/(.{$pos_letter_coef})/&, ${addcoef}/" "$semestername")
 	cat /dev/null > $semestername
         echo "$co" >> $semestername
 	
@@ -74,7 +74,7 @@ then
 	if [[ $rep =~ ^[Yy]$ ]]
 	then
 	    Yes=Y
-	    etp=$(sed -E "${line_number}s/(.{$pos_letter_tp})/& ${Yes}/" $semestername)
+	    etp=$(sed -E "${line_number}s/(.{$pos_letter_tp})/& ${Yes}/" "$semestername")
 	    cat /dev/null > $semestername
 	    echo "$etp" >> $semestername
 	    
@@ -82,7 +82,7 @@ then
 	    read rep_coef
 	    pos_number_coefetp=$( cat $semestername | sed -n "${line_number}p" | grep -aob ' ;TD:')
 	    pos_letter_coef_tp=$(echo "$pos_number_coefetp" | sed  's/: ;TD.*//')
-	    coef_tp=$(sed -E "${line_number}s/(.{$pos_letter_coef_tp})/& ${rep_coef}/" $semestername)
+	    coef_tp=$(sed -E "${line_number}s/(.{$pos_letter_coef_tp})/& ${rep_coef}/" "$semestername")
 	    cat /dev/null > $semestername
 	    echo "$coef_tp" >> $semestername
 
@@ -90,14 +90,14 @@ then
 	    
 	else
 	    No=N
-            etp=$(sed -E "${line_number}s/(.{$pos_letter_tp})/& ${No}/" $semestername)
+            etp=$(sed -E "${line_number}s/(.{$pos_letter_tp})/& ${No}/" "$semestername")
             cat /dev/null > $semestername
             echo "$etp" >> $semestername
 	    
 	    rep_coef=N
             pos_number_coefetp=$( cat $semestername | sed -n "${line_number}p" | grep -aob ' ;TD:')
             pos_letter_coef_tp=$(echo "$pos_number_coefetp" | sed  's/: ;TD.*//')
-            coef_tp=$(sed -E "${line_number}s/(.{$pos_letter_coef_tp})/& ${rep_coef}/" $semestername)
+            coef_tp=$(sed -E "${line_number}s/(.{$pos_letter_coef_tp})/& ${rep_coef}/" "$semestername")
             cat /dev/null > $semestername
             echo "$coef_tp" >> $semestername
 	fi
@@ -110,7 +110,7 @@ then
 	if [[ $rep_td =~ ^[Yy]$ ]]
 	then
 	    Yes_td=Y
-	    etd=$(sed -E "${line_number}s/(.{$pos_letter_td})/& ${Yes_td}/" $semestername)
+	    etd=$(sed -E "${line_number}s/(.{$pos_letter_td})/& ${Yes_td}/" "$semestername")
 	    cat /dev/null > $semestername
 	    echo "$etd" >> $semestername
 	    
@@ -118,7 +118,7 @@ then
 	    read rep_coef_td
 	    pos_number_coefetd=$( cat $semestername | sed -n "${line_number}p" | grep -aob ' ;CM:')
 	    pos_letter_coef_td=$(echo "$pos_number_coefetd" | sed  's/: ;CM.*//')
-	    coef_td=$(sed -E "${line_number}s/(.{$pos_letter_coef_td})/& ${rep_coef_td}/" $semestername)
+	    coef_td=$(sed -E "${line_number}s/(.{$pos_letter_coef_td})/& ${rep_coef_td}/" "$semestername")
 	    cat /dev/null > $semestername
 	    echo "$coef_td" >> $semestername
 	    
@@ -126,14 +126,14 @@ then
 	    
 	else
 	    No_td=N
-            etd=$(sed -E "${line_number}s/(.{$pos_letter_td})/& ${No_td}/" $semestername)
+            etd=$(sed -E "${line_number}s/(.{$pos_letter_td})/& ${No_td}/" "$semestername")
             cat /dev/null > $semestername
             echo "$etd" >> $semestername
 	    
 	    rep_coef_td=N
             pos_number_coefetd=$( cat $semestername | sed -n "${line_number}p" | grep -aob ' ;CM:')
             pos_letter_coef_td=$(echo "$pos_number_coefetd" | sed  's/: ;CM.*//')
-            coef_td=$(sed -E "${line_number}s/(.{$pos_letter_coef_td})/& ${rep_coef_td}/" $semestername)
+            coef_td=$(sed -E "${line_number}s/(.{$pos_letter_coef_td})/& ${rep_coef_td}/" "$semestername")
             cat /dev/null > $semestername
             echo "$coef_td" >> $semestername
 	fi
@@ -145,7 +145,7 @@ then
 	if [[ $rep_cm =~ ^[Yy]$ ]]
 	then
 	    Yes_cm=Y
-	    ecm=$(sed -E "${line_number}s/(.{$pos_letter_cm})/& ${Yes_cm}/" $semestername)
+	    ecm=$(sed -E "${line_number}s/(.{$pos_letter_cm})/& ${Yes_cm}/" "$semestername")
 	    cat /dev/null > $semestername
 	    echo "$ecm" >> $semestername
 	    
@@ -153,7 +153,7 @@ then
 	    read rep_coef_cm
 	    pos_number_coefecm=$( cat $semestername | sed -n "${line_number}p" | grep -aob ' ;DE:')
 	    pos_letter_coef_cm=$(echo "$pos_number_coefecm" | sed  's/: ;DE.*//')
-	    coef_cm=$(sed -E "${line_number}s/(.{$pos_letter_coef_cm})/& ${rep_coef_cm}/" $semestername)
+	    coef_cm=$(sed -E "${line_number}s/(.{$pos_letter_coef_cm})/& ${rep_coef_cm}/" "$semestername")
 	    cat /dev/null > $semestername
 	    echo "$coef_cm" >> $semestername
 	    
@@ -161,14 +161,14 @@ then
 	    
 	else
 	    No_cm=N
-            ecm=$(sed -E "${line_number}s/(.{$pos_letter_cm})/& ${No_cm}/" $semestername)
+            ecm=$(sed -E "${line_number}s/(.{$pos_letter_cm})/& ${No_cm}/" "$semestername")
             cat /dev/null > $semestername
             echo "$ecm" >> $semestername
 	    
 	    rep_coef_cm=N
             pos_number_coefecm=$( cat $semestername | sed -n "${line_number}p" | grep -aob ' ;DE:')
             pos_letter_coef_cm=$(echo "$pos_number_coefecm" | sed  's/: ;DE.*//')
-            coef_cm=$(sed -E "${line_number}s/(.{$pos_letter_coef_cm})/& ${rep_coef_cm}/" $semestername)
+            coef_cm=$(sed -E "${line_number}s/(.{$pos_letter_coef_cm})/& ${rep_coef_cm}/" "$semestername")
             cat /dev/null > $semestername
             echo "$coef_cm" >> $semestername
 	fi
@@ -180,7 +180,7 @@ then
 	if [[ $rep_de =~ ^[Yy]$ ]]
 	then
 	    Yes_de=Y
-	    ede=$(sed -E "${line_number}s/(.{$pos_letter_de})/& ${Yes_de}/" $semestername)
+	    ede=$(sed -E "${line_number}s/(.{$pos_letter_de})/& ${Yes_de}/" "$semestername")
 	    cat /dev/null > $semestername
 	    echo "$ede" >> $semestername
 	    
@@ -188,7 +188,7 @@ then
 	    read rep_coef_de
 	    pos_number_coefede=$( cat $semestername | sed -n "${line_number}p" | grep -aob ' ;CE:')
 	    pos_letter_coef_de=$(echo "$pos_number_coefede" | sed  's/: ;CE.*//')
-	    coef_de=$(sed -E "${line_number}s/(.{$pos_letter_coef_de})/& ${rep_coef_de}/" $semestername)
+	    coef_de=$(sed -E "${line_number}s/(.{$pos_letter_coef_de})/& ${rep_coef_de}/" "$semestername")
 	    cat /dev/null > $semestername
 	    echo "$coef_de" >> $semestername
 	    
@@ -196,14 +196,14 @@ then
 	    
 	else
 	    No_de=N
-            ede=$(sed -E "${line_number}s/(.{$pos_letter_de})/& ${No_de}/" $semestername)
+            ede=$(sed -E "${line_number}s/(.{$pos_letter_de})/& ${No_de}/" "$semestername")
             cat /dev/null > $semestername
             echo "$ede" >> $semestername
 	    
 	    rep_coef_de=N
             pos_number_coefede=$( cat $semestername | sed -n "${line_number}p" | grep -aob ' ;CE:')
             pos_letter_coef_de=$(echo "$pos_number_coefede" | sed  's/: ;CE.*//')
-            coef_de=$(sed -E "${line_number}s/(.{$pos_letter_coef_de})/& ${rep_coef_de}/" $semestername)
+            coef_de=$(sed -E "${line_number}s/(.{$pos_letter_coef_de})/& ${rep_coef_de}/" "$semestername")
             cat /dev/null > $semestername
             echo "$coef_de" >> $semestername
 	fi
@@ -215,7 +215,7 @@ then
 	if [[ $rep_ce =~ ^[Yy]$ ]]
 	then
 	    Yes_ce=Y
-	    ece=$(sed -E "${line_number}s/(.{$pos_letter_ce})/& ${Yes_ce}/" $semestername)
+	    ece=$(sed -E "${line_number}s/(.{$pos_letter_ce})/& ${Yes_ce}/" "$semestername")
 	    cat /dev/null > $semestername
 	    echo "$ece" >> $semestername
 	    
@@ -223,7 +223,7 @@ then
 	    read rep_coef_ce
 	    pos_number_coefece=$( cat $semestername | sed -n "${line_number}p" | grep -aob ' ;FINISH')
 	    pos_letter_coef_ce=$(echo "$pos_number_coefece" | sed  's/: ;FINISH.*//')
-	    coef_ce=$(sed -E "${line_number}s/(.{$pos_letter_coef_ce})/& ${rep_coef_ce}/" $semestername)
+	    coef_ce=$(sed -E "${line_number}s/(.{$pos_letter_coef_ce})/& ${rep_coef_ce}/" "$semestername")
 	    cat /dev/null > $semestername
 	    echo "$coef_ce" >> $semestername
 	    
@@ -291,7 +291,7 @@ then
 	    stringtm="$tmname:$list1"
 	    stringtmcoef="COEF$tmname:$list2"
 	    
-	    addtm=$(sed -e ''$fcline's/'"$stringtm"'/'"$newstringtm"'/' -e ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' $semestername )
+	    addtm=$(sed -e ''$fcline's/'"$stringtm"'/'"$newstringtm"'/' -e ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' "$semestername" )
 	    cat /dev/null > $semestername
 	    echo -n "$addtm" >> $semestername
 	    
@@ -360,7 +360,7 @@ then
 	    stringtm="$tmname:$list1"
 	    stringtmcoef="COEF$tmname:$list2"
 	    
-	    addtm=$(sed -e ''$fcline's/'"$stringtm"'/'"$newstringtm"'/' -e ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' $semestername )
+	    addtm=$(sed -e ''$fcline's/'"$stringtm"'/'"$newstringtm"'/' -e ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' "$semestername" )
 	    cat /dev/null > $semestername
 	    echo -n "$addtm" >> $semestername
 	    
@@ -428,7 +428,7 @@ then
 	    stringtm="$tmname:$list1"
 	    stringtmcoef="COEF$tmname:$list2"
 	    
-	    addtm=$(sed -e ''$fcline's/'"$stringtm"'/'"$newstringtm"'/' -e ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' $semestername )
+	    addtm=$(sed -e ''$fcline's/'"$stringtm"'/'"$newstringtm"'/' -e ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' "$semestername" )
 	    cat /dev/null > $semestername
 	    echo -n "$addtm" >> $semestername
 	    
@@ -496,7 +496,7 @@ then
 	    stringtm="$tmname:$list1"
 	    stringtmcoef="COEF$tmname:$list2"
 	    
-	    addtm=$(sed -e ''$fcline's/'"$stringtm"'/'"$newstringtm"'/' -e ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' $semestername )
+	    addtm=$(sed -e ''$fcline's/'"$stringtm"'/'"$newstringtm"'/' -e ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' "$semestername" )
 	    cat /dev/null > $semestername
 	    echo -n "$addtm" >> $semestername
 	    
@@ -555,7 +555,7 @@ then
 	    stringtm="$tmname:$list1"
 	    stringtmcoef="COEF$tmname:$list2"
 	    
-	    addtm=$(sed -e ''$fcline's/'"$stringtm"'/'"$newstringtm"'/' -e ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' $semestername )
+	    addtm=$(sed -e ''$fcline's/'"$stringtm"'/'"$newstringtm"'/' -e ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' "$semestername" )
 	    cat /dev/null > $semestername
 	    echo -n "$addtm" >> $semestername
 
@@ -563,14 +563,14 @@ then
 	    
 	else
 	    No_ce=N
-            ece=$(sed -E "${line_number}s/(.{$pos_letter_ce})/& ${No_ce}/" $semestername)
+            ece=$(sed -E "${line_number}s/(.{$pos_letter_ce})/& ${No_ce}/" "$semestername")
             cat /dev/null > $semestername
             echo "$ece" >> $semestername
 	    
 	    rep_coef_ce=N
             pos_number_coefece=$( cat $semestername | sed -n "${line_number}p" | grep -aob ' ;FINISH')
             pos_letter_coef_ce=$(echo "$pos_number_coefece" | sed  's/: ;FINISH.*//')
-            coef_ce=$(sed -E "${line_number}s/(.{$pos_letter_coef_ce})/& ${rep_coef_ce}/" $semestername)
+            coef_ce=$(sed -E "${line_number}s/(.{$pos_letter_coef_ce})/& ${rep_coef_ce}/" "$semestername")
             cat /dev/null > $semestername
             echo "$coef_ce" >> $semestername
 	fi
@@ -659,7 +659,7 @@ then
 		echo -e "\nInsert the new name of the UE?"
 		read newuename
 		
-		modue=$(sed ''$fcline's/'$unname'/'$newuename'/' $semestername)
+		modue=$(sed ''$fcline's/'$uename'/'$newuename'/' "$semestername")
 		cat /dev/null > $semestername
 		echo -n "$modue" >> $semestername
 
@@ -677,7 +677,7 @@ then
 		stringuecoef="COEFUE:$list"
 		newstringuecoef="COEFUE:$newuecoef"
 		
-		moduecoef=$(sed ''$fcline's/'"$stringuecoef"'/'"$newstringuecoef"'/' $semestername)
+		moduecoef=$(sed ''$fcline's/'"$stringuecoef"'/'"$newstringuecoef"'/' "$semestername")
                 cat /dev/null > $semestername
                 echo -n "$moduecoef" >> $semestername
 		
@@ -751,7 +751,7 @@ then
 		    
 		    stringmodname="MO:$list"
 		    
-                    modmod=$(sed ''$fcline's/'"$stringmodname"'/'"$newstringmodname"'/' $semestername)
+                    modmod=$(sed ''$fcline's/'"$stringmodname"'/'"$newstringmodname"'/' "$semestername")
                     cat /dev/null > $semestername
                     echo -n "$modmod" >> $semestername
 
@@ -791,7 +791,7 @@ then
 		    
                     stringmodcoef="COEF:$list"
 		    
-                    modmodcoef=$(sed ''$fcline's/'"$stringmodcoef"'/'"$newstringmodcoef"'/' $semestername)
+                    modmodcoef=$(sed ''$fcline's/'"$stringmodcoef"'/'"$newstringmodcoef"'/' "$semestername")
                     cat /dev/null > $semestername
                     echo -n "$modmodcoef" >> $semestername
 		    
@@ -853,7 +853,7 @@ then
 			
                     stringtmcoef="COEF$tmname:$list"
 		    
-                    modtmcoef=$(sed ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' $semestername)
+                    modtmcoef=$(sed ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' "$semestername")
                     cat /dev/null > $semestername
                     echo -n "$modtmcoef" >> $semestername
 		    
@@ -884,7 +884,7 @@ then
 			
 			stringtmcoef="COEF$tmname:$list"
 			
-			modtmcoef=$(sed ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' $semestername)
+			modtmcoef=$(sed ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' "$semestername")
 			cat /dev/null > $semestername
 			echo -n "$modtmcoef" >> $semestername
 			
@@ -915,7 +915,7 @@ then
 			
 			stringtmcoef="COEF$tmname:$list"
 			
-			modtmcoef=$(sed ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' $semestername)
+			modtmcoef=$(sed ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' "$semestername")
 			cat /dev/null > $semestername
 			echo -n "$modtmcoef" >> $semestername
 			
@@ -946,7 +946,7 @@ then
 			
 			stringtmcoef="COEF$tmname:$list"
 			
-			modtmcoef=$(sed ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' $semestername)
+			modtmcoef=$(sed ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' "$semestername")
 			cat /dev/null > $semestername
 			echo -n "$modtmcoef" >> $semestername
 			
@@ -977,7 +977,7 @@ then
 			
 			stringtmcoef="COEF$tmname:$list"
 			
-			modtmcoef=$(sed ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' $semestername)
+			modtmcoef=$(sed ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' "$semestername")
 			cat /dev/null > $semestername
 			echo -n "$modtmcoef" >> $semestername
 		    else
@@ -1121,7 +1121,7 @@ then
 		stringtmce2="ECE:$listce2"
 		stringtmce3="COEFCE:$listce3"
 		
-		delue=$(sed -e ''$fcline's/'"$uename"'//' -e ''$fcline's/'"$stringcue"'/COEFUE:/' -e ''$fcline's/'"$stringmod1"'/MOD:/' -e ''$fcline's/'"$stringmod2"'/COEF/' -e ''$fcline's/'"$stringteach"'/TEACH:/' -e ''$fcline's/'"$stringmteach"'/EMAILTEACH:/' -e ''$fcline's/'"$stringtmtp1"'/TP:/' -e ''$fcline's/'"$stringtmtp2"'/ETP:/' -e ''$fcline's/'"$stringtmtp3"'/COEFTP:/' -e ''$fcline's/'"$stringtmtd1"'/TD:/' -e ''$fcline's/'"$stringtmtd2"'/ETD:/' -e ''$fcline's/'"$stringtmtd3"'/COEFTD:/' -e ''$fcline's/'"$stringtmcm1"'/CM:/' -e ''$fcline's/'"$stringtmcm2"'/ECM:/' -e ''$fcline's/'"$stringtmcm3"'/COEFCM:/' -e ''$fcline's/'"$stringtmde1"'/DE:/' -e ''$fcline's/'"$stringtmde2"'/EDE:/' -e ''$fcline's/'"$stringtmde3"'/COEFDE:/' -e ''$fcline's/'"$stringtmce1"'/CE:/' -e ''$fcline's/'"$stringtmce2"'/ECE:/' -e ''$fcline's/'"$stringtmce3"'/COEFCE:/' semester_sheet.txt )
+		delue=$(sed -e ''$fcline's/'"$uename"'//' -e ''$fcline's/'"$stringcue"'/COEFUE:/' -e ''$fcline's/'"$stringmod1"'/MOD:/' -e ''$fcline's/'"$stringmod2"'/COEF/' -e ''$fcline's/'"$stringteach"'/TEACH:/' -e ''$fcline's/'"$stringmteach"'/EMAILTEACH:/' -e ''$fcline's/'"$stringtmtp1"'/TP:/' -e ''$fcline's/'"$stringtmtp2"'/ETP:/' -e ''$fcline's/'"$stringtmtp3"'/COEFTP:/' -e ''$fcline's/'"$stringtmtd1"'/TD:/' -e ''$fcline's/'"$stringtmtd2"'/ETD:/' -e ''$fcline's/'"$stringtmtd3"'/COEFTD:/' -e ''$fcline's/'"$stringtmcm1"'/CM:/' -e ''$fcline's/'"$stringtmcm2"'/ECM:/' -e ''$fcline's/'"$stringtmcm3"'/COEFCM:/' -e ''$fcline's/'"$stringtmde1"'/DE:/' -e ''$fcline's/'"$stringtmde2"'/EDE:/' -e ''$fcline's/'"$stringtmde3"'/COEFDE:/' -e ''$fcline's/'"$stringtmce1"'/CE:/' -e ''$fcline's/'"$stringtmce2"'/ECE:/' -e ''$fcline's/'"$stringtmce3"'/COEFCE:/' "$semestername")
 		cat /dev/null > $semestername
 		echo -n "$delue" >> $semestername
 
@@ -1135,7 +1135,7 @@ then
        		stringuecoef="COEFUE:$list"
        		newstringuecoef="COEFUE:X"
 		
-       		deluecoef=$(sed ''$fcline's/'"$stringuecoef"'/'"$newstringuecoef"'/' $semestername)
+       		deluecoef=$(sed ''$fcline's/'"$stringuecoef"'/'"$newstringuecoef"'/' "$semestername")
 		cat /dev/null > $semestername
 		echo -n "$deluecoef" >> $semestername
 	       
@@ -1320,7 +1320,7 @@ then
 		    stringtmce2="ECE:$listce2"
 		    stringtmce3="COEFCE:$listce3"
 		    
-		    delmod=$(sed -e ''$fcline's/'"$stringmod1"'/'"$newstringmod1"'/' -e ''$fcline's/'"$stringmod2"'/'"$newstringmod2"'/' -e ''$fcline's/'"$stringtmtp1"'/'"$newstringtmtp1"'/' -e ''$fcline's/'"$stringtmtp2"'/'"$newstringtmtp2"'/' -e ''$fcline's/'"$stringtmtp3"'/'"$newstringtmtp3"'/' -e ''$fcline's/'"$stringtmtd1"'/'"$newstringtmtd1"'/' -e ''$fcline's/'"$stringtmtd2"'/'"$newstringtmtd2"'/' -e ''$fcline's/'"$stringtmtd3"'/'"$newstringtmtd3"'/' -e ''$fcline's/'"$stringtmcm1"'/'"$newstringtmcm1"'/' -e ''$fcline's/'"$stringtmcm2"'/'"$newstringtmcm2"'/' -e ''$fcline's/'"$stringtmcm3"'/'"$newstringtmcm3"'/' -e ''$fcline's/'"$stringtmde1"'/'"$newstringtmde1"'/' -e ''$fcline's/'"$stringtmde2"'/'"$newstringtmde2"'/' -e ''$fcline's/'"$stringtmde3"'/'"$newstringtmde3"'/' -e ''$fcline's/'"$stringtmce1"'/'"$newstringtmce1"'/' -e ''$fcline's/'"$stringtmce2"'/'"$newstringtmce2"'/' -e ''$fcline's/'"$stringtmce3"'/'"$newstringtmce3"'/' semester_sheet.txt )
+		    delmod=$(sed -e ''$fcline's/'"$stringmod1"'/'"$newstringmod1"'/' -e ''$fcline's/'"$stringmod2"'/'"$newstringmod2"'/' -e ''$fcline's/'"$stringtmtp1"'/'"$newstringtmtp1"'/' -e ''$fcline's/'"$stringtmtp2"'/'"$newstringtmtp2"'/' -e ''$fcline's/'"$stringtmtp3"'/'"$newstringtmtp3"'/' -e ''$fcline's/'"$stringtmtd1"'/'"$newstringtmtd1"'/' -e ''$fcline's/'"$stringtmtd2"'/'"$newstringtmtd2"'/' -e ''$fcline's/'"$stringtmtd3"'/'"$newstringtmtd3"'/' -e ''$fcline's/'"$stringtmcm1"'/'"$newstringtmcm1"'/' -e ''$fcline's/'"$stringtmcm2"'/'"$newstringtmcm2"'/' -e ''$fcline's/'"$stringtmcm3"'/'"$newstringtmcm3"'/' -e ''$fcline's/'"$stringtmde1"'/'"$newstringtmde1"'/' -e ''$fcline's/'"$stringtmde2"'/'"$newstringtmde2"'/' -e ''$fcline's/'"$stringtmde3"'/'"$newstringtmde3"'/' -e ''$fcline's/'"$stringtmce1"'/'"$newstringtmce1"'/' -e ''$fcline's/'"$stringtmce2"'/'"$newstringtmce2"'/' -e ''$fcline's/'"$stringtmce3"'/'"$newstringtmce3"'/' "$semestername")
 		    cat /dev/null > $semestername
 		    echo -n "$delmod" >> $semestername
 
@@ -1361,7 +1361,7 @@ then
 		    
 		    stringmodcoef="COEF:$list2"
 		    
-		    delmodcoef=$(sed ''$fcline's/'"$stringmodcoef"'/'"$newstringmodcoef"'/' $semestername)
+		    delmodcoef=$(sed ''$fcline's/'"$stringmodcoef"'/'"$newstringmodcoef"'/' "$semestername")
                     cat /dev/null > $semestername
                     echo -n "$delmodcoef" >> $semestername
 
@@ -1429,7 +1429,7 @@ then
 			stringtme="E$tmname:$list2"
 			stringtmcoef="COEF$tmname:$list3"
 			
-			deltm=$(sed -e ''$fcline's/'"$stringtm"'/'"$newstringtm"'/' -e ''$fcline's/'"$stringtme"'/'"$newstringtme"'/' -e ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' semester_sheet.txt )
+			deltm=$(sed -e ''$fcline's/'"$stringtm"'/'"$newstringtm"'/' -e ''$fcline's/'"$stringtme"'/'"$newstringtme"'/' -e ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' "$semestername")
 			cat /dev/null > $semestername
 			echo -n "$deltm" >> $semestername
 			
@@ -1472,7 +1472,7 @@ then
 			stringtme="E$tmname:$list2"
 			stringtmcoef="COEF$tmname:$list3"
 
-			deltm=$(sed -e ''$fcline's/'"$stringtm"'/'"$newstringtm"'/' -e ''$fcline's/'"$stringtme"'/'"$newstringtme"'/' -e ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' semester_sheet.txt )
+			deltm=$(sed -e ''$fcline's/'"$stringtm"'/'"$newstringtm"'/' -e ''$fcline's/'"$stringtme"'/'"$newstringtme"'/' -e ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' "$semestername")
 			cat /dev/null > $semestername
 			echo -n "$deltm" >> $semestername
 			
@@ -1515,7 +1515,7 @@ then
 			stringtme="E$tmname:$list2"
 			stringtmcoef="COEF$tmname:$list3"
 
-			deltm=$(sed -e ''$fcline's/'"$stringtm"'/'"$newstringtm"'/' -e ''$fcline's/'"$stringtme"'/'"$newstringtme"'/' -e ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' semester_sheet.txt )
+			deltm=$(sed -e ''$fcline's/'"$stringtm"'/'"$newstringtm"'/' -e ''$fcline's/'"$stringtme"'/'"$newstringtme"'/' -e ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' "$semestername")
 			cat /dev/null > $semestername
 			echo -n "$deltm" >> $semestername
 			
@@ -1558,7 +1558,7 @@ then
 			stringtme="E$tmname:$list2"
 			stringtmcoef="COEF$tmname:$list3"
 
-			deltm=$(sed -e ''$fcline's/'"$stringtm"'/'"$newstringtm"'/' -e ''$fcline's/'"$stringtme"'/'"$newstringtme"'/' -e ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' semester_sheet.txt )
+			deltm=$(sed -e ''$fcline's/'"$stringtm"'/'"$newstringtm"'/' -e ''$fcline's/'"$stringtme"'/'"$newstringtme"'/' -e ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' "$semestername")
 			cat /dev/null > $semestername
 			echo -n "$deltm" >> $semestername
 			
@@ -1602,7 +1602,7 @@ then
 			stringtme="E$tmname:$list2"
 			stringtmcoef="COEF$tmname:$list3"
 			
-			deltm=$(sed -e ''$fcline's/'"$stringtm"'/'"$newstringtm"'/' -e ''$fcline's/'"$stringtme"'/'"$newstringtme"'/' -e ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' semester_sheet.txt )
+			deltm=$(sed -e ''$fcline's/'"$stringtm"'/'"$newstringtm"'/' -e ''$fcline's/'"$stringtme"'/'"$newstringtme"'/' -e ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' "$semestername")
 			cat /dev/null > $semestername
 			echo -n "$deltm" >> $semestername
 			
@@ -1639,7 +1639,7 @@ then
 			
 			stringtmcoef="COEF$tmname:$list"
 			
-			deltmcoef=$(sed ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' $semestername)
+			deltmcoef=$(sed ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' "$semestername")
 			cat /dev/null > $semestername
 			echo -n "$deltmcoef" >> $semestername
 			
@@ -1667,7 +1667,7 @@ then
 			
 			stringtmcoef="COEF$tmname:$list"
 			
-			deltmcoef=$(sed ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' $semestername)
+			deltmcoef=$(sed ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' "$semestername")
 			cat /dev/null > $semestername
 			echo -n "$deltmcoef" >> $semestername
 			
@@ -1695,7 +1695,7 @@ then
 			
 			stringtmcoef="COEF$tmname:$list"
 			
-			deltmcoef=$(sed ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' $semestername)
+			deltmcoef=$(sed ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' "$semestername")
 			cat /dev/null > $semestername
 			echo -n "$deltmcoef" >> $semestername
 			
@@ -1723,7 +1723,7 @@ then
 			
 			stringtmcoef="COEF$tmname:$list"
 			
-			deltmcoef=$(sed ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' $semestername)
+			deltmcoef=$(sed ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' "$semestername")
 			cat /dev/null > $semestername
 			echo -n "$deltmcoef" >> $semestername
 			
@@ -1751,7 +1751,7 @@ then
 			
 			stringtmcoef="COEF$tmname:$list"
 			
-			deltmcoef=$(sed ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' $semestername)
+			deltmcoef=$(sed ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' "$semestername")
 			cat /dev/null > $semestername
 			echo -n "$deltmcoef" >> $semestername
 		    else
