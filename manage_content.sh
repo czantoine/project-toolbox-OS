@@ -57,7 +57,7 @@ then
 	cat /dev/null > $semestername
 	echo "$aa" >> $semestername
 
-	mkdir /$semname/$uename/$modname
+	mkdir $semname/$uename/$modname
 	
 	echo -e "\nInsert the coef of your Module? "
         read addcoef
@@ -86,7 +86,7 @@ then
 	    cat /dev/null > $semestername
 	    echo "$coef_tp" >> $semestername
 
-	    mkdir /$semname/$uename/$modname/TP/
+	    mkdir $semname/$uename/$modname/TP/
 	    
 	else
 	    No=N
@@ -122,7 +122,7 @@ then
 	    cat /dev/null > $semestername
 	    echo "$coef_td" >> $semestername
 	    
-	    mkdir /$semname/$uename/$modname/TD/
+	    mkdir $semname/$uename/$modname/TD/
 	    
 	else
 	    No_td=N
@@ -157,7 +157,7 @@ then
 	    cat /dev/null > $semestername
 	    echo "$coef_cm" >> $semestername
 	    
-	    mkdir /$semname/$uename/$modname/CM/
+	    mkdir $semname/$uename/$modname/CM/
 	    
 	else
 	    No_cm=N
@@ -192,7 +192,7 @@ then
 	    cat /dev/null > $semestername
 	    echo "$coef_de" >> $semestername
 	    
-	    mkdir /$semname/$uename/$modname/DE/
+	    mkdir $semname/$uename/$modname/DE/
 	    
 	else
 	    No_de=N
@@ -227,7 +227,7 @@ then
 	    cat /dev/null > $semestername
 	    echo "$coef_ce" >> $semestername
 	    
-	    mkdir /$semname/$uename/$modname/CE/
+	    mkdir $semname/$uename/$modname/CE/
 	    
 	elif [[ $rep -eq 3 ]]
 	then
@@ -295,7 +295,7 @@ then
 	    cat /dev/null > $semestername
 	    echo -n "$addtm" >> $semestername
 	    
-	    mkdir /$semname/$uename/$modname/TP/
+	    mkdir $semname/$uename/$modname/TP/
 	    
 	    
 	elif [[ $rep -eq 4 ]]
@@ -364,7 +364,7 @@ then
 	    cat /dev/null > $semestername
 	    echo -n "$addtm" >> $semestername
 	    
-	    mkdir /$semname/$uename/$modname/TD/
+	    mkdir $semname/$uename/$modname/TD/
 	    
 	elif [[ $rep -eq 5 ]]
 	then
@@ -432,7 +432,7 @@ then
 	    cat /dev/null > $semestername
 	    echo -n "$addtm" >> $semestername
 	    
-	    mkdir /$semname/$uename/$modname/CM/
+	    mkdir $semname/$uename/$modname/CM/
 	    
 	elif [[ $rep -eq 6 ]]
 	then
@@ -500,7 +500,7 @@ then
 	    cat /dev/null > $semestername
 	    echo -n "$addtm" >> $semestername
 	    
-	    mkdir /$semname/$uename/$modname/DE/
+	    mkdir $semname/$uename/$modname/DE/
 	    
 	elif [[ $rep -eq 7 ]]
 	then
@@ -559,7 +559,7 @@ then
 	    cat /dev/null > $semestername
 	    echo -n "$addtm" >> $semestername
 
-	    mkdir /$semname/$ue/$modname/CE/
+	    mkdir $semname/$ue/$modname/CE/
 	    
 	else
 	    No_ce=N
@@ -612,7 +612,7 @@ then
 	    echo -e "\nInsert the new number of the Semester?"
 	    read newsemester
 	    
-	    mv /$semname /$newsemname
+	    mv $semname /$newsemname
 	else
 	    echo "Error option: Program Shutdown"
             ext=1
@@ -663,7 +663,7 @@ then
 		cat /dev/null > $semestername
 		echo -n "$modue" >> $semestername
 
-		mv /$semname/$uename /$semname/$newuename
+		mv $semname/$uename /$semname/$newuename
 		
             elif [[ $repue -eq 2 ]]	#Modify coef UE
             then
@@ -755,7 +755,7 @@ then
                     cat /dev/null > $semestername
                     echo -n "$modmod" >> $semestername
 
-		    mv /$semname/$uename/$modname /$semname/$newuename/$newmodname
+		    mv $semname/$uename/$modname $semname/$newuename/$newmodname
 		    
 		elif [[ $repmod -eq 2 ]]	#Modify coef Module
 		then
@@ -1034,7 +1034,7 @@ then
 	read repsem
 	if [[ $repsem -eq 1 ]]     #Delete Semester
 	then
-	   rm -rf /$semname
+	   rm -rf $semname
 	else
 	    echo "Error option: Program Shutdown"
             ext=1
@@ -1125,7 +1125,7 @@ then
 		cat /dev/null > $semestername
 		echo -n "$delue" >> $semestername
 
-		rm -rf /$semname/$uename
+		rm -rf $semname/$uename
 		
             elif [[ $repue -eq 2 ]]	#Delete coef UE
             then
@@ -1324,7 +1324,7 @@ then
 		    cat /dev/null > $semestername
 		    echo -n "$delmod" >> $semestername
 
-		    rm -rf /$semname/$uename/$modname
+		    rm -rf $semname/$uename/$modname
 		    
 
 		elif [[ $repmod -eq 2 ]]	#Delete coef Module
@@ -1432,6 +1432,8 @@ then
 			deltm=$(sed -e ''$fcline's/'"$stringtm"'/'"$newstringtm"'/' -e ''$fcline's/'"$stringtme"'/'"$newstringtme"'/' -e ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' semester_sheet.txt )
 			cat /dev/null > $semestername
 			echo -n "$deltm" >> $semestername
+			
+			rm -rf $semname/$uename/$modname/TP
 
 		    elif [[ $tmname = "TD" ]] || [[ $tmname = "td" ]]
 		    then
@@ -1473,6 +1475,8 @@ then
 			deltm=$(sed -e ''$fcline's/'"$stringtm"'/'"$newstringtm"'/' -e ''$fcline's/'"$stringtme"'/'"$newstringtme"'/' -e ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' semester_sheet.txt )
 			cat /dev/null > $semestername
 			echo -n "$deltm" >> $semestername
+			
+			rm -rf $semname/$uename/$modname/TD
 
                     elif [[ $tmname = "CM" ]] || [[ $tmname = "cm" ]]
                     then
@@ -1514,6 +1518,8 @@ then
 			deltm=$(sed -e ''$fcline's/'"$stringtm"'/'"$newstringtm"'/' -e ''$fcline's/'"$stringtme"'/'"$newstringtme"'/' -e ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' semester_sheet.txt )
 			cat /dev/null > $semestername
 			echo -n "$deltm" >> $semestername
+			
+			rm -rf $semname/$uename/$modname/CM
 
                     elif [[ $tmname = "DE" ]] || [[ $tmname = "de" ]]
                     then
@@ -1555,6 +1561,8 @@ then
 			deltm=$(sed -e ''$fcline's/'"$stringtm"'/'"$newstringtm"'/' -e ''$fcline's/'"$stringtme"'/'"$newstringtme"'/' -e ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' semester_sheet.txt )
 			cat /dev/null > $semestername
 			echo -n "$deltm" >> $semestername
+			
+			rm -rf $semname/$uename/$modname/DE
 
                     elif [[ $tmname = "CE" ]] || [[ $tmname = "ce" ]]
                     then
@@ -1597,6 +1605,9 @@ then
 			deltm=$(sed -e ''$fcline's/'"$stringtm"'/'"$newstringtm"'/' -e ''$fcline's/'"$stringtme"'/'"$newstringtme"'/' -e ''$fcline's/'"$stringtmcoef"'/'"$newstringtmcoef"'/' semester_sheet.txt )
 			cat /dev/null > $semestername
 			echo -n "$deltm" >> $semestername
+			
+			rm -rf $semname/$uename/$modname/CE
+			
 		    else
 			echo "Error option: Program Shutdown"
 			ext=1
