@@ -36,9 +36,8 @@ echo "$email" >> .email
 sudo cp .email /home/$username
 rm .email
 
-sudo mkdir -m 770 /home/$username/ARCHIVE
-cd /home/$username
-sudo chgrp $group ARCHIVE
+sudo mkdir -m 750 /home/$username/ARCHIVE
+sudo chgrp $group /home/$username/ARCHIVE
 
 echo -e "\nSet password for this teacher"
 echo -e "\n What is the new password"

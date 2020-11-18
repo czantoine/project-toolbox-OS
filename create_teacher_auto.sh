@@ -46,9 +46,8 @@ else
 		sudo cp .email /home/${name[$x]}
 		rm .email
 
-		sudo mkdir -m 770 /home/${name[$x]}/ARCHIVE
-		cd /home/${name[$x]}
-		sudo chgrp ${groups[$x]} ARCHIVE
+		sudo mkdir -m 750 /home/${name[$x]}/ARCHIVE
+		sudo chgrp ${groups[$x]} /home/${name[$x]}/ARCHIVE
 
     		echo "Welcome! Your account has been created.  Your username is ${name[$x]} and password is \"${pas[$x]}\" without the quotes. The number of server is $server" | mail -s "New Account for ${name[$x]}" ${mail[$x]} -b root ${name[$x]}
     		x=$x+1

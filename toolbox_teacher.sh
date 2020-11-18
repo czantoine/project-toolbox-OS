@@ -14,7 +14,7 @@ while [ "$ext" = 0 ]; do
 
 echo "1. Evaluation grade"
 echo "2. Add student grade file into course"
-echo "3. Add students grade" 
+echo "3. Add students grade"
 echo "0. Exit"
 
 echo "Enter your choice"
